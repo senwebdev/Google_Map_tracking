@@ -1,0 +1,182 @@
+<style>
+    .panel-body {
+        width: 100%;
+        background-color: #fff;
+        color: black;
+        font-family: 'gothic';
+    }
+
+    input, select {
+        color: black;
+    }
+.gothicFamily {
+   font-family: 'gothic';
+}
+
+</style>
+
+<div class="row"><md-button ng-click="back()" class="btn btn-secondary gothicFamily" style="float:right">BACK</md-button></div>
+
+<div class="row gothicFamily">
+    <div class="gothicFamily" style="padding-top: 50px" ba-panel ba-panel-title="List of Promo Codes" ba-panel-class="with-scroll" 
+        class=" col-sm-12">
+        <div class="horizontal-scroll addPromo" ng-controller="addPromoCtrl">
+
+    <form class="gothicFamily">
+        <div class="panel panel-default gothicFamily">
+            <div class="panel-body">
+                <div class="col-lg-12 col-md-12">
+                    <label class="control-label">Date Range <span class="astrick">*</span></label>
+                    <input  class="form-control daterange"
+                            type="daterange"
+                            ng-model="dates.dates2"
+                            format="YYYY/MM/DD"
+                            separator=" "
+                            ng-blur="dateFilter()" required >
+                </div>
+                <div style="clear:both"></div>
+            </div>
+        </div>
+    </form>
+    <form class="gothicFamily" method="post" id="add-promo" name="addPromo" ng-submit="addPromo.$submitted&&addPromoCode()">
+        <!-- START panel-->
+        <div class="panel panel-default classWhite">
+            <div class="panel-body">
+                <div class=" classWhite form-group col-md-12">
+                    <label class="control-label">Promo Code Name<span class="astrick">*</span></label>
+                    <input  type="text" name="promo_code" required="required" class="form-control"
+                           ng-model="promo.promo_code" onkeypress="javascript:return IsAlphaNumeric(event)"/>
+                </div>
+                <div class="form-group col-md-12">
+                    <label class="control-label">Description <span class="astrick">*</span></label>
+                        <textarea type="text" id="description" rows="1" name="description" required="required"
+                                  class="form-control"
+                                  ng-model="promo.description"/></textarea>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">Validity <span class="astrick">*</span></label>
+                    <input  type="text" name="validity" required="required" class="form-control"
+                           ng-model="promo.validity" data-parsley-type="digits" data-parsley-min="1" onkeypress="javascript:return check_number(event)"/>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label class="control-label">No. Of Coupons <span class="astrick">*</span></label>
+                    <input  type="text" name="num_coupons" required="required" class="form-control"
+                           ng-model="promo.num_coupons" data-parsley-type="digits" data-parsley-min="1" onkeypress="javascript:return check_number(event)"/>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">No. Of Coupons/User <span class="astrick">*</span></label>
+                    <input  type="text" name="num_coupons" required="required" class="form-control"
+                           ng-model="promo.num_coupons_per_user" data-parsley-type="digits" data-parsley-min="1" data-parsley-max ="{{promo.num_coupons}}" onkeypress="javascript:return check_number(event)"/>
+                </div>
+
+
+                <div class="form-group col-md-6">
+                    <label class="control-label">Upload Image <span class="astrick">*</span></label>
+
+                    <div class="form-group">
+                        <img id="promo_code_image" class='uploaded_img left-div'
+                             style="width:100px;height:100px" id="promo_code_image"/>
+                    </div>
+                    <div style="clear:both"></div>
+                    <div class="fileUpload btn btn-mixColor">
+                        <span class="fa fa-folder-open">Upload</span>
+                        <input  id="imagecropupload" filestyle="" type="file" accept="image/*"
+                               onchange="angular.element(this).scope().file_to_upload(this.files)"
+                               data-button-text="Single" data-class-button="btn btn-default"
+                               data-classinput="form-control inline" nv-file-select="" uploader="uploader"
+                               class="form-control upload" img-cropper-fileread image="cropper.sourceImage" />
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">Discount <span class="astrick">*</span></label>
+                        <select required="required" ng-model="promo.discount_type"
+                                class="chosen-select form-control"
+                                ng-options="item.id as item.name for item in discount_type"
+                                ng-change="discountShow(promo.discount_type)">
+                            <option value=""> -- Select type-- </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" ng-show="show_perc_off">( % Off ) <span class="astrick">*</span></label>
+                        <input  type="text" name="perc_off"  class="form-control"
+                               ng-model="promo.perc_off" data-parsley-type="digits" ng-show="show_perc_off" data-parsley-max="100" data-parsley-min="1" onkeypress="javascript:return check_number(event)"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" ng-show="show_max_off">Maximum Discount <span class="astrick">*</span></label>
+                        <input  type="text" name="max_off"  class="form-control"
+                               ng-model="promo.max_off" data-parsley-type="digits" ng-show="show_max_off" data-parsley-min="1" onkeypress="javascript:return check_number(event)"/>
+                    </div>
+                </div>
+                <div>
+                    <canvas class="canvasarea" ng-show="showCroppingArea" width="500" height="300" id="canvas" image-cropper image="cropper.sourceImage" cropped-image="cropper.croppedImage" crop-width="340" crop-height="100" keep-aspect="true" touch-radius="30" crop-area-bounds="bounds"></canvas>
+                </div>
+                <div ng-show="showCroppingArea" style="font-size:16px">Cropped Image</div>
+                <!--<div>Cropped Image (Left: {{bounds.left}} Right: {{bounds.right}} Top: {{bounds.top}} Bottom: {{bounds.bottom}})</div>-->
+                <div ng-show="cropper.croppedImage!=null"><img ng-src="{{cropper.croppedImage}}" id="croppedimage" /></div>
+            </div>
+            <div class="panel-footer">
+                <button type="submit" class="btn btn-mixColor" style="float:right" ng-disabled="inactive">Add Promo</button>
+                <div style="clear:both"></div>
+
+                <div ng-show="successMsg" class="alert alert-success text-center" style="margin-top: 10px;">
+                    {{successMsg}}
+                </div>
+                <div ng-show="errorMsg" class="alert alert-danger text-center" style="margin-top: 10px;">
+                    {{errorMsg}}
+                </div>
+            </div>
+        </div>
+        <!-- END panel-->
+    </form>
+<script type="text/ng-template" id="display_msg_modalDialog">
+    <div class="ngdialog-message gothicFamily">
+        <h4>{{displaymsg}}</h4>
+        <a type="submit" ng-click="refreshPage()"class="btn btn-mixColor"
+            style="margin-top:20px;float:right;">OK</a>
+
+        <div style="clear: both;"></div>
+    </div>
+</script>
+    <script>
+    function alphaOnly(event) {
+        var key = event.keyCode;
+        return ((key >= 65 && key <= 90) || key == 8 || key == 9 ||key ==32);
+    };
+</script>
+
+<script type="text/javascript">
+    var specialKeys = new Array();
+    specialKeys.push(8); //Backspace
+    //        specialKeys.push(9); //Tab
+    specialKeys.push(46); //Delete
+    specialKeys.push(36); //Home
+    specialKeys.push(35); //End
+    specialKeys.push(37); //Left
+    specialKeys.push(39); //Right
+    function IsAlphaNumeric(e) {
+        var keyCode = e.keyCode == 0 ? e.charCode : e.keyCode;
+        var ret = ((keyCode >= 48 && keyCode <= 57) || (keyCode >= 65 && keyCode <= 90) || (keyCode >= 97 && keyCode <= 122) || (specialKeys.indexOf(e.keyCode) != -1 && e.charCode != e.keyCode));
+
+        return ret;
+    }
+</script>
+    <script>
+    function isNumber(evt) {
+        var iKeyCode = (evt.which) ? evt.which : evt.keyCode;
+        if (iKeyCode !=46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
+            return false;
+        return true;
+    }
+</script>
+    <script>
+    function check_number(event) {
+        if(!(event.charCode>47 && event.charCode<58) && event.charCode && !(event.metaKey || event.ctrlKey))
+            event.preventDefault();
+    }
+</script>
+        </div>
+    </div>
+</div>

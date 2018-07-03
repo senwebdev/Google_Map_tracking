@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="BlurAdmin">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0">
+    <title>Qudos</title>
+    
+    <link rel="shortcut icon" type="image/png" href="assets/generic/img/favIcon.png">
+    <!-- build:css({.tmp/serve,src}) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="lib/ionicons.css">
+    <link rel="stylesheet" href="lib/angular-toastr.css">
+    <link rel="stylesheet" href="lib/animate.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/bootstrap-select.css">
+    <link rel="stylesheet" href="lib/bootstrap-switch.css">
+    <link rel="stylesheet" href="lib/bootstrap-tagsinput.css">
+    <link rel="stylesheet" href="lib/font-awesome.css">
+    <link rel="stylesheet" href="lib/fullcalendar.css">
+    <link rel="stylesheet" href="lib/leaflet.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="lib/angular-progress-button-styles.min.css">
+    <link rel="stylesheet" href="lib/angular-chart.css">
+    <link rel="stylesheet" href="lib/chartist.min.css">
+    <link rel="stylesheet" href="lib/morris.css">
+    <link rel="stylesheet" href="lib/ion.rangeSlider.css">
+    <link rel="stylesheet" href="lib/ion.rangeSlider.skinFlat.css">
+    <link rel="stylesheet" href="lib/textAngular.css">
+    <link rel="stylesheet" href="lib/xeditable.css">
+    <link rel="stylesheet" href="lib/style.css">
+    <link rel="stylesheet" href="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css">
+  
+    <!-- <link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog.min.css"> -->
+    <!-- <link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog-theme-default.min.css"> -->
+    <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
+    <!--<link rel="stylesheet" href="bower_components/bootstrap-dateTimePicker/bootstrap-datetimepicker.min.css">-->
+    <link rel="stylesheet" href="app/daterangepicker.css">
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web:300" rel="stylesheet">
+    
+
+    <!--<link rel="stylesheet" href="bower_components/fancybox/jquery.fancybox.css">-->
+    <link href="node_modules/angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.min.css">
+   
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.5/angular-material.min.css"> -->
+    <link rel="stylesheet" href="bower_components/angular-material-data-table/dist/md-data-table.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="app/pages/promo/promo.css">
+    
+
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:css({.tmp/serve,src}) styles/app.css -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="app/main.css">
+    <link rel="stylesheet" href="app/admin.css">
+    <link rel="stylesheet" href="app/auth.css">
+    <link rel="stylesheet" href="app/pageloader.css">
+    <link rel="stylesheet" href="assets/generic/css/gothic/font.css">
+    <link rel="stylesheet" href="lib/ng-dialog/css/ngDialog.min.css">
+    <link rel="stylesheet" href="lib/ng-dialog/css/ngDialog-theme-default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.css">
+    <link  href="node_modules/pm-image-editor/compile/minified/pm-image-editor.css" rel="stylesheet">
+    
+    <!-- endinject -->
+    <!-- endbuild -->
+</head>
+<body>
+    <div class="body-bg"></div>
+    <main class="auth-main" ng-show="!$pageFinishedLoading&&!$auth" ng-hide="$pageFinishedLoading&&$auth">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 text-center" style="height:50px;">
+                            <img src="assets/generic/img/qudos-logo.svg" alt="Logo Image" class="block-center logo-div" />    
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="auth-block">
+                        <div class="signInDiv" ng-if="!$reset">
+                            <h3>Sign in to Admin</h3>
+                            <form class="form-horizontal" name="myForm" ng-submit="login(loginEmail,loginPassword)">
+                                <div class="form-group has-feedback ">
+                                    <input type="email" class="form-control logininpt" id="inputEmail3" style="color: #333!important" placeholder="Email" ng-model="loginEmail" required>
+                                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                                </div>
+                                <div class="form-group has-feedback ">
+                                    <input type="password" class="form-control logininpt" id="inputPassword3" style="color: #333!important" placeholder="Password" ng-model="loginPassword" required>
+                                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                                </div>
+                                <div class="form-group">
+                                        <button type="submit" class="btn-auth" ng-disabled="myForm.$invalid">Sign in</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <main ng-if="$pageFinishedLoading&&$auth" ng-class="{ 'menu-collapsed': $baSidebarService.isMenuCollapsed() }" ng-hide="$pageFinishedLoading&&!$auth">
+        <ba-sidebar style="top:0px!important;"></ba-sidebar>
+        <page-top></page-top>
+        <div class="al-main">
+            <div class="al-content">
+                <content-top></content-top>
+                <div ui-view></div>
+            </div>
+        </div>
+        <back-top></back-top>
+    </main>
+    <div ng-show="!$pageFinishedLoading">
+        <div class='page-loader'>
+            <div class="loaderDiv">
+                <i class='fa fa-spinner fa-spin'></i>
+                <h3 class="" style="text-transform: none; margin-top:25px;">#Loading...</h3>
+            </div>
+        </div>
+    </div>
+   <script src= "lib/socket-io.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+   
+   
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/amcharts/dist/amcharts/amcharts.js"></script>
+    <script src="bower_components/amcharts/dist/amcharts/plugins/responsive/responsive.min.js"></script>
+    <script src="bower_components/amcharts/dist/amcharts/serial.js"></script>
+    <script src="bower_components/amcharts/dist/amcharts/funnel.js"></script>
+    <script src="bower_components/amcharts/dist/amcharts/pie.js"></script>
+    <script src="bower_components/amcharts/dist/amcharts/gantt.js"></script>
+    <script src="bower_components/amstock3/amcharts/amstock.js"></script>
+    <script src="bower_components/ammap/dist/ammap/ammap.js"></script>
+    <script src="bower_components/ammap/dist/ammap/maps/js/worldLow.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.js"></script>
+    <script src="https://code.highcharts.com/highcharts.src.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-messages/1.4.6/angular-messages.min.js"></script>
+    
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/slimScroll/jquery.slimscroll.js"></script>
+    <script src="bower_components/angular-slimscroll/angular-slimscroll.js"></script>
+    <script src="bower_components/angular-smart-table/dist/smart-table.js"></script>
+    <script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/jquery-ui/jquery-ui.js"></script>
+    <script src="bower_components/angular-ui-sortable/sortable.js"></script>
+    <script src="bower_components/bootstrap/js/dropdown.js"></script>
+    <script src="bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
+    <script src="bower_components/bootstrap-switch/dist/js/bootstrap-switch.js"></script>
+    <script src="bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.js"></script>
+    <script src="bower_components/moment/min/moment.min.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.min.js"></script>
+    <script src="bower_components/angular-material/angular-material.min.js"></script>
+    <script src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
+    <script src="app/screenfull.js"></script>
+    <script src="bower_components/fullcalendar/dist/fullcalendar.js"></script>
+    <script src="bower_components/jquery.easing/js/jquery.easing.js"></script>
+    <script src="bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.js"></script>
+    <script src="bower_components/leaflet/dist/leaflet-src.js"></script>
+    <script src="bower_components/angular-progress-button-styles/dist/angular-progress-button-styles.min.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.min.js"></script>
+    <script src="bower_components/angular-chart.js/dist/angular-chart.js"></script>
+    <script src="bower_components/chartist/dist/chartist.min.js"></script>
+    <script src="bower_components/angular-chartist.js/dist/angular-chartist.js"></script>   <script src="bower_components/mocha/mocha.js"></script>
+    <script src="bower_components/morris.js/morris.js"></script>
+    <script src="bower_components/angular-morris-chart/src/angular-morris-chart.min.js"></script>
+    <script src="bower_components/ionrangeslider/js/ion.rangeSlider.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/rangy/rangy-core.js"></script>
+    <script src="bower_components/rangy/rangy-classapplier.js"></script>
+    <script src="bower_components/rangy/rangy-highlighter.js"></script>
+    <script src="bower_components/rangy/rangy-selectionsaverestore.js"></script>
+    <script src="bower_components/rangy/rangy-serializer.js"></script>
+    <script src="bower_components/rangy/rangy-textrange.js"></script>
+    <script src="bower_components/textAngular/dist/textAngular.js"></script>
+    <script src="bower_components/textAngular/dist/textAngular-sanitize.js"></script>
+    <script src="bower_components/textAngular/dist/textAngularSetup.js"></script>
+    <script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
+    <script src="bower_components/jstree/dist/jstree.js"></script>
+    <script src="bower_components/ng-js-tree/dist/ngJsTree.js"></script>
+    <!-- <script src="bower_components/ng-dialog/js/ngDialog.min.js"></script> -->
+    <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>
+    <script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="bower_components/jsPDF/dist/jspdf.min.js"></script>
+    <script src="bower_components/markerclustererplus/dist/markerclusterer.min.js"></script>
+    
+    <script src="bower_components/underscore/underscore-min.js"></script>
+    <script src="node_modules/pm-image-editor/compile/minified/pm-image-editor.js"></script>
+    <script src="/lib/ng-dialog/js/ngDialog.min.js"></script>
+    <script src="lib/daterangepicker.js"></script>
+    <script src="lib/ng-bs-daterangepicker.js"></script>
+    <script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="bower_components/angular-daterangepicker/js/angular-daterangepicker.min.js"></script>
+    <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+    <script src="node_modules/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.min.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyD2DUpq_by6M96vKqHB2CyUdf7tfZ2-S9A&libraries=places,drawing,visualization"></script>
+    <script src="lib/commonmethods.js"></script>
+
+    <script src="lib/alasql.min.js"></script>
+   
+    <!-- Modules -->
+    <script src="app/pages/pages.module.js"></script>
+     <script src="app/pages/socketFactory.js"></script>
+    <script src="app/theme/theme.module.js"></script>
+    <script src="app/pages/charts/charts.module.js"></script>
+    <script src="app/pages/components/components.module.js"></script>
+    <script src="app/pages/livetracking/livetracking.module.js"></script>
+    <script src="app/pages/livetracking/livetrackingCtrl.js"></script>
+    <script src="app/pages/promo/promo.module.js"></script>
+    <script src="app/pages/promo/promo/promoTable.module.js"></script>
+    <script src="app/pages/promo/addPromo/addPromo.module.js"></script>
+    <script src="app/pages/dashboard/dashboard.module.js"></script>
+    <script src="app/pages/heat/heat.module.js"></script>
+    <script src="app/pages/subscribers/subscribers.module.js"></script>
+    <script src="app/pages/passengers/passenger.module.js"></script>
+    <script src="app/pages/passengers/passengerDetails.module.js"></script>
+    <script src="app/pages/passengers/editUser.module.js"></script>
+    <script src="app/pages/setting/setting.module.js"></script>
+    <script src="app/pages/setting/setting.ctrl.js"></script>
+    <script src="app/pages/tracking/tracking.module.js"></script>
+    <script src="app/pages/tracking/tracking.ctrl.js"></script>
+    <script src="app/pages/rides/rides.module.js"></script>
+    <script src="app/pages/investor/investor.module.js"></script>
+    <script src="app/pages/emailTemplate/emailTemplate.module.js"></script>
+    <script src="app/pages/emailTemplate0/emailTemplate.module.js"></script>
+    <script src="app/pages/emailTemplate/addEditTemplate.module.js"></script>
+    <script src="app/pages/track/track.module.js"></script>
+    
+    <script src="app/pages/track/customerTracking/customerTracking.module.js"></script>
+    <script src="app/pages/track/driverTracking/driverTracking.module.js"></script>
+    <script src="app/pages/rides/completedRides/completedRides.module.js"></script>
+    <script src="app/pages/rides/cancelledRides/cancelledRides.module.js"></script>
+    <script src="app/pages/rides/scheduledRides/scheduledRides.module.js"></script>
+    <script src="app/pages/rides/missedRides/missedRides.module.js"></script>
+    <script src="app/pages/rides/ongoingRides/ongoingRides.module.js"></script>
+    <script src="app/pages/rides/customRequests/customRequests.module.js"></script>
+    <script src="app/pages/alerts/alerts.module.js"></script>
+    <script src="app/pages/settings/settings.module.js"></script>
+    <script src="app/pages/settings/documents/documents.module.js"></script>
+    <script src="app/pages/settings/cars/cars.module.js"></script>
+    <script src="app/pages/drivers/drivers.module.js"></script>
+    <script src="app/pages/drivers/documents/documents.module.js"></script>
+    <script src="app/pages/drivers/documentsAll/documents.module.js"></script>
+    <script src="app/pages/drivers/appointments/appointmentsDriver.module.js"></script>
+    <script src="app/pages/drivers/appointments/driverDetails.module.js"></script>
+    <script src="app/pages/drivers/approved/driverDetails.module.js"></script>
+    <script src="app/pages/drivers/complete/complete.module.js"></script>
+    <script src="app/pages/drivers/approved/approvedDriver.module.js"></script>
+    <script src="app/pages/drivers/approved/approveDriver.module.js"></script>
+    <script src="app/pages/drivers/approved/editDriver.module.js"></script>
+    <script src="app/pages/drivers/pending/pendingDriver.module.js"></script>
+    <script src="app/theme/components/components.module.js"></script>
+    <script src="app/pages/log/log.module.js"></script>
+    <script src="app/pages/log/logCtrl.js"></script>
+    <script src="app/pages/geoFencing/geoFencing.module.js"></script>
+    <script src="app/pages/geoFencing/addArea/addArea.module.js"></script>
+    <script src="app/pages/geoFencing/viewArea/viewArea.module.js"></script>
+    <script src="app/pages/geoFencing/viewAreaDetails/viewAreaDetails.module.js"></script>
+    <script src="app/pages/drivers/appointments/editAppDriver.module.js"></script>
+    <script src="app/pages/analytics/analytics.module.js"></script>
+    <!-- r start -->
+    <script src="app/pages/reportdetails/reportdetails.module.js"></script>
+    <script src="app/pages/reportdetails/userreport/userreport.module.js"></script>
+    <script src="app/pages/reportdetails/userreport/userreport.ctrl.js"></script>
+    <script src="app/pages/reportdetails/pastridesreport/pastridesreport.module.js"></script>
+    <script src="app/pages/reportdetails/pastridesreport/pastridesreport.ctrl.js"></script>
+    <script src="app/pages/reportdetails/paymentpayoutreport/paymentpayoutreport.module.js"></script>
+    <script src="app/pages/reportdetails/paymentpayoutreport/paymentpayoutreport.ctrl.js"></script>
+    <script src="app/pages/reportdetails/paymentreport/paymentreport.module.js"></script>
+    <script src="app/pages/reportdetails/paymentreport/paymentreport.ctrl.js"></script>
+    <script src="app/pages/reports/reports.module.js"></script> 
+    <script src="app/pages/reports/reports.ctrl.js"></script>
+
+    <script src="app/pages/fares/base/base.module.js"></script> 
+    <script src="app/pages/fares/fareDetails/fareDetails.module.js"></script> 
+    <script src="app/pages/fares/surge/surge.module.js"></script> 
+
+    <script src="app/pages/fares/base/baseCtrl.js"></script>
+    <script src="app/pages/fares/fareDetails/fareDetails.ctrl.js"></script>
+    <script src="app/pages/fares/surge/surgeCtrl.js"></script>
+    <script src="app/pages/fares/fares.module.js"></script>
+
+    <!-- r end -->
+<!-- Controllers -->
+    
+    <script src="app/app.js"></script>
+    <script src="app/theme/theme.config.js"></script>
+    <script src="app/theme/theme.configProvider.js"></script>
+    <script src="app/theme/theme.constants.js"></script>
+    <script src="app/theme/theme.run.js"></script>
+    <script src="app/theme/theme.service.js"></script>
+    <script src="app/theme/directives/animatedChange.js"></script>
+    <script src="app/theme/directives/autoExpand.js"></script>
+    <script src="app/theme/directives/autoFocus.js"></script>
+    <script src="app/theme/directives/includeWithScope.js"></script>
+    <script src="app/theme/directives/ionSlider.js"></script>
+    <script src="app/theme/directives/ngFileSelect.js"></script>
+    <script src="app/theme/directives/scrollPosition.js"></script>
+    <script src="app/theme/directives/trackWidth.js"></script>
+    <script src="app/theme/directives/zoomIn.js"></script>
+    <script src="app/theme/services/baUtil.js"></script>
+    <script src="app/theme/services/fileReader.js"></script>
+    <script src="app/theme/services/preloader.js"></script>
+    <script src="app/theme/services/stopableInterval.js"></script>
+    <script src="app/pages/subscribers/subscribersCtrl.js"></script>
+    <script src="app/pages/passengers/passengerCtrl.js"></script>
+    <script src="app/pages/passengers/passengerDetailsCtrl.js"></script>
+    <script src="app/pages/socketFactory.js"></script>
+    <script src="app/pages/passengers/editUserCtrl.js"></script>
+    <script src="app/pages/track/driverTracking/driverGMap/driverGMap.directive.js"></script>
+    <script src="app/pages/track/driverTracking/driverGMap/driverGMapCtrl.js"></script>
+    <script src="app/pages/track/customerTracking/customerGMap/customerGMap.directive.js"></script>
+    <script src="app/pages/track/customerTracking/customerGMap/customerGMapCtrl.js"></script>
+    <script src="app/theme/components/baPanel/baPanel.directive.js"></script>
+    <script src="app/theme/components/baPanel/baPanel.service.js"></script>
+    <script src="app/theme/components/baPanel/baPanelBlur.directive.js"></script>
+    <script src="app/theme/components/baPanel/baPanelBlurHelper.service.js"></script>
+    <script src="app/theme/components/baPanel/baPanelSelf.directive.js"></script>
+    <script src="app/theme/components/baSidebar/BaSidebarCtrl.js"></script>
+    <script src="app/theme/components/baSidebar/baSidebar.directive.js"></script>
+    <script src="app/theme/components/baSidebar/baSidebar.service.js"></script>
+    <script src="app/theme/components/baSidebar/baSidebarHelpers.directive.js"></script>
+    <script src="app/theme/components/baWizard/baWizard.directive.js"></script>
+    <script src="app/theme/components/baWizard/baWizardCtrl.js"></script>
+    <script src="app/theme/components/baWizard/baWizardStep.directive.js"></script>
+    <script src="app/theme/components/backTop/backTop.directive.js"></script>
+    <script src="app/theme/components/contentTop/contentTop.directive.js"></script>
+    <script src="app/theme/components/msgCenter/MsgCenterCtrl.js"></script>
+    <script src="app/theme/components/msgCenter/msgCenter.directive.js"></script>
+    <script src="app/theme/components/pageTop/pageTop.directive.js"></script>
+    <script src="app/theme/components/widgets/widgets.directive.js"></script>
+    <script src="app/theme/filters/image/appImage.js"></script>
+    <script src="app/theme/filters/image/kameleonImg.js"></script>
+    <script src="app/theme/filters/image/profilePicture.js"></script>
+    <script src="app/theme/filters/text/removeHtml.js"></script>
+    <script src="app/theme/components/backTop/lib/jquery.backTop.min.js"></script>
+    <script src="app/pages/emailTemplate0/emailTemplateCtrl.js"></script>
+    <script src="app/pages/emailTemplate/emailTemplateCtrl.js"></script>
+    <script src="app/pages/emailTemplate/addEditTemplateCtrl.js"></script>
+    <script src="app/pages/settings/documents/documentsCtrl.js"></script>
+    <script src="app/pages/settings/cars/carsCtrl.js"></script>
+    <script src="app/pages/drivers/documents/documentsCtrl.js"></script>
+    <script src="app/pages/drivers/documentsAll/documentsCtrl.js"></script>
+    <script src="app/pages/drivers/appointments/appointmentsDriverCtrl.js"></script>
+    <script src="app/pages/drivers/appointments/driverDetailsCtrl.js"></script>
+    <script src="app/pages/drivers/approved/driverDetailsCtrl.js"></script>
+    <script src="app/pages/drivers/approved/approvedDriverCtrl.js"></script>
+    <script src="app/pages/drivers/approved/approveDriverCtrl.js"></script>
+    <script src="app/pages/drivers/approved/editDriverCtrl.js"></script>
+    <script src="app/pages/drivers/pending/pendingDriverCtrl.js"></script>
+    <script src="app/pages/promo/promo/promoCtrl.js"></script>
+    <script src="app/pages/promo/addPromo/addPromoCtrl.js"></script>
+    <script src="app/pages/dashboard/dashboardCtrl.js"></script>
+    <script src="app/pages/heat/heatCtrl.js"></script>
+    <script src="app/pages/rides/customRequests/customRequestsCtrl.js"></script>
+    <script src="app/pages/drivers/complete/completeCtrl.js"></script>
+    <script src="app/pages/rides/cancelledRides/cancelledRidesCtrl.js"></script>
+    <script src="app/pages/rides/scheduledRides/scheduledRidesCtrl.js"></script>
+    <script src="app/pages/rides/missedRides/missedRidesCtrl.js"></script>
+    <script src="app/pages/rides/ongoingRides/ongoingRidesCtrl.js"></script>
+    <script src="app/pages/investor/investorCtrl.js"></script>
+    <script src="app/pages/geoFencing/addArea/addAreaCtrl.js"></script>
+    <script src="app/pages/geoFencing/viewArea/viewAreaCtrl.js"></script>
+    <script src="app/pages/geoFencing/viewAreaDetails/viewAreaDetailsCtrl.js"></script>
+    <script src="app/pages/drivers/appointments/editAppDriver.ctrl.js"></script>
+    <script src="app/pages/analytics/analytics.ctrl.js"></script> 
+    <script src="app/pages/alerts/alertsCtrl.js"></script>
+</body>
+</html>

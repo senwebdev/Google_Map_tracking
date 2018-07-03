@@ -1,0 +1,252 @@
+<div class="row">
+    <div class="col-md-12">
+        <a ng-click="back()" style="background: #c0c0c0;color: #505050;" class="pull-right btn btn-sm btn-mixColor">Back</a>
+        <a ng-click="downloadForm()" style="background: #c0c0c0;color: #505050;" class="pull-right btn btn-sm btn-mixColor">Download</a>
+        <a ng-click="approveDriver()" style="background: #c0c0c0;color: #505050;" class="pull-right btn btn-sm btn-mixColor">Approve</a>
+        <div style="padding-top: 50px" ba-panel ba-panel-title="{{driverProfile}}" ba-panel-class="with-scroll">
+            <div class="horizontal-scroll">
+                <h4>{{driver.city_name}}</h4>
+                <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12">
+                    <div class="col-lg-6 col-xs-12 col-md-6 col-sm-6" >
+                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                            <label>First Name</label>
+                            <input disabled ng-model="driver.first_name" class="form-control">
+                        </div>
+                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                            <label>Last Name</label>
+                            <input disabled ng-model="driver.last_name" class="form-control">
+                        </div>
+                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                            <label>Email</label>
+                            <input disabled ng-model="driver.email" class="form-control">
+                        </div>
+                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                            <label>Phone Number</label>
+                            <input disabled ng-model="driver.mobile" class="form-control">
+                        </div>
+                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                            <label>Registration Date</label>
+                            <input disabled ng-model="driver.date_registeration" class="form-control">
+                        </div>
+                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                            <label>Zipcode</label>
+                            <input disabled ng-model="driver.zipcode" class="form-control">
+                        </div>
+                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                            <label>Reference</label>
+                            <input disabled ng-model="driver.how_hear_us" class="form-control">
+                        </div>
+                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                            <label>Uber User</label>
+                            <input disabled ng-model="driver.uberUser" class="form-control">
+                        </div>
+                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                            <label>Uber Rating</label>
+                            <input disabled ng-model="driver.uber_rating" class="form-control">
+                        </div>
+                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                            <label>Lyft User</label>
+                            <input disabled ng-model="driver.lyftUser" class="form-control">
+                        </div>
+                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                            <label>Lyft Rating</label>
+                            <input disabled ng-model="driver.lyft_rating" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xs-12 col-md-6 col-sm-6">
+                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                            <label>Income</label>
+                            <input disabled ng-model="driver.annual_income" class="form-control">
+                        </div>
+                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                            <label>Car Type</label>
+                            <input disabled ng-model="driver.car_name" class="form-control">
+                        </div>
+                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                            <label>TLC License</label>
+                            <input disabled ng-if="driver.tlc_num!=''" ng-model="driver.tlc_num" class="form-control">
+                            <input disabled ng-if="driver.tlc_num==''" value='-' class="form-control">
+                        </div>
+                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                            <label style="float: left;width: 100%;">TLC License Image</label>
+                            <!-- <img ng-if="driver.tlc_number!=''&&driver.tlc_number" ng-src="{{driver.tlc_number}}"
+                            style="float: left;max-width:100%;width:auto;max-height:200px;display:block;"> -->
+                            <div ng-if="driver.tlc_number!=''&&driver.tlc_number" fancybox fancybox-image="{{driver.tlc_number}}" class="viewPicDetails col-lg-10" fancybox-template="template.html">
+                              <img ng-src="{{driver.tlc_number}}">
+                            </div>
+                            <a style="float:right;" ng-if="driver.tlc_number!=''&&driver.tlc_number" href="{{driver.tlc_number}}" download="{{driver.tlc_number}}"><i class="fa fa-download fa-2x"></i></a>
+                            <label ng-if="driver.tlc_number==''||!driver.tlc_number">No Image Uploaded Yet</label>
+                        </div>
+                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                            <label>DMV License</label>
+                            <input disabled ng-if="driver.dmv_num!=''" ng-model="driver.dmv_num" class="form-control">
+                            <input disabled ng-if="driver.dmv_num==''" value='-' class="form-control">
+                        </div>
+                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                            <label style="float: left;width: 100%;">DMV License Image</label>
+                            <!-- <img ng-if="driver.dmv_license!=''&&driver.dmv_license" ng-src="{{driver.dmv_license}}" style="float:left;max-width:100%;width:auto;max-height:200px;display:block;"> -->
+                            <div ng-if="driver.dmv_license!=''&&driver.dmv_license" fancybox fancybox-image="{{driver.dmv_license}}" class="viewPicDetails col-lg-10" fancybox-template="template.html">
+                              <img ng-src="{{driver.dmv_license}}">
+                            </div>
+                            <a style="float:right;" ng-if="driver.dmv_license!=''&&driver.dmv_license" href="{{driver.dmv_license}}" download="{{driver.dmv_license}}"><i class="fa fa-download fa-2x"></i></a>
+                            <label ng-if="driver.dmv_license==''||!driver.dmv_license">No Image Uploaded Yet</label>
+                        </div>
+
+                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px" ng-if="driver.docs.length>0">
+                            <label>Other Docs</label>
+                            <img ng-if="doc.document_url!=''||!doc.document_url" ng-repeat="doc in driver.docs" ng-src="{{doc.document_url}}" style="max-width:100%;width:auto;max-height:200px;display:block;">
+                            <br>
+                            <!-- <label ng-if="driver.dmv_license=='0'||!driver.dmv_license">No Image Uploaded Yet</label> -->
+                        </div>
+                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px" >
+                            <label>Car Number</label>
+                            <!-- <select style="width:50%;margin:15px 0;min-width: 150px;" class="form-control"
+                                 ng-options="carType as carType.car_name for carType in carTypes track by carType.car_type"
+                                 ng-model="driver.carType" ng-change="carSelect(driver.carType)">
+                               <option value="">Select Car Type</option>
+                            </select> -->
+                            <input ng-model="driver.car_no" class="form-control" >
+                        </div>
+                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                            <button ng-click="addDocDialog()" class="btn btn-mixColor pull-right head_button">Add Documents</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-top:50px;margin-bottom:25px;text-align:center">
+                    <!-- <a style="background: #c0c0c0;color: #505050;max-width: 190px;margin: 15px;"
+                    class="btn btn-sm btn-mixColor" ng-if="docLength>0">View Documents</a>
+                    <a style="background: #c0c0c0;color: #505050;max-width: 190px;margin: 15px"
+                    class="btn btn-sm btn-mixColor">Add Documents</a> -->
+                    <!-- <a style="background: #c0c0c0;color: #505050;max-width: 190px;margin: 15px"
+                    class="btn btn-sm btn-mixColor" ng-click="approveDriver()">Approve</a> -->
+                </div>
+            </div>
+        </div>
+        <!-- style="display: none;" -->
+        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" id="driverProfile" style="display: none;">
+          <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+              <label class="profileFormLabelLeft">First Name - </label>
+              <label class="profileFormLabelRight">{{driver.first_name}}</label>
+          </div>
+          <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+              <label class="profileFormLabelLeft">Last Name - </label>
+              <label class="profileFormLabelRight">{{driver.last_name}}</label>
+          </div>
+          <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+              <label class="profileFormLabelLeft">Email - </label>
+              <label class="profileFormLabelRight">{{driver.email}}</label>
+          </div>
+          <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+              <label class="profileFormLabelLeft">Phone Number - </label>
+              <label class="profileFormLabelRight">{{driver.mobile}}</label>
+          </div>
+          <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+              <label class="profileFormLabelLeft">Registration Date - </label>
+              <label class="profileFormLabelRight">{{driver.date_registeration}}</label>
+          </div>
+          <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+              <label class="profileFormLabelLeft">Zipcode - </label>
+              <label class="profileFormLabelRight">{{driver.zipcode}}</label>
+          </div>
+          <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+              <label class="profileFormLabelLeft">Reference - </label>
+              <label class="profileFormLabelRight">{{driver.how_hear_us}}</label>
+          </div>
+          <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+              <label class="profileFormLabelLeft">Uber User - </label>
+              <label class="profileFormLabelRight">{{driver.uberUser}}</label>
+          </div>
+          <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+              <label class="profileFormLabelLeft">Uber Rating - </label>
+              <label class="profileFormLabelRight">{{driver.uber_rating}}</label>
+          </div>
+          <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+              <label class="profileFormLabelLeft">Lyft User - </label>
+              <label class="profileFormLabelRight">{{driver.lyftUser}}</label>
+          </div>
+          <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+              <label class="profileFormLabelLeft">Lyft Rating - </label>
+              <label class="profileFormLabelRight">{{driver.lyft_rating}}</label>
+          </div>
+          <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+              <label class="profileFormLabelLeft">Income - </label>
+              <label class="profileFormLabelRight">{{driver.annual_income}}</label>
+          </div>
+          <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+              <label class="profileFormLabelLeft">Car Type - </label>
+              <label class="profileFormLabelRight">{{driver.car_name}}</label>
+          </div>
+          <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+              <label class="profileFormLabelLeft">TLC License - </label>
+              <label class="profileFormLabelRight" ng-if="driver.tlc_num!=null">{{driver.tlc_num}}</label>
+              <label class="profileFormLabelRight" ng-if="driver.tlc_num==null">-</label>
+          </div>
+          <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+              <label class="profileFormLabelLeft">DMV License - </label>
+              <label class="profileFormLabelRight">{{driver.dmv_num}}</label>
+          </div>
+        </div>
+    </div>
+    <script type="text/ng-template" id="document_dialog">
+      <div class="ngdialog-message">
+        <h4>{{verifymsg}}</h4>
+        <h3>Documents</h3>
+
+        <div class="">
+          <form enctype="multipart/form-data" name="myForm" ng-submit="myForm.$submitted&&addEditDocType(doc,type)">
+            <div ng-show="doc.successMsg" class="alert alert-success text-center">{{doc.successMsg}}</div>
+            <div ng-show="doc.errorMsg" class="alert alert-danger text-center">{{doc.errorMsg}}</div>
+            <div class="">
+              <div class="form-group">
+                <!-- Document Type Name <span class="astrick">*</span> -->
+                <!-- <input type="text" placeholder="Enter document type name" class="form-control"
+                       ng-model="doc.document_name" required="required" id="doc" autocomplete="off" /> -->
+                       <label style="display: block;margin-left: 0px;" ng-if="type==1">Document Type : {{docName}}</label>
+                       <select style="width:50%;margin:15px 0;min-width: 150px;" class="form-control"
+                            ng-options="docType as docType.document_name for docType in docTypes track by docType.document_type_id"
+                            ng-model="doc.docType" ng-change="typeSelect(doc.docType)">
+                          <option value="">Select Document Type</option>
+                       </select>
+                       <input type="text" placeholder="Remind Duration (in Days)" class="form-control"
+                              ng-model="doc.reminder_before" required="required" autocomplete="off" style="margin:15px 0;"/>
+                       <!-- <input type="text" placeholder="Expiry Date" class="form-control"
+                              ng-model="doc.expiry_date" required="required" autocomplete="off" style="margin:15px 0;"/> -->
+                              <div class="form-group">
+                                  <label>Expiry Date *</label>
+                                  <div class="datepickercustom" style="height:20px">
+                                      <p class="input-group">
+                                          <input type="text" ng-model="doc.expiry_date" class="form-control" uib-datepicker-popup="{{format}}" ng-readonly='true' datepicker-options="dateOptions" is-open="popup.opened" close-text="Close"> <span class="input-group-btn" required>
+                                      <button type="button" class="btn btn-default" ng-click="open()"><i style="color:#209e91" class="fa fa-calendar"></i></button>
+                                     </span> </p>
+                                  </div>
+                              </div>
+                              <br>
+                              <!-- doc_file -->
+                        <label style="display: block;margin-left: 0px;" ng-if="type==0">Choose the document : </label>
+                       <div class="fileUpload btn btn-info" style="height: 35px;padding: 7px;width: 40px;"  ng-if="type==0">
+      										<span><i class="fa fa-paperclip"></i></span>
+                          <input filestyle="" type="file" accept="image/*" image="image"
+       											   onchange="angular.element(this).scope().file_to_upload(this.files)"
+       											   data-button-text="Single" data-class-button="btn btn-default"
+       											   data-classinput="form-control inline" nv-file-select=""
+       											   uploader="uploader" class="form-control upload tlc_img" required
+                               data-errormessage="Please select a file"/>
+    									</div>
+                      <p class="fileName fileName2 col-lg-6 col-sm-6 col-md-6 col-xs-12 tlc_name"  ng-if="type==0">{{doc.doc_file_name}}</p>
+
+
+
+
+              </div>
+            </div>
+            <div class="btn-align">
+            <button type="submit" class="btn btn-mixColor" ng-disable="submitText!='Submit'">{{submitText}}</button>
+            <button type="button" ng-click="closeThisDialog()" class="btn btn-mixColor" ng-hide="submitText!='Submit'">Cancel</button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+
+    </script>
+</div>

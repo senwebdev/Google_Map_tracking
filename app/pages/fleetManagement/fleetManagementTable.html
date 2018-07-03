@@ -1,0 +1,146 @@
+<div class="row">
+  <div class="col-md-12">
+    <button ui-sref="fleetManagement.addVehicle" class="btn btn-mixColor pull-right head_button">Add Vehicle</button>
+    <div style="padding-top:50px" ba-panel ba-panel-title="List of all the fleet in the system" ba-panel-class="with-scroll">
+      <div class="horizontal-scroll">
+        <div class="form-group select-page-size-wrap ">
+          <!--<label>Rows on page-->
+            <!--<select class="form-control selectpicker show-tick" title="Rows on page" selectpicker-->
+                    <!--ng-model="pageSize" ng-options="i for i in [5,10,15,20,25]">-->
+            <!--</select>-->
+          <!--</label>-->
+        </div>
+        <table class="table table-striped" id="dataTableFleet">
+          <thead>
+          <tr class="sortable ">
+
+            <th>Id</th>
+            <th>Vehicle Name</th>
+            <th>Vehicle Type</th>
+            <th>VIN</th>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Year</th>
+            <th>Licence Plate</th>
+            <th>Max Passengers</th>
+            <th>Assigned Driver</th>
+            <th>Medallion Number</th>
+            <th>TLC Expiry</th>
+            <th>Insurance Expiry</th>
+            <th>Photo</th>
+            <th>Status</th>
+            <th style="min-width: 111px !important;">Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="data in list">
+            <td>{{$index +1}}</td>
+            <td>{{data.vehicle_name}}</td>
+            <td>{{data.vehicle_type_name;}}</td>
+            <td>{{data.vehicle_identification_no}}</td>
+            <td>{{data.vehicle_make}}</td>
+            <td>{{data.vehicle_model}}</td>
+            <td>{{data.vehicle_year}}</td>
+            <td>{{data.vehicle_license_plate}}</td>
+            <td>{{data.max_passengers}}</td>
+            <td>{{data.assigned_driver}}</td>
+            <td>{{data.tlc_medallion_no}}</td>
+            <td>{{data.tlc_expiry_date}}</td>
+            <td>{{data.policy_expiry_date}}</td>
+            <td><img src="{{data.vehicle_front_photo}}" style="width:100px;height:100px"/></td>
+            <td>
+              <div ng-show="data.is_available" class="fa fa-circle online">
+              </div>
+              <div ng-show="!data.is_available" class="fa fa-circle offline"></div>
+            </td>
+            <td>
+              <a class="btn btn-sm btn-default1" title="View" ui-sref="app.viewVehicle({id:'{{data.id}}'})">
+                <i class="fa fa-eye"></i>
+              </a>
+              <a class="btn btn-sm btn-default1" title="Edit" ui-sref="app.editVehicle({id:'{{data.id}}'})">
+                <i class="fa fa-pencil"></i>
+              </a>
+              <a class="btn btn-sm btn-default1" title="Assign" ng-click="AssignDriverPopup(data.id)">
+                <i class="fa fa-user"></i>
+              </a>
+              <a class="btn btn-sm btn-default1" title="Un-assign" ng-click="unassignPopup(data.id,data.driver_id)">
+                <i class="fa fa-close"></i>
+              </a>
+            </td>
+          </tr>
+          </tbody>
+          <!--<tfoot>
+          <tr>
+            <td colspan="7" class="text-center">
+              <div st-pagination="" st-items-by-page="pageSize" st-displayed-pages="5"></div>
+            </td>
+          </tr>
+          </tfoot>-->
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/ng-template" id="modalDialogId">
+    <form validate-form="" novalidate=""  ng-submit="assignDriver()">
+      <div class="row">
+        <div class="panel-heading text-center">
+          <h3>Assign Driver</h3>
+        </div>
+        <!--<div class="col-lg-12">-->
+        <div class="panel panel-default" ng-class="{'whirl duo' : showloader1 }">
+          <div style="clear:both"></div>
+          <div class="table-responsive">
+            <table id="datatable12" class="table table-hover">
+              <thead>
+              <tr>
+                <th></th>
+                <th>Driver Name</th>
+                <th>Email</th>
+                <th>Phone No.</th>
+                <th>Image</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr ng-repeat="data in list1 | orderBy:'-driver_id'">
+                <td><input type="radio" style="text-align: center" name='users' ng-click="addUser(data.driver_id)"/></td>
+                <td>{{data.user_name}}</td>
+                <td>{{data.user_email}}</td>
+                <td>{{data.phone_no}}</td>
+                <td><img src="{{data.user_image}}" style="width:50px;height:50px"/></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="panel-footer btn-align">
+          <div ng-show="successMsg" class="alert alert-success text-center" style="margin-top: 10px;">{{successMsg}}</div>
+          <div ng-show="errorMsg" class="alert alert-danger text-center" style="margin-top: 10px;">{{errorMsg}}</div>
+          <button type="submit" class="btn btn-info" ng-disabled=assignDisable>Assign</button>
+          <button type="button" ng-click="close()" class="btn btn-default">Cancel</button>
+        </div>
+        <!--</div>-->
+      </div>
+    </form>
+  </script>
+  <script type="text/ng-template" id="delete_driver_modalDialog">
+    <div class="ngdialog-message">
+      <h4>Are you sure you want to free this Fleet?</h4>
+      <div  style="  margin-top: 20px;text-align: right;">
+        <form method="post" validate-form="" novalidate="" id="approve-driver" >
+          <button type="submit" ng-click="delete_driver()" class="btn btn-primary" >Submit</button>
+          <button type="button" ng-click="closeThisDialog(0)" class="btn btn-default" style='margin-left:20px;'>Cancel</button>
+        </form>
+      </div>
+    </div>
+  </script>
+  <script type="text/ng-template" id="display_msg_modalDialog">
+    <div class="ngdialog-message">
+      <h4>{{displaymsg}}</h4>
+      <a type="submit" ng-click="refreshPage()" class="btn btn-primary" style="margin-top:20px;float:right;">OK</a>
+      <div style="clear: both;"></div>
+    </div>
+  </script>
+
+
+</div>

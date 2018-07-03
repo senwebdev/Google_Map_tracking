@@ -1,0 +1,61 @@
+body > md-toolbar {
+    z-index: 3;
+}
+
+md-toolbar.md-table-toolbar.alternate {
+    color: #1e88e5;
+    background-color: #e3f2fd;
+}
+
+md-toolbar.md-table-toolbar.alternate .md-toolbar-tools {
+    font-size: 16px;
+}
+
+md-card:first-child {
+    padding: 8px 8px 8px 24px;
+}
+
+.checkboxes > md-checkbox {
+    margin: 0;
+    padding: 16px;
+    min-width: 300px;
+    flex: 0 0 auto;
+}
+
+table.md-table.md-row-select td.md-cell:first-child, table.md-table.md-row-select th.md-column:first-child {
+    width: 19px;
+    padding: 0px 16px 0px 24px;
+}
+table.md-table th.md-column.md-sort table.md-table th.md-column.md-active, table.md-table th.md-column.md-active md-icon{
+    cursor: pointer;
+    color: white;
+}
+md-toolbar.md-table-toolbar .md-toolbar-tools md-icon {
+    color: white;
+}
+
+table.md-table th.md-column {
+    color: #b6b7b6;
+    background-color:#f7f8f7;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+
+.daterangepicker .calendar th, .daterangepicker .calendar td {
+    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+    white-space: nowrap;
+    text-align: center;
+    min-width: 32px;
+    color: black;
+}
+
+
+.classWhite{
+    color: white;
+}
+
+.label{
+    color: #333333;
+}

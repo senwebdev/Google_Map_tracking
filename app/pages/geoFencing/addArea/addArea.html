@@ -1,0 +1,62 @@
+<style>
+        body:before
+      {
+          background-color: white!important;
+      }
+      .panel-body
+      {
+          padding:0px;
+      }
+      #pan
+      {
+        padding: 10px;
+        background-color:white; 
+        -webkit-box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+    -moz-box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+    box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+        
+      }
+      </style>
+
+<div class="row">
+    <div style="padding-top: 50px" ba-panel ba-panel-title="Add Area" ba-panel-class="with-scroll">
+    <div class="horizontal-scroll">
+        <div class="">
+            <div id="map-div-content">
+                <input id="pac-input" class="controls search-input" type="text" style="color:#000" placeholder="Search Box">
+                <div id="areaMap" style="height: 600px;width:100%"></div>
+            </div>
+            <div id="show-arrow" ng-show="showgeoimg">
+                <img src = "assets/img/taxi/geo-show.png" id="geo-draw"/>
+                <div style="clear:both"></div>
+                <div style="text-align: center">
+                    <button class="btn btn-mixColor" ng-click="hideLayer()" style="margin-top:5px;" ng-show="showgeoimg">Got It!</button>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-md-12" id="pan" >
+            <button class="btn btn-mixColor" ng-click="addArea()" ng-if="show_add_area_btn"><i class="fa fa-plus">Add Region</i></button>
+            <button class="btn btn-danger" ng-click="removeShape()" ng-if="show_add_area_btn"><i class="fa fa-refresh">Reset</i></button>
+            <div class="form-group col-md-3 col-sm-3 ">
+                <input type="text" ng-model="areaName" id="areaName" class="form-control" ng-if="show_add_area_btn" required="required" placeholder="Enter Region Name"/>
+            </div>
+        </div>
+        <script type="text/ng-template" id="display_msg_modalDialog">
+            <div class="ngdialog-message">
+                <h4>{{displaymsg}}</h4>
+                <a type="submit" ng-click="closeThisDialog(0);successArea()" class="btn btn-mixColor" style="margin-top:20px;float:right;">OK</a>
+                <div style="clear: both;"></div>
+            </div>
+        </script>
+        <script type="text/ng-template" id="addAreaSuccess">
+            <div class="ngdialog-message">
+                <h4>{{displaymsg}}</h4>
+                <a type="submit" ng-click='fareRedirect()' class="btn btn-mixColor" style="margin-top:20px;float:right;">OK</a>
+                <div style="clear: both;"></div>
+            </div>
+        </script>
+        </div>
+        </div>
+    </div>

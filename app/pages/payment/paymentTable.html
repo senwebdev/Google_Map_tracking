@@ -1,0 +1,63 @@
+<div class="row">
+  <div class="col-md-12">
+    <h3 style="color: white">
+      Total : {{earningsTotal}}  Today : {{earningsToday}}
+    </h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div ba-panel ba-panel-title="List of All Payments made or to be made" ba-panel-class="with-scroll">
+        <div class="horizontal-scroll">
+
+  <table class="table table-striped" id="datatablePayment">
+    <thead>
+    <tr>
+      <th>S.No</th>
+      <th>Driver ID</th>
+      <th>Driver Name</th>
+      <th>Driver Phone</th>
+      <th>Driver Email</th>
+      <th>Total Earning Commission</th>
+      <th>Total Earnings</th>
+      <th>Paid Payments</th>
+      <th>Remaining Amount</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr  ng-repeat="data in list">
+      <td class="table-id">{{$index + 1}}</td>
+      <td>{{data.driver_id}}</td>
+      <td>{{data.user_name}}</td>
+      <td>{{data.phone_no}}</td>
+      <td>{{data.user_email}}</td>
+      <td>{{data.total_earning_commision}}</td>
+      <td>{{data.total_earnings}}</td>
+      <td>{{data.paid_payments}}</td>
+      <td><input type="text" ng-model="data.remaining_Amount" ></td>
+
+      <td>
+        <a style="width: 92px;padding: 3px;" class="btn btn-mixColor"
+           title="Refund"
+           ng-click="pay(data.driver_id,data.actual_remaining_Amount, data.remaining_Amount)" ng-disabled="data.remaining_Amount == 0">
+          {{data.payment_status}}
+        </a>
+      </td>
+    </tr>
+    </tbody>
+
+  </table>
+</div>
+    </div>
+  </div>
+
+
+  <script type="text/ng-template" id="display_msg_modalDialog">
+    <div class="ngdialog-message">
+      <h4>{{displaymsg}}</h4>
+      <a type="submit" ng-click="refreshPage()" class="btn btn-mixColor" style="margin-top:20px;float:right;">OK</a>
+      <div style="clear: both;"></div>
+    </div>
+  </script>
+</div>

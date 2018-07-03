@@ -1,0 +1,129 @@
+<style>
+        body:before
+      {
+          background-color: white!important;
+      }
+      .panel-body
+      {
+          background-color: white;
+          border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px 0px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 2px 1px -1px;
+      }
+      .table-hover>tbody>tr:hover {
+    
+    -webkit-box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+    -moz-box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+    box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+}
+.table-hover>tbody>tr:hover {
+    background-color: white;
+}
+body a
+{
+    color:black;
+}
+      </style>
+<div class="col-lg-12" style="float: none">
+    <div style="padding-top: 50px" ba-panel ba-panel-title="View Areas" ba-panel-class="with-scroll">
+        <div class="horizontal-scroll">
+            <table id="datatableView" class="table table-hover">
+                <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Region ID</th>
+                    <th>Region Name</th>
+                    <th>Region Image</th>
+                    <th>Date Added</th>
+                    <th>Fare Details</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr style='background-color: {{data.color}} !important'
+                    ng-repeat="data in list ">
+                    <td>{{$index +1}}</td>
+                    <td>{{data.region_id}}</td>
+                    <td>{{data.region_name}}</td>
+                    <td><img class="img-thumbnail" style="max-width:200px;height:auto;margin:auto" ng-src="{{data.region_image}}"></td>
+                    <td>{{data.added_at|date:'MMM dd yyyy, hh:mm a'}}</td>
+                    <td>
+                        <!-- <a class="btn btn-sm btn-default1" ng-click="editRegionMap(data)" title="Edit">
+                          <i class="fa fa-edit pencil-icon"></i>
+                        </a>
+                        <a class="btn btn-sm btn-default1" ng-click="deleteRegionConfirm(data)" title="Delete">
+                          <i class="fa fa-trash-o block-icon "></i>
+                        </a> -->
+                        <a class="btn btn-sm btn-default1" ng-click="viewRegionDetails(data)">
+                          View Details
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+        <script type="text/ng-template" id="display_msg_modalDialog">
+            <div class="ngdialog-message">
+                <h4>{{displaymsg}}</h4>
+                <a type="submit" ng-click="closeThisDialog(0)" class="btn btn-mixColor" style="margin-top:20px;float:right;">OK</a>
+                <div style="clear: both;"></div>
+            </div>
+        </script>
+        <script type="text/ng-template" id="delete_region_modalDialog">
+            <div class="ngdialog-message">
+                <h4>Are you sure you want to delete this region?</h4>
+                <div  style="  margin-top: 20px;text-align: right;">
+                    <form method="post" validate-form="" novalidate="" id="approve-driver" >
+                        <button type="submit" ng-click="deleteRegion()" class="btn btn-mixColor" >Submit</button>
+                        <button type="button" ng-click="closeThisDialog(0)" class="btn btn-mixColor" style='margin-left:20px;'>Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </script>
+        <script type="text/ng-template" id="/display_map.html">
+            <div class="modal-header">
+                <button type="button" data-dismiss="modal" aria-hidden="true" class="close" ng-click="cancel()">×</button>
+                <h4 id="myModalLabel" class="modal-title">View Region</h4>
+            </div>
+            <div class="modal-body">
+                <div id="regionmap" style="height:400px"></div>
+            </div>
+            <div class="modal-footer">
+                <!--<button ng-click="ok()" class="btn btn-primary">OK</button>-->
+                <button ng-click="cancel()" class="btn btn-warning">Cancel</button>
+            </div>
+        </script>
+        <script type="text/ng-template" id="/edit_map.html">
+            <div class="modal-header">
+                <button type="button" data-dismiss="modal" aria-hidden="true" class="close" ng-click="cancel()">×</button>
+                <h4 id="myModalLabel2" class="modal-title">Edit Region</h4>
+            </div>
+            <div class="modal-body">
+                <div id="editmap" style="height:400px"></div>
+            </div>
+            <div class="modal-footer">
+
+                <div class="form-group col-md-8">
+                    <input type="text" ng-model="region_name" class="form-control" required="required" placeholder="Enter Region Name"/>
+                </div>
+                <button ng-click="editRegion(region_name)" class="btn btn-mixColor">Submit</button>
+                <button ng-click="cancel()" class="btn btn-warning">Cancel</button>
+
+                <!--<button class="btn btn-danger" ng-click="removeShape()" style="margin-right:15px;width:82px">Reset</button>-->
+
+
+
+
+
+
+            </div>
+        </script>
+
+    </div>
+</div>
+<style>
+.dataTables_paginate{
+  display:block;
+}
+</style>

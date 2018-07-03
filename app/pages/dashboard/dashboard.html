@@ -1,0 +1,197 @@
+<style>
+  body[dir=rtl] .hint {
+    right: 2px;
+    left: auto;
+  }
+
+  md-radio-group.layout-row md-radio-button {
+    margin-right: 2.5em;
+  }
+
+  .mrg_tp {
+    margin-top: 3em;
+  }
+
+  .cen {
+    text-align: center;
+  }
+
+  .custom_btn {
+    padding-left: 3em;
+    padding-right: 3em;
+  }
+
+  .vertical-divider {
+    border-top-width: 0;
+    border-right-width: 1px;
+    border-right-style: solid;
+    height: 100%;
+  }
+
+  .md-title {
+    text-align: center
+  }
+
+  .space_line {
+    margin-left: 2em;
+    margin-right: 2em;
+  }
+
+  .md-input-underline {
+    border-bottom: none;
+  }
+
+  .bor input {
+    border: 1px solid #c0bebc !important;
+  }
+
+  .pd {
+    padding: 0 2em
+  }
+</style>
+<div layout="column" ng-cloak>
+  <md-content layout-padding>
+    <h1 style="text-align:center;" class="gothicFamily">Dashboard</h1>
+    <form name="userForm">
+      <div layout-gt-sm="row">
+        <div flex=auto>
+          <md-card>
+            <md-card-content>
+              <h2 class="md-title gothicFamily">User Details</h2>
+              <md-input-container class="md-block bor" flex-gt-sm md-no-float>
+                <input required name="name" placeholder="Enter User ID/Phone/Email" ng-keyup="$event.keyCode == 13 ? getPassengerList(data) : null"
+                  ng-model="inp1" ng-focus="clear1()" />
+              </md-input-container>
+              <md-radio-group ng-model="datas.group1" layout="row" layout-align="center center" required>
+                <md-radio-button value="user_id" class="md-primary">ID</md-radio-button>
+                <md-radio-button value="user_email" class="md-primary">EMAIL</md-radio-button>
+                <md-radio-button value="user_mobile" class="md-primary">PHONE</md-radio-button>
+              </md-radio-group>
+              <div class="text-center mrg_tp">
+                <md-button class="md-raised md-primary custom_btn" ng-click="getPassengerList(data)">User Details</md-button>
+              </div>
+            </md-card-content>
+          </md-card>
+        </div>
+        <div flex=auto>
+          <md-card>
+            <md-card-content>
+              <h2 class="md-title gothicFamily">Driver Details</h2>
+              <md-input-container class="md-block bor" flex-gt-sm md-no-float>
+                <input name="social" placeholder="Enter User ID/Phone/Email" ng-keyup="$event.keyCode == 13 ? get_driver() : null" ng-model="inp2"
+                  ng-focus="clear2()" />
+              </md-input-container>
+              <md-radio-group ng-model="datas.group2" layout="row" layout-align="center center" required>
+                <md-radio-button value="driver_id" class="md-primary">ID</md-radio-button>
+                <md-radio-button value="driver_email" class="md-primary">EMAIL</md-radio-button>
+                <md-radio-button value="driver_mobile" class="md-primary">PHONE</md-radio-button>
+              </md-radio-group>
+              <div class="text-center mrg_tp">
+                <md-button class="md-raised md-primary custom_btn" ng-click="get_driver()">Driver Details</md-button>
+              </div>
+            </md-card-content>
+          </md-card>
+        </div>
+        <div flex=auto>
+          <md-card>
+            <md-card-content>
+              <h2 class="md-title gothicFamily">Ride Details</h2>
+              <md-input-container class="md-block bor" flex-gt-sm md-no-float>
+                <input name="email" ng-model="user.email" required minlength="10" maxlength="100" placeholder="Enter User ID/Phone/Email"
+                />
+              </md-input-container>
+              <md-radio-group ng-model="datas.group3" layout="row" layout-align="center center" required>
+                <md-radio-button value="id" class="md-primary">ID</md-radio-button>
+                <md-radio-button value="EMAIL" class="md-primary">EMAIL</md-radio-button>
+                <md-radio-button value="Mango" class="md-primary">PHONE</md-radio-button>
+              </md-radio-group>
+              <div class="text-center mrg_tp">
+                <md-button class="md-raised md-primary custom_btn">Ride Details</md-button>
+              </div>
+            </md-card-content>
+          </md-card>
+        </div>
+      </div>
+    </form>
+  </md-content>
+</div>
+<div layout="row" layout-xs="column">
+  <div flex-gt-xs="70" flex-xs="100" ng-if="visb==true">
+    <md-content class="md-padding ">
+      <md-card class="md-whiteframe-8dp">
+        <div>
+          <div>
+            <div class="text-center">
+              <img id="user_image" class="" style="width:200px;border-radius:100%;height: 200px;" src="{{image}}">
+            </div>
+          </div>
+
+          <div style="padding: 15px;">
+          </div>
+
+          <div layout-gt-sm="row" layout-sm="column" layout-xs="column">
+            <md-input-container flex="auto">
+              <label>Name</label>
+              <input autocomplete="off" ng-model="name" ng-readonly="true">
+            </md-input-container>
+            <md-input-container flex="auto">
+              <label>Email</label>
+              <input autocomplete="off" ng-model="email" required ng-readonly="true">
+            </md-input-container>
+
+          </div>
+          <div layout-gt-sm="row" layout-sm="column" layout-xs="column">
+            <md-input-container flex="auto">
+              <label>Phone</label>
+              <input autocomplete="off" ng-model="mobile" required ng-readonly="true">
+            </md-input-container>
+            <md-input-container flex="auto">
+              <label>ID</label>
+              <input autocomplete="off" ng-model="id" ng-readonly="true">
+            </md-input-container>
+          </div>
+
+          <div layout-gt-sm="row" layout-sm="column" layout-xs="column">
+            <md-input-container flex="auto">
+              <label>Registration Date</label>
+              <input autocomplete="off" ng-model="regd" ng-readonly="true">
+            </md-input-container>
+
+            <md-input-container flex="auto">
+              <label>Last Login</label>
+              <input autocomplete="off" ng-model="loginl" ng-readonly="true">
+            </md-input-container>
+          </div>
+          <div layout-gt-sm="row" layout-sm="column" layout-xs="column">
+            <md-input-container flex="auto">
+              <label>Invite Code</label>
+              <input autocomplete="off" ng-model="code" ng-readonly="true">
+            </md-input-container>
+
+          </div>
+        </div>
+      </md-card>
+    </md-content>
+
+  </div>
+  <div flex-gt-xs="30" flex-xs="100" layout="column" ng-if="visb==true">
+    <md-content class="md-padding ">
+      <md-card class="md-whiteframe-8dp">
+        <div>
+          <md-content>
+            <div class="cen">
+              <md-button class="md-raised md-primary pd">Deactivate</md-button>
+            </div>
+            <div class="cen">
+              <md-button class="md-raised md-primary pd">Send SMS</md-button>
+            </div>
+            <div class="cen">
+              <md-button class="md-raised md-primary pd">Send Push</md-button>
+            </div>
+          </md-content>
+        </div>
+      </md-card>
+    </md-content>
+
+  </div>
+</div>

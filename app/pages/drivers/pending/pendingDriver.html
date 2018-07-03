@@ -1,0 +1,190 @@
+<style>
+.gothicFamily {
+   font-family: 'gothic';
+}
+</style>
+<div class="row gothicFamily">
+    <div class="col-md-12">
+        <button ng-click="AddDriverDialog()" class="btn btn-mixColor pull-right head_button gothicFamily">Add Driver</button>
+
+        <div class="gothicFamily" style="padding-top: 50px" ba-panel ba-panel-title="List of All Unapproved/Pending Drivers in the System" ba-panel-class="with-scroll">
+            <div class="horizontal-scroll gothicFamily">
+
+                <table class="table table-striped gothicFamily" id="datatablePending">
+                    <thead>
+                    <tr>
+                        <th style="text-align: center;" class="table-id" >Driver Id</th>
+                        <th>Driver Details</th>
+                        <th>Verification Token</th>
+                        <th>Verification Status</th>
+                        <th style="text-align: center; min-width: 80px;width:80px;">Actions</th>
+
+                    </tr>
+                    </thead>
+                    <tbody class="gothicFamily">
+                    <tr  class="gothicFamily" ng-repeat="data in pendingDrivers">
+                        <td style="text-align: center;">{{data.driver_id}}</td>
+                        <td style="text-align: center;"><b>Name</b> -{{data.first_name}} {{data.last_name}}<br>
+                            <b>Email</b> - {{data.email}}<br>
+                            <b>Contact</b> - {{data.mobile}}</td>
+                        <td style="text-align: center;" ng-hide="viewField">{{data.verification_token}}</td>
+                        <td style="text-align: center;">{{data.verification_status}}</td>
+                        <td style="text-align: center;">
+                            <!--<a  class="btn btn-sm btn-success" href="" ng-click="openApproveDialog(data.driver_id,data.phone_no,data.driver_paypal_id)">-->
+                            <!--<i class="fa fa-check"></i></a>-->
+                            <a style="background-color:#666666"  ng-show="data.approve" class="btn btn-sm btn-default1"  ng-disabled="data.approve"
+                               title="Approve">
+                                <i class="fa fa-check unblock-icon"></i>
+                            </a>
+                            <a   ng-hide="data.approve" class="btn btn-sm btn-default1"  ng-href='{{data.approvedriver_url}}'   ng-disabled="data.approve"
+                                 title="Approve">
+                                <i class="fa fa-check unblock-icon" ></i>
+                            </a>
+                            <a  class = "btn btn-sm btn-default1"  ng-click="delete_pending_driver(data.driver_id)" title="Delete"> <i
+                                    class="fa fa-close block-icon "></i></a>
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/ng-template" id="approveDriverDialog">
+        <div class="ngdialog-message gothicFamily">
+            <h3>Approve Driver</h3>
+
+            <div class="panel panel-default gothicFamily">
+                <form method="post"  name='myForm' validate-form="" novalidate="" ng-submit="myForm.$valid && submit(approveData)"
+                      id="approve-driver">
+
+                    <div class="panel-body gothicFamily">
+                        <div class="form-group">
+                            <input type="hidden" name="driver_id" class="form-control"
+                                   ng-bind="updateDriverData.driver_id"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Vehicle Number</label>
+                            <input type="text" name="vehicle_num" required="required" class="form-control"
+                                   ng-model="approveData.vehicle_num" data-parsley-type="alphanum"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">License Number</label>
+                            <input type="text" name="license_num" required="required" class="form-control"
+                                   ng-model="approveData.license_num" data-parsley-type="alphanum"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Social Security Number</label>
+                            <input type="text" name="soc_sec_num" required="required" class="form-control" data-parsley-type="digits"
+                                   ng-model="approveData.soc_sec_num"/>
+                        </div>
+
+                        <div class="form-group" ng-controller="CarController">
+                            <label class="control-label" placeholder="Select-car">Car Type</label>
+                            <select name="account" class="form-control" ng-model="approveData.select_car">
+                                <option ng-repeat="cars in list" ng-value="cars.car_type">{{cars.car_name}}</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Phone Number</label><br>
+                            <div style="float: left;background: rgb(238,241,242);padding:5px;">+</div>
+                            <input type="text" name="phn_no" required="required" data-parsley-type="digits" class="form-control"
+                                   ng-model="approveData.phn_no" style="  float: right;width: 91%;" placeholder="phone number with country code"/>
+                            <div style="clear:both"></div>
+                            <!--<input type="text" name="phn_no" required="required" data-parsley-type="number" class="form-control"-->
+                            <!--ng-model="approveData.phn_no"/>-->
+                        </div>
+                        <!--<div class="form-group">-->
+                        <!--<label class="control-label">Driver Paypal ID</label>-->
+                        <!--<input type="text" name="paypal_id" required="required" class="form-control" data-parsley-type="email"-->
+                        <!--ng-model="approveData.paypal_id"/>-->
+                        <!--</div>-->
+                        <div class="form-group">
+                            <label class="control-label">Vehicle Emissions</label>
+                            <input type="text" name="vehicle_emissions" required="required" class="form-control"
+                                   ng-model="approveData.vehicle_emissions" ng-pattern="/((\d+)((\.\d{1,2})?))$/"/>
+                        </div>
+                        <div  ng-show="myForm.vehicle_emissions.$error.pattern" style="color:#ff0000">Not a  valid input!</div>
+                        <div class="form-group">
+                            <label class="control-label">CO2 Produced (per km)</label>
+                            <input type="text" name="co2_produced" required="required" class="form-control"
+                                   ng-model="approveData.co2_produced" ng-pattern="/((\d+)((\.\d{1,2})?))$/"/>
+                        </div>
+                        <div  ng-show="myForm.co2_produced.$error.pattern" style="color:#ff0000">Not a  valid input!</div>
+
+                        <!--<div class="form-group">-->
+                        <!--<label class="control-label">Upload Vehicle Image</label>-->
+                        <!--<input filestyle="" type="file" accept="image/*" image="image" onchange="angular.element(this).scope().file_to_upload(this.files)" data-button-text="Single" data-class-button="btn btn-default" data-classinput="form-control inline" nv-file-select="" uploader="uploader" class="form-control" required="required" />-->
+                        <!--</div>-->
+                        <div class="form-group">
+                            <label class="control-label">Upload Vehicle Image</label>
+                            <div class="fileUpload btn btn-info">
+                                <span>Upload</span>
+                                <input filestyle="" type="file" accept="image/*" image="image" onchange="angular.element(this).scope().file_to_upload(this.files)" data-button-text="Single" data-class-button="btn btn-default" data-classinput="form-control inline" nv-file-select="" uploader="uploader" class="form-control upload"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <img ng-src='app/img/noimg.png' style="width:100px;height:100px" id="car_image"/>
+                        </div>
+
+                        <!--<div class="form-group center" ng-controller="UploadController ">-->
+                        <!--<input filestyle="" type="file" data-button-text="Single"-->
+                        <!--data-class-button="btn btn-default"-->
+                        <!--ng-file-select="onFileSelect($files)" file="approveData.file_upload"-->
+                        <!--data-classinput="form-control inline" class="form-control" name="file"-->
+                        <!--id="filestyle-1"-->
+                        <!--tabindex="-1"-->
+                        <!--style="position: absolute; clip: rect(0px 0px 0px 0px);">-->
+
+                        <!--<div class="bootstrap-filestyle input-group">-->
+                        <!--<input type="text" class="form-control" disabled="disabled">-->
+                        <!--<span class="group-span-filestyle input-group-btn" tabindex="0">-->
+                        <!--<label for="filestyle-1" class="btn btn-default ">-->
+                        <!--<span class="glyphicon glyphicon-folder-open"></span>-->
+                        <!--Select</label>-->
+                        <!--</span>-->
+                        <!--</div>-->
+                        <!--<br/>-->
+                        <!--&lt;!&ndash;<div style="text-align: center;">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<img style="width: 150px; height: 150px; border-radius: 55px;"&ndash;&gt;-->
+                        <!--&lt;!&ndash;ng-src="{{imageSrc || 'app/img/noimg.png'}}"/>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!--<br/>-->
+                        <!--</p>-->
+                        <!--</div>-->
+
+
+                    </div>
+                    <div class="panel-footer btn-align gothicFamily">
+                        <button type="submit" class="btn btn-mixColor">Submit
+                        </button>
+                        <button type="button" ng-click="closeThisDialog(0)" class="btn btn-mixColor">Cancel
+                        </button>
+                        <div ng-show="successMsg" class="alert alert-success text-center" style="margin-top: 10px;">{{successMsg}}</div>
+                        <div ng-show="errorMsg" class="alert alert-danger text-center" style="margin-top: 10px;">{{errorMsg}}</div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </script>
+    <script type="text/ng-template" id="display_msg_modalDialog">
+        <div class="ngdialog-message gothicFamily">
+            <h4>{{displaymsg}}</h4>
+            <a type="submit" ng-click="refreshPage()" class="btn btn-mixColor" style="margin-top:20px;float:right;">OK</a>
+            <div style="clear: both;"></div>
+        </div>
+    </script>
+    <script type="text/ng-template" id="delete_driver_modalDialog">
+        <div class="ngdialog-message gothicFamily">
+            <h4>Are you sure you want to delete driver?</h4>
+            <div style="  margin-top: 20px;text-align: right;">
+                <form method="post" validate-form="" novalidate="">
+                    <button type="submit" ng-click="delete_driver(delete_driver_id)" class="btn btn-mixColor" >Submit</button>
+                    <button type="button" ng-click="closeThisDialog(0)" class="btn btn-mixColor" style='margin-left:20px;'>Cancel</button>
+                </form>
+            </div>
+        </div>
+    </script>
+</div>

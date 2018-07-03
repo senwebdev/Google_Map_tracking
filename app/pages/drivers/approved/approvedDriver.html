@@ -1,0 +1,498 @@
+<style>
+    md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-icon {
+        background-color: rgb(48, 120, 205);
+    }
+    table.md-table.md-row-select td.md-cell:nth-child(n+3):nth-last-child(n+2), table.md-table.md-row-select th.md-column:nth-child(n+3):nth-last-child(n+2) {
+        padding: 0 56px 0 0;
+        padding-left: 25px;
+    }
+    table.md-table .md-row:hover
+  {
+    -webkit-box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+    -moz-box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+    box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+}
+body:before
+{
+    background-color: white!important;
+}
+p
+{
+  margin: 0px;
+  margin-left: 4%;
+  font-size: 12px;
+}
+.marl
+{
+  margin-left:12%;
+}
+.al-content
+{
+  padding: 0px 20px 0px 30px;
+}
+.gothicFamily {
+    font-family: 'gothic';
+}
+</style>
+
+<div class="row gothicFamily">
+    <section layout="row" flex>
+        <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right" style="position:fixed;top:70px">
+
+          <md-toolbar style="background-color:#4084d4" class="md-theme-light">
+
+            <span class="md-toolbar-tools gothicFamily">
+              <img class="img-circle" style="height:50px;margin-right:4%;width: 50px;" ng-src="{{pic}}">{{name}}
+
+             <span class="dropdown gothicFamily">
+                <md-button class="material-icons dropdown-toggle" style="padding-left:0%;font-size:40px" type="button" data-toggle="dropdown">more_horiz
+                </md-button>
+                <ul class="dropdown-menu gothicFamily">
+                  <li><a ng-click="driverDetails()" >View Profile</a></li>
+                  <li><a ng-click="editDriver()">Edit Driver</a></li>
+                  <li><a href="" ng-if="!is_driver_blocked" ng-click="blockunblockdriver_popup(1, driver_block_unblock_id)">Block</a></li>
+                    <li><a href="" ng-if="is_driver_blocked" ng-click="blockunblockdriver_popup(0, driver_block_unblock_id)">UnBlock</a></li>
+                    <li><a ng-click="deleteDriver()">Delete </a></li>
+                </ul>
+              </span>
+            </span>
+
+          </md-toolbar>
+
+          <div class="gothicFamily" layout-padding ng-style="GENERICS.detail_aside">
+            <p> <i class="material-icons md-light md-18">local_phone</i><span class="marl gothicFamily">{{phone}}</span></p>
+            <p>  <i class="material-icons md-light md-18 ">local_post_office</i><span class="marl gothicFamily">{{email}}</span></p>
+            <p>  <i class="material-icons md-light md-18 ">access_time</i><span class="marl gothicFamily">{{login | date}}</span></p>
+            <p>  <i class="material-icons md-light md-18 ">directions_car</i><span class="marl gothicFamily">{{car_name}}</span></p>
+            <i class="material-icons"></i>
+          </div>
+
+          <div class="gothicFamily" layout-padding ng-style="GENERICS.detail_aside">
+            <div class="text-center gothicFamily">Trip History</div>
+            <p> <span  class="gothicFamily"style="padding-right:2%"> Total Trips :</span><span>{{trips}}</span></p>
+            <p><span class="gothicFamily">Total Rating :</span> <span>{{rating}}</span> </p>
+            <p><span class="gothicFamily">Total Earnings :</span> <span>{{total_earned}}</span> </p>
+           </div>
+        </md-sidenav>
+    </section>
+
+    <md-content class="gothicFamily" laout="column" flex style="overflow-x:hidden"  ng-class="{'whirl' : isLoading }">
+            <md-toolbar class="md-table-toolbar md-default" ng-hide="selected.length || filter.show">
+                <div class="md-toolbar-tools gothicFamily">
+                    <span>LIST OF ALL APPROVED DRIVERS IN THE SYSTEM</span>
+                    <div flex></div>
+                    <md-button class="md-icon-button" ng-click="filter.show = true">
+                        <md-icon style="color: #757575;">search</md-icon>
+                    </md-button>
+
+                </div>
+            </md-toolbar>
+
+            <md-toolbar class="md-table-toolbar md-default gothicFamily" ng-show="filter.show && !selected.length" aria-hidden="false" >
+                <div class="md-toolbar-tools">
+                    <md-icon style="color: #757575;">search</md-icon>
+                    <form flex="" name="filter.form" >
+                        <input style="border: none; border-bottom: 1px solid;" type="text" ng-model="query.filter" ng-model-options="filter.options" placeholder="search"  >
+                    </form>
+                    <md-button class="md-icon-button" ng-click="removeFilter()">
+                        <md-icon style="color: #757575;">close</md-icon>
+                    </md-button>
+                </div>
+            </md-toolbar>
+
+            <md-toolbar class="md-table-toolbar alternate gothicFamily" ng-show="options.rowSelection && selected.length">
+                <div class="md-toolbar-tools">
+                    <span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
+                </div>
+            </md-toolbar>
+            <md-table-pagination class="gothicFamily" md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{drivers.count}}" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks" md-on-paginate="getApprovedDriversList"  md-page-select></md-table-pagination>
+            <md-table-container class="gothicFamily">
+                <table class="gothicFamily" md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
+                    <thead class="gothicFamily" ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
+                    <tr md-row>
+                       <!-- <th md-column md-order-by="driver_id"><span>S.No</span></th>-->
+                        <th class="gothicFamily" style="text-align: center; " md-column  md-order-by="driver_id" md-desc> <span>Driver ID</span>
+                        </th>
+                        <th class="gothicFamily" style="text-align: center; padding:0px;"  md-column md-order-by="driver_name" ><span >Driver Details</span></th>
+                        <!-- <th md-column md-numeric  ><span>Profile Pic</span></th> -->
+
+                        <!-- <th md-column md-numeric md-order-by="total_rides"><span>Car Type</span></th> -->
+                        <!-- <th md-column md-numeric md-order-by="total_rides"><span>Total Trips</span></th> -->
+                        <th class="gothicFamily" style="text-align: center;" md-column md-numeric md-order-by="driver_email"><span>Email</span></th>
+                        <!-- <th md-column md-numeric md-order-by="total_rating_user"><span>Average Rating</span></th> -->
+                        <!-- <th md-column md-numeric ><span>Last Login</span></th> -->
+                        <!--<th md-column md-numeric ><span>Last Logout</span></th>-->
+                        <th class="gothicFamily" style="text-align: center; padding:0px;" md-column md-numeric >
+                            <span>Online Status</span></th>
+                        <th class="gothicFamily" style="text-align: center; padding:0px;" md-column md-numeric >
+                            <span>Is Blocked</span></th>
+                        <th class="gothicFamily" style="text-align: center; padding:0px;" md-column md-numeric >
+                            <span>Actions</span></th>
+
+
+                    </tr>
+                    </thead>
+                    <tbody class="gothicFamily" md-body style="background-color:white;">
+                    <tr class="gothicFamily" md-row md-select="driver" md-on-select="logItem" md-auto-select="options.autoSelect"  ng-repeat="driver in drivers.data | filter: filter.search|orderBy: query.order">
+
+                        <td style="text-align: center; padding:0px;" md-cell>{{driver.driver_id}}</td>
+                        <td style="text-align: center; padding:0px;" md-cell >{{driver.driver_name}} </td>
+                        <!-- <td md-cell  style="padding-right: 10px;    "><img class="img-circle img-thumbnail" style=" height: 100px; width: 100px;" ng-src="{{driver.driver_image}}"></td> -->
+
+                        <!-- <td md-cell>{{driver.car_name}}</td> -->
+                        <!-- <td md-cell>{{driver.total_rides}}</td> -->
+                        <td style="text-align: center; padding:0px;" md-cell ng-click="viewDetails(driver)">{{driver.driver_email}}</td>
+                        <!-- <td md-cell>{{driver.total_rating_driver}}</td> -->
+
+                        <!-- <td md-cell>{{driver.last_login | date}}</td> -->
+                       <!-- <td md-cell>{{driver.last_logout}}</td>-->
+                        <td style="text-align: center; padding:0px;" md-cell>
+                            <div ng-if="driver.is_available === 1" class="fa fa-circle online">
+                            </div>
+                            <div ng-if="driver.is_available === 0" class="fa fa-circle offline"></div>
+                        </td>
+
+                        <td  style="text-align: center; padding:0px;" md-cell ng-if="driver.is_blocked">Yes</td>
+                        <td  style="text-align: center; padding:0px;" md-cell ng-if="!driver.is_blocked">No</td>
+
+                        <td style="text-align: center; padding:0px;" md-cell>
+                            <span>
+                            <i class="material-icons" ng-click="toggleRight('right', driver.driver_id,driver.is_blocked, driver.driver_image,driver.driver_name,driver.driver_mobile,driver.driver_email,driver.total_rides,driver.last_login,driver.total_rating_driver,driver.car_name,driver.total_earned,driver)" style="font-size:38px;color:#757575">more_horiz</i>
+                            <!-- <md-icon style="color: #757575;"  ng-click="driverDetails(driver.driver_id)" >info outline</md-icon>
+                            <md-icon style="color: #ff0000;" ng-show="driver.is_blocked" ng-click="blockunblockdriver_popup(0,driver.driver_id)">lock</md-icon>
+                            <md-icon style="color: #27c24c;" ng-hide="driver.is_blocked" ng-click="blockunblockdriver_popup(1,driver.driver_id)">lock_open</md-icon>
+                            <md-icon style="color: #757575;" ng-click="editDriver(driver)">edit</md-icon> -->
+                        </span>
+                    </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+
+             <!-- <md-table-pagination class="gothicFamily" md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{drivers.count}}" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks" md-on-paginate="getApprovedDriversList"  md-page-select></md-table-pagination> -->
+
+    </md-content>
+</div>
+
+<script type="text/ng-template" id="delete_driver_modalDialog">
+    <div class="ngdialog-message">
+        <h4>Are you sure you want to delete this driver?</h4>
+        <div  style="  margin-top: 20px;text-align: right;">
+            <form method="post" validate-form="" novalidate="" id="approve-driver" >
+                <button type="submit" ng-click="delete_driver()" class="btn btn-mixColor" >Yes</button>
+                <button type="button" ng-click="closeThisDialog(0)" class="btn btn-mixColor" style='margin-left:20px;'>No</button>
+            </form>
+        </div>
+    </div>
+</script>
+
+<!--
+<div class="row">
+  <div class="col-md-6">
+    <h3 style="color: white">
+      Total : {{driverTotal}}
+    </h3>
+    &lt;!&ndash; Today : {{usersToday}} &ndash;&gt;
+  </div>
+  <div class="typeahead-demo col-lg-3 pull-right">
+  <input type="text" ng-model="search" placeholder="Search by name" uib-typeahead="item as item.driver_name for item in totalList | filter:{driver_name:$viewValue} | limitTo:10"
+  typeahead-on-select="openSearch($item, $model, $label, $event)" typeahead-loading="loadingSearch" style="color:white" typeahead-no-results="noResults" class="form-control">
+  <i ng-show="loadingSearch" class="ion-loop"></i>
+  <div ng-show="noResults&&search">
+    <i class="ion-android-close"></i> No Results Found
+  </div>
+</div>
+    <div class="col-md-12">
+        &lt;!&ndash; <button ng-click="AddDriverDialog()" class="btn btn-mixColor pull-right head_button">Add Driver</button> &ndash;&gt;
+        <div style="padding-top: 50px" ba-panel ba-panel-title="List of All Approved Drivers in the System" ba-panel-class="with-scroll">
+            <div class="horizontal-scroll">
+                <table class="table-striped" id="datatableApproved" class="table table-striped" style="width:100%">
+                  <thead>
+                    <tr >
+                        <th class="serialWidth">S.No</th>
+                        <th style="width:240px!important">Driver Details</th>
+                        <th class="datetimewidth">Profile Pic</th>
+                        <th class="datetimewidth">Driver ID</th>
+                        <th class="datetimewidth">Car Type</th>
+                        <th class="datetimewidth">Total Trips</th>
+                        <th class="datetimewidth">Earnings ($) </th>
+                        <th class="datetimewidth">Average Rating</th>
+                        <th class="datetimewidth">Last Login</th>
+                        <th class="datetimewidth">Last Logout</th>
+                        <th class="datetimewidth">Online Status</th>
+                        &lt;!&ndash; <th class="datetimewidth">Status</th> &ndash;&gt;
+                        <th class="datetimewidth">Actions</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr  ng-repeat="data in approvedDrivers track by $index">
+                        <td class="serialWidth">{{(currentPage-1)*10+$index+1}}</td>
+                        <td class="datetimewidth"><b>Name</b> -{{data.driver_name}} <br>
+                            <b>Email</b> - {{data.driver_email}}<br>
+                            <b>Contact</b> - {{data.driver_mobile}}</td>
+                        <td class="datetimewidth">
+                          &lt;!&ndash; <img class="img-circle img-thumbnail" style="width:100px;height:100px;margin:auto" ng-src="{{data.driver_image}}"> &ndash;&gt;
+                          <div fancybox fancybox-image="{{data.driver_image}}" class="viewPicTable" fancybox-template="template.html">
+                            <img class="img-circle img-thumbnail" ng-src="{{data.driver_image}}">
+                          </div>
+                        </td>
+                        <td class="datetimewidth">{{data.driver_id}}</td>
+                        <td class="datetimewidth">{{data.car_name}}</td>
+                        <td class="datetimewidth">{{data.total_rides}}</td>
+                        <td class="datetimewidth">{{data.total_earned}}</td>
+                        <td class="datetimewidth">{{data.average_rating}}</td>
+                        <td class="datetimewidth" ng-if="data.last_login!='0000-00-00 00:00:00'">{{data.last_login|date:'MMM dd yyyy, hh:mm a'}}</td>
+                        <td class="datetimewidth" ng-if="data.last_login=='0000-00-00 00:00:00'">-</td>
+                        <td class="datetimewidth" ng-if="data.last_logout!='0000-00-00 00:00:00'">{{data.last_logout|date:'MMM dd yyyy, hh:mm a'}}</td>
+                        <td class="datetimewidth" ng-if="data.last_logout=='0000-00-00 00:00:00'">-</td>
+                        <td class="datetimewidth">
+                            <div ng-if="data.current_user_status">
+                                <div ng-if="data.is_available" class="fa fa-circle online">
+                                </div>
+                                <div ng-if="!data.is_available" class="fa fa-circle offline"></div>
+                            </div>
+                            <div ng-if="!data.current_user_status" class="fa fa-circle offline"></div>
+
+
+
+                        </td>
+
+                        &lt;!&ndash; <td  data-title="'Status'">
+
+                            <div ng-if="data.current_user_status">
+                                <div ng-if="data.is_available" class="label label-mini"  ng-class="{'label-danger':data.boolean_status, 'label-success':!data.boolean_status}">
+                                    {{data.status}}
+                                </div>
+                                <div ng-if="!data.is_available" class="label label-mini label-inverse">{{data.status}}</div>
+                            </div>
+                            <div ng-if="!data.current_user_status" class="label label-mini label-inverse">{{data.status}}</div>
+                        </td> &ndash;&gt;
+                        <td class="datetimewidth">
+                            &lt;!&ndash;<a class="btn btn-sm btn-purple" ng-click="editdriver(data.driver_id,data.driver_car_no,data.driver_license_number,data.driver_social_security_number,data.car_type,data.phone_no,data.driver_paypal_id,data.driver_car_image)"&ndash;&gt;
+                            &lt;!&ndash;title="Edit Driver">&ndash;&gt;
+                            &lt;!&ndash;<i class="fa fa-edit icon-css"></i>&ndash;&gt;
+                            &lt;!&ndash;</a>&ndash;&gt;
+                            <a class="btn btn-sm btn-default1" title="Details" ng-click="driverDetails(data.driver_id)">
+                              <i class="fa fa-info unblock-icon"></i>
+                            </a>
+                            <a class="btn btn-sm btn-default1" title="Edit" ng-click="editDriver(data)">
+                                <i class="fa fa-pencil icon-css pencil-icon"></i>
+                            </a>
+                            &lt;!&ndash; data.is_blocked =0 means driver is unblock do it block &ndash;&gt;
+                            <a class="btn btn-sm btn-default1" title="Block" style="background-color:rgba(0, 128, 0, 0.4);" ng-hide="data.is_blocked" ng-click="blockunblockdriver_popup(1,data.driver_id)">
+                                <i style="color:white" class="fa fa-unlock unblock-icon"></i>
+                            </a>
+                            <a class="btn btn-sm btn-default1" style="background-color:rgba(255, 0, 0, 0.5);" title="Unblock" ng-show="data.is_blocked" ng-click="blockunblockdriver_popup(0,data.driver_id)">
+                                <i style="color:white" class="fa fa-lock block-icon"></i>
+                            </a>
+                            &lt;!&ndash; <a class="btn btn-sm btn-default1" ng-click="deletedriver(data.driver_id)"
+                               title="Delete" style="margin-top:5px">
+                                <i class="fa fa-trash-o block-icon"></i>
+                            </a> &ndash;&gt;
+                            &lt;!&ndash; <a class="btn btn-sm btn-default1"
+                               title="Change Password" style="margin-top:5px">
+                                <i class="fa fa-asterisk pencil-icon" ng-click = "openPasswordDialog(data.driver_id)"></i>
+                            </a> &ndash;&gt;
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <ul uib-pagination ng-if="totalItems!=0" total-items="totalItems" ng-change="pageChanged(currentPage)" items-per-page="itemsPerPage"
+            ng-model="currentPage" max-size="maxSize" rotate="true"  class="pagination-sm pull-right"
+            style="margin-bottom: 10px" boundary-links="true"></ul>
+    </div>
+
+    <script type="text/ng-template" id="modalDialogId">
+        <div class="ngdialog-message">
+            <h3>Add Driver</h3>
+            <div class="panel panel-default">
+                <form method="post" name="myForm"   ng-submit="myForm.$valid && submit(addDriver)">
+                    <div ng-show="addDriver.successMsg" class="alert alert-success text-center">{{addDriver.successMsg}}</div>
+                    <div ng-show="addDriver.errorMsg" class="alert alert-danger text-center">{{addDriver.errorMsg}}</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <input type="email" name="driver_email" class="form-control"  required  ng-model="addDriver.email" data-parsley-type="email"
+                                   placeholder='Enter the email-id of driver'/>
+                        </div>
+                    </div>
+                    <div class="panel-footer btn-align">
+                        <button type="submit" class="btn btn-mixColor" >Submit</button>
+                        <button type="button" ng-click="closeThisDialog(0)" class="btn btn-mixColor">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </script>
+    <script type="text/ng-template" id="password_dialog">
+        <div class="ngdialog-message">
+            <h3>Change Password of Driver</h3>
+
+            <div class="panel panel-default">
+                <form method="post" name="myForm" ng-submit="myForm.$submitted&&changeDriverPass(driver)">
+                    <div ng-show="driverpass.successMsg" class="alert alert-success text-center">{{driverpass.successMsg}}</div>
+                    <div ng-show="driverpass.errorMsg" class="alert alert-danger text-center">{{driverpass.errorMsg}}</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            Password <span class="astrick">*</span>
+                            <input type="password" placeholder="Enter password" class="form-control"
+                                   ng-model="driver.password" required="required" data-parsley-minlength="6" id="driver_password" autocomplete="off" />
+                        </div>
+                        <div class="form-group">
+                            Confirm Password <span class="astrick">*</span>
+                            <input type="password" placeholder="Confirm password" class="form-control"
+                                   ng-model="driver.confirmpassword"  data-parsley-equalto ="#driver_password" required="required" />
+                        </div>
+
+                    </div>
+                    <div class="panel-footer btn-align">
+                        <button type="submit" class="btn btn-mixColor" >Submit</button>
+                        <button type="button" ng-click="closeThisDialog(0)" class="btn btn-mixColor">Cancel</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+    </script>
+    <script type="text/ng-template" id="delete_driver_modalDialog">
+        <div class="ngdialog-message">
+            <h4>Are you sure you want to delete this driver?</h4>
+            <div  style="  margin-top: 20px;text-align: right;">
+                <form method="post" validate-form="" novalidate="" id="approve-driver" >
+                    <button type="submit" ng-click="delete_driver(delete_driver_id)" class="btn btn-mixColor" >Submit</button>
+                    <button type="button" ng-click="closeThisDialog(0)" class="btn btn-mixColor" style='margin-left:20px;'>Cancel</button>
+                </form>
+            </div>
+        </div>
+    </script>
+    <script type="text/ng-template" id="display_msg_modalDialog">
+        <div class="ngdialog-message">
+            <h4>{{displaymsg}}</h4>
+            <a type="submit" ng-click="refreshPage()" class="btn btn-mixColor" style="margin-top:20px;float:right;">OK</a>
+            <div style="clear: both;"></div>
+        </div>
+    </script>
+    <script type="text/ng-template" id="block_unblock_driver_modalDialog">
+        <div class="ngdialog-message">
+            <h4>{{blockunblockmsg}}</h4>
+            <div >
+                <form method="post" validate-form="" novalidate="" style="text-align: right;margin-top: 20px;">
+                    <button type="submit" ng-click="do_block_unblock_driver(is_blocked,blockunblockid)" class="btn btn-mixColor" >Yes</button>
+                    <button type="button" ng-click="closeThisDialog(0)" class="btn btn-mixColor" style='margin-left:20px;'>No</button>
+                </form>
+            </div>
+        </div>
+    </script>
+    <script type="text/ng-template" id="editDriverDialog">
+        <div class="ngdialog-message">
+            <h3>Update Driver</h3>
+
+            <div class="panel panel-default">
+                <form  name="myForm" ng-submit="myForm.$valid && updateDriver(updateDriverData)" validate-form novalidate >
+
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <input type="hidden" name="driver_id" class="form-control"
+                                   ng-bind="updateDriverData.driver_id"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Vehicle Number</label>
+                            <input type="text" name="vehicle_num"  class="form-control"
+                                   ng-model="updateDriverData.driver_car_no"  ng-required="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">License Number</label>
+                            <input type="text" name="license_num" required="required" class="form-control"
+                                   ng-model="updateDriverData.driver_license_number" data-parsley-type="alphanum"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Social Security Number</label>
+                            <input type="text" name="soc_sec_num" required="required" class="form-control" data-parsley-type="digits"
+                                   ng-model="updateDriverData.driver_social_security_number"/>
+                        </div>
+
+                        <div class="form-group" ng-controller="CarController">
+                            <label class="control-label" placeholder="Select-car">Car Type</label>
+                            <select name="type" class="form-control" ng-model="updateDriverData.car_type" required="required" >
+                                <option ng-repeat="cars in list" ng-value="cars.car_type" ng-selected="cars.car_type == updateDriverData.car_type">{{cars.car_name}}</option>
+                            </select>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label">Phone Number</label><br>
+                            &lt;!&ndash;<input type="text" class="form-control"&ndash;&gt;
+                            &lt;!&ndash;value="+" ng-disabled="true" style="float: left;width: 20px;padding: 5px;"/>&ndash;&gt;
+                            <div style="float: left;background: rgb(238,241,242);padding:5px;">+</div>
+                            <input type="text" name="phn_no" required="required" data-parsley-type="digits" class="form-control"
+                                   ng-model="updateDriverData.phone_no" style="  float: right;width: 91%;" placeholder="phone number with country code"/>
+                            <div style="clear:both"></div>
+                        </div>
+                        &lt;!&ndash;<div class="form-group">&ndash;&gt;
+                        &lt;!&ndash;<label class="control-label">Driver Paypal ID</label>&ndash;&gt;
+                        &lt;!&ndash;<input type="text" name="paypal_id" required="required" class="form-control" data-parsley-type="email"&ndash;&gt;
+                        &lt;!&ndash;ng-model="updateDriverData.driver_paypal_id"/>&ndash;&gt;
+                        &lt;!&ndash;</div>&ndash;&gt;
+                        <div class="form-group">
+                            <label class="control-label">Vehicle Emissions</label>
+
+                            <input type="text" name="vehicle_emissions" required="required" class="form-control"
+                                   ng-model="updateDriverData.vehicle_emissions" ng-pattern="/((\d+)((\.\d{1,2})?))$/"/>
+
+                        </div>
+                        <div  ng-show="myForm.vehicle_emissions.$error.pattern" style="color:#ff0000">Not a  valid input!</div>
+
+                        <div class="form-group">
+                            <label class="control-label">CO2 Produced (per km)</label>
+                            <input type="text" name="co2_produced" required="required" class="form-control"
+                                   ng-model="updateDriverData.co2_produced" ng-pattern="/((\d+)((\.\d{1,2})?))$/"/>
+                        </div>
+                        <div  ng-show="myForm.co2_produced.$error.pattern" style="color:#ff0000">Not a  valid input!</div>
+
+                        <div class="form-group">
+                            <label class="control-label">Upload Vehicle Image</label>
+                            <div class="fileUpload btn btn-info">
+                                <span>Upload</span>
+                                <input filestyle="" type="file" accept="image/*" image="image" onchange="angular.element(this).scope().file_to_upload(this.files)" data-button-text="Single" data-class-button="btn btn-default" data-classinput="form-control inline" nv-file-select="" uploader="uploader" class="form-control upload"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <img ng-src={{uploaded_vehicle_img}}  style="width:100px;height:100px" id="car_image"/>
+                        </div>
+
+                    </div>
+                    <div class="panel-footer btn-align">
+                        <button type="submit"  class="btn btn-mixColor">Submit</button>
+                        <button type="button" ng-click="closeThisDialog(0)" class="btn btn-mixcolor">Cancel
+                        </button>
+                        <div ng-show="successMsg" class="alert alert-success text-center" style="margin-top: 10px;">{{successMsg}}</div>
+                        <div ng-show="errorMsg" class="alert alert-danger text-center" style="margin-top: 10px;">{{errorMsg}}</div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+
+    </script>
+
+
+</div>
+
+-->
+
+<script type="text/ng-template" id="block_unblock_driver_modalDialog">
+        <div class="ngdialog-message gothicFamily">
+            <h4>{{blockunblockmsg}}</h4>
+            <div >
+                <form method="post" validate-form="" novalidate="" style="text-align: right;margin-top: 20px;">
+                    <button type="submit" ng-click="do_block_unblock_driver(is_blocked,blockunblockid)" class="btn btn-mixColor" >Yes</button>
+                    <button type="button" ng-click="closeThisDialog(0)" class="btn btn-mixColor" style='margin-left:20px;'>No</button>
+                </form>
+            </div>
+        </div>
+</script>

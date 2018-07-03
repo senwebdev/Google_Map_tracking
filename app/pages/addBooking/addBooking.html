@@ -1,0 +1,267 @@
+<div class="row">
+    <div style="padding-top: 50px" ba-panel ba-panel-title="Add Booking" ba-panel-class="with-scroll">
+        <div class="horizontal-scroll">
+            <div class="col-lg-4">
+                <form method="post" validate-form="" novalidate="" id="dispatcher_form" >
+                    <!-- START panel-->
+                    <div class="panel panel-default">
+                        <div ng-show="successMsg" class="alert alert-success text-center">{{successMsg}}</div>
+                        <div ng-show="errorMsg" class="alert alert-danger text-center">{{errorMsg}}</div>
+                        <div class="panel-body">
+
+                            <div class="form-group" style="float: left;width: 60%;">
+                                <input type="text" ng-model="asyncSelected" id='search_phone_no'
+                                       placeholder="Search"
+                                       typeahead="address for address in getContactNumber($viewValue)"
+                                       typeahead-on-select="setData(asyncSelected)" typeahead-loading="loadingLocations"
+                                       style="  height: 36px; " class="form-control" ng-disabled="ride_function" typeahead-min-length="3"
+                                       ng-keypress="checkEnterKey($event,asyncSelected)"/>
+                            </div>
+
+                            <div style="float: right;width: 30%;">
+                                <button type="button" class="btn btn-mixColor" ng-click="setData(asyncSelected)" ng-disabled="ride_function"
+                                        style="height: 36px;width:100%;padding: 0px; ">Get Details
+                                </button>
+                            </div>
+                            <div style="clear: both;"></div>
+
+                            <div class="form-group">
+
+                                <input ng-hide="true" type="text" name="id" class="form-control"
+                                       ng-model="info.user_id"/>
+                            </div>
+                            <div class="form-group">
+
+                                <input ng-hide="true" type="text" name="id" class="form-control"
+                                       ng-model="info.access_token"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="name" required="required" class="form-control" disabled="disabled"
+                                       placeholder="Name"
+                                       ng-model="info.user_name"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="email" required="required" class="form-control" disabled="disabled"
+                                       placeholder="Email"
+                                       ng-model="info.user_email"/>
+                            </div>
+
+                            <div class="form-group" >
+                                <label class="control-label" placeholder="Select-car">Car Type</label>
+                                <select name="account" class="form-control" ng-model="info.car_type" required="required" ng-disabled="ride_function">
+                                    <option value="" style="display:none" disabled="disabled">Select Car Type</option>
+                                    <option ng-repeat="cars in carList" ng-value="cars.car_type">{{cars.car_name}}</option>
+                                </select>
+                            </div>
+
+
+                            <div class="form-group" style="float:left;width:85%;">
+                                <input type="text" name="customer_address" required="required" id="address"
+                                       typeahead-on-select="pickUpLocationOnMarker(info.chosenPlace)"  ng-disabled="ride_function"
+                                       class="form-control" placeholder="Pick Up Location"
+                                       ng-change="pickUpMarker(info.chosenPlace)"
+                                       ng-model="info.chosenPlace"  googleplace/>
+                            </div>
+
+                            <img ng-src="assets/img/taxi/marker_red.png" style="height:15px;margin-top: 10px;float: right" ng-click="pickUpLocationOnMarker(info.chosenPlace)" >
+                            <div style="clear: both;"></div>
+
+                            <div class="form-group" style="float:left;width:85%;">
+                                <input type="text" name="customer_drop_off_address" id="drop_off_address"
+                                       class="form-control" placeholder="Drop Off Location(Optional)" ng-disabled="ride_function"
+                                       ng-model="info.dropOffPlace"  googleplace/>
+                            </div>
+                            <img ng-src="assets/img/taxi/marker_green.png" style="height:15px;margin-top: 10px;float: right" ng-click="dropOffLocationOnMarker(info,0)">
+                            <div style="clear: both;"></div>
+                            <div style="float:right;color:#5d9cec" ng-click="promodivshow=!promodivshow">Got a Promocode ?</div>
+                            <div style="clear:both"></div>
+                            <div class="form-group fadein fadeout" ng-show="promodivshow" id="promodiv">
+                                <label class="control-label">Apply Promo Code</label>
+                                <input type="text" name="promo_code"  class="form-control"
+                                       ng-model="info.promo_code" />
+                            </div>
+
+                            <input type="radio" name="book_type" ng-value="false" ng-model="book_type" ng-disabled="ride_function">
+                            <span style="margin-left: 5px;">Manual Booking</span>
+                            <input type="radio" name="book_type" ng-value="true" ng-model="book_type"  style="margin-left: 10px;" ng-disabled="ride_function">
+                            <span style="margin-left: 5px;">Automatic Booking</span>
+                            <br>
+
+                            <input type="radio" name="time" ng-show="book_type" ng-value="false" ng-model="time_value" ng-disabled="ride_function">
+                            <span style="margin-left: 5px;" ng-show="book_type">Now</span>
+                            <input type="radio" name="time" ng-show="book_type" ng-value="true" ng-model="time_value"  style="margin-left: 10px;" ng-disabled="ride_function">
+                            <span style="margin-left: 5px;" ng-show="book_type">Later</span>
+                            <br>
+
+                            <div class="form-group" ng-show="time_value">
+                                <br>
+                                <input type="text" class="form-control" id="pick_up_time" readonly=""
+                                       style="cursor: pointer" placeholder="Pick Up Time(for Later booking)">
+                            </div>
+                            <div ng-show="promosuccessMsg" class="alert alert-success text-center">{{promosuccessMsg}}</div>
+                            <div ng-show="promoerrorMsg" class="alert alert-danger text-center">{{promoerrorMsg}}</div>
+
+                            <div style="text-align: center" >
+                                <button type="button" class="btn btn-mixColor" ng-click="checkBookingStatus(info)"
+                                        style="margin-top: 10px;  width: 99px;"
+                                        ng-disabled="ride_function">{{rideText}}
+                                </button>
+                                <button type="button" class="btn btn-mixColor" ng-click="clearData()"
+                                        style="margin-top: 10px;  width: 99px;">Reset
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- END panel-->
+                </form>
+                <div style="width:70%;margin:auto">
+                    <hr ng-show="approx_price">
+                    <!--<div ng-show="eta_flag" class="approx_val"><span style="float:left" >ETA:</span><span style="float:right" >{{eta}} min </span></div>-->
+                    <div style="clear:both"></div>
+                    <div ng-show="approx_price" class="approx_val"><span>Estimated Price:</span><span style="float:right;">${{estimated_range_min1}} - $ {{estimated_range_max1}}</span></div>
+                    <hr ng-show="approx_price">
+                </div>
+
+
+
+            </div>
+
+            <div class="col-lg-8">
+                <div class="panel panel-default">
+                    <div class="panel-body" >
+                        <div id="map-container" style="height: 350px;margin-bottom: 15px;"></div>
+                        <div style="text-align: center" ng-show="show_driver_flag">
+                            Driver Details
+                            <div class="panel panel-default">
+                                <div class="table-responsive">
+                                    <table id="datatable2" class="table table-striped table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>Driver Name</th>
+                                            <th>Contact Info</th>
+                                            <th>Driver Image</th>
+                                            <th>Vehicle Number</th>
+                                            <th>Status</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>{{driver_data.user_name}}</td>
+                                            <td>{{driver_data.phone}}</td>
+                                            <td style="width:20%"><img ng-src={{driver_data.img_src}} style="width:50%" /></td>
+                                            <td>{{driver_data.car_no}}</td>
+                                            <td>{{driver_data.status}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center" ng-show="manual_drivers">
+                            Driver Details
+                            <div class="panel panel-default">
+                                <div class="table-responsive">
+                                    <table id="driver_table" class="table table-striped table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th style="width:25%;text-align: center;">Select</th>
+                                            <th style="width:25%;text-align: center;">Driver Name</th>
+                                            <th style="width:25%;text-align: center;">Distance</th>
+                                            <th style="width:25%;text-align: center;">Contact-no</th>
+                                            <!--<th style="width:25%;text-align: center;">Request</th>-->
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="data in list">
+                                            <td> <input class="checkbox" type="checkbox" value={{data.user_id}} ng-disabled="ride_function"></td>
+                                            <td>{{data.user_name}}</td>
+                                            <td>{{data.distance}}</td>
+                                            <td>{{data.phone_no}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <button type="button" style="margin: 13px;" class="btn btn-mixColor assignDriver" ng-click="sendDriverRequest()"
+                                            ng-disabled="ride_function">
+                                        Send Request
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script type="text/ng-template" id="reg_modal">
+        <div class="ngdialog-message">
+            <h3>Register User</h3>
+
+            <div class="panel panel-default">
+                <form method="post" validate-form="" novalidate="" ng-submit="NewRegistration(newReg)">
+                    <div ng-show="newReg.successMsg" class="alert alert-success text-center">{{newReg.successMsg}}</div>
+                    <div ng-show="newReg.errorMsg" class="alert alert-danger text-center">{{newReg.errorMsg}}</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            Name <span class="astrick">*</span>
+                            <input type="text" name="name" class="form-control" required="required"
+                                   ng-model="newReg.user_name"
+                                   placeholder='Name'onkeydown="return alphaOnly(event)"/>
+                        </div>
+                        <div class="form-group" style="float: left;">
+                            <div style="background: rgb(238,241,242);padding:5px;">+</div>
+                        </div>
+                        <div class="form-group" style="float: right;width: 91%;">
+                            Phone Number <span class="astrick">*</span>
+                            <input type="text" name="phone_no" class="form-control"
+                                   style="width: 100%;margin-bottom: 15px;" required="required"
+                                   data-parsley-type="number" ng-model="newReg.phone_no" data-parsley-minlength="6" data-parsley-maxlength="15"
+                                   placeholder='Phone Number with Country Code'/>
+                        </div>
+                        <div style="clear:both;"></div>
+                        <div class="form-group">
+                            Email <span class="astrick">*</span>
+                            <input type="email" name="email" class="form-control" ng-model="newReg.email"
+                                   data-parsley-type="email"
+                                   placeholder='E-mail Id*'/>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <button type="submit" class="btn btn-mixColor" ng-hide="time_msg">Submit</button>
+                        <button type="button" ng-click="closeThisDialog(0)" class="btn btn-mixColor" ng-hide="time_msg">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </script>
+    <script type="text/ng-template" id="display_new_reg_msg_modalDialog">
+        <div class="ngdialog-message">
+            <h4>{{displaymsg}}</h4>
+            <a type="submit" ng-click="openNext()" class="btn btn-mixColor"
+               style="margin-top:20px;float:right;">OK</a>
+            <div style="clear: both;"></div>
+        </div>
+    </script>
+    <script type="text/ng-template" id="display_msg_modalDialog">
+        <div class="ngdialog-message">
+            <h4>{{displaymsg}}</h4>
+            <a type="submit" ng-click="refreshPage()" class="btn btn-mixColor"
+               style="margin-top:20px;float:right;">OK</a>
+
+            <div style="clear: both;"></div>
+        </div>
+    </script>
+    <script>
+        function alphaOnly(event) {
+            var key = event.keyCode;
+            return ((key >= 65 && key <= 90) || key == 8 || key == 9 ||key ==32);
+        };
+    </script>
+</div>

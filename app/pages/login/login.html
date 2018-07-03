@@ -1,0 +1,30 @@
+<div class="container">
+        <div class="row">
+            <div class="col-sm-12" style="position:relative;top:-80px;">
+                <img src="assets/generic/img/qudos-logo.svg" alt="Logo Image" class="block-center logo-div" />    
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="auth-block">
+                <div class="signInDiv" ng-if="!$reset">
+                    <h3>Sign in to Qudos Admin</h3>
+                    <form class="form-horizontal" name="myForm" ng-submit="login(loginEmail,loginPassword)">
+                        <div class="form-group has-feedback ">
+                            <input type="email" class="form-control logininpt" id="inputEmail3" style="color: #333!important" placeholder="Email" ng-model="loginEmail" required>
+                            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback ">
+                            <input type="password" class="form-control logininpt" id="inputPassword3" style="color: #333!important" placeholder="Password" ng-model="loginPassword" required>
+                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                            </div>
+                        <div class="form-group">
+                                <button type="submit" class="btn-auth" ng-disabled="myForm.$invalid">Sign in</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+       

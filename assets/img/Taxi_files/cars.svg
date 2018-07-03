@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="19" height="17" viewBox="0 0 19 17">
+    <path fill="#FFF" fill-rule="evenodd" d="M16.653 1.838L18.85 7.6v7.812a.994.994 0 0 1-.293.733.994.994 0 0 1-.732.293H16.75a.994.994 0 0 1-.732-.293.994.994 0 0 1-.293-.733v-.537h-12.5v.537a.994.994 0 0 1-.293.733.994.994 0 0 1-.732.293H1.125a.994.994 0 0 1-.732-.293.994.994 0 0 1-.293-.733V7.6l2.197-5.762c.196-.684.684-1.026 1.465-1.026h11.426c.781 0 1.27.342 1.465 1.026zM3.763 11.75c.422 0 .788-.146 1.098-.44.309-.292.464-.667.464-1.123 0-.455-.155-.83-.464-1.123a1.544 1.544 0 0 0-1.099-.439c-.423 0-.79.146-1.099.44-.309.292-.463.667-.463 1.123 0 .455.154.83.463 1.123.31.293.676.439 1.1.439zm11.425 0c.423 0 .79-.146 1.099-.44.309-.292.463-.667.463-1.123 0-.455-.154-.83-.463-1.123a1.544 1.544 0 0 0-1.1-.439c-.422 0-.788.146-1.098.44-.309.292-.464.667-.464 1.123 0 .455.155.83.464 1.123.31.293.676.439 1.099.439zM2.2 6.525h14.55l-1.562-4.15H3.762L2.2 6.525z"/>
+<!-- Code injected by live-server -->
+<script type="text/javascript">
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function() {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					head.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					head.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function(msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			console.log('Live reload enabled.');
+		})();
+	}
+	// ]]>
+</script>
+</svg>

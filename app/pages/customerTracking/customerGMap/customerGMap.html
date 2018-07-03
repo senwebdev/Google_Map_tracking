@@ -1,0 +1,21 @@
+<!--<div ba-panel>-->
+    <!--<h4 style="margin: 0">Live Tracking (No. Of Customers {{total_no_of_drivers}})</h4>-->
+<!--</div>-->
+<div ba-panel ba-panel-title="{{total_no_of_users}}" class="viewport100">
+
+    <div class="panel-body">
+        <div id="map-div-content">
+            <button id="fullScreen" ng-click="fullscreenToggle()">{{fullScreen}}</button>
+            <input id="pac-input-customer" class="controls" type="text" style="color:#000" placeholder="Search Box">
+            <div id="google-mapsCustomer" style="height: 60vh"></div>
+            <div id="map-info">
+                <div class="fa fa-circle online-free" style="margin:2px"><span>Online - Free</span></div><br>
+                <div class="fa fa-circle busy" style="margin:2px"><span>Online - Busy</span></div><br>
+                <div class="fa fa-circle offmode" style="margin:2px"><span>Offline</span></div><br>
+            </div>
+            <div style="clear:both"></div>
+        </div>
+
+    </div>
+
+</div>

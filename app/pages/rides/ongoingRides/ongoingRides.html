@@ -1,0 +1,113 @@
+<div class="row" ng-if="ongoingList.length>0">
+    <div class="col-md-12">
+            <h3 style="color: white">
+                    Total : {{totalItems}}
+                <!--Today : {{ridesToday}}-->
+            </h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div style="text-align:center" ba-panel ba-panel-title="No Ongoing Rides" ba-panel-class="with-scroll" ng-if="ongoingList.length==0">
+          <img src="assets/img/taxi/no_ride.svg"/>
+        </div>
+        <div ng-show="ongoingList.length>0">
+          <label class="pull-left" style="padding-top: 15px;">Sort By : </label>
+          <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12 pull-left">
+
+            <div class="btn-group bootstrap-select form-control">
+                <button type="button" class="btn dropdown-toggle btn-default" data-toggle="dropdown" aria-expanded="true">
+                    <span class="filter-option pull-left" style="text-transform: capitalize">{{sortByKey}}</span>&nbsp;<span class="bs-caret">
+                        <span class="caret"></span>
+                    </span>
+                </button>
+                <div class="dropdown-menu open" style="max-height: 427px; overflow: hidden; min-height: 89px;">
+                    <ul class="dropdown-menu inner" role="menu" style="max-height: 416px; overflow-y: auto; min-height: 78px;">
+                        <li ng-repeat="sortVar in sortByItems">
+                            <a tabindex="0" class="" style="" data-tokens="null" ng-click="sortBy(sortVar)">
+                                <span class="text" style="text-transform: capitalize">{{sortVar.label}}</span>
+                                <span class="glyphicon glyphicon-ok check-mark"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+          </div>
+        </div>
+        <ul uib-pagination ng-show="ongoingList.length>0" total-items="totalItems" ng-change="pageChanged(currentPage)" items-per-page="itemsPerPage"
+            ng-model="currentPage" max-size="maxSize" rotate="true"  class="pagination-sm pull-right"
+            style="margin-bottom: 10px" boundary-links="true"></ul>
+        <div style="padding-top: 50px" ba-panel ba-panel-title="List of All Ongoing Rides" ba-panel-class="with-scroll" ng-show="ongoingList.length>0">
+            <div class="horizontal-scroll">
+                <table id="datatableOngoing" class="table table-striped table-hover" >
+                    <thead>
+                    <tr>
+                        <th class="serialWidth">S.No.</th>
+                        <th class="datetimewidth">Session ID</th>
+                        <th class="datetimewidth">Date</th>
+                        <th class="datetimewidth">Customer Details</th>
+                        <th class="datetimewidth">Driver Details</th>
+                        <th class="datetimewidth">Car Details</th>
+                        <th class="datetimewidth">Pick Up Location</th>
+                        <th class="datetimewidth">Pick Up Time</th>
+                        <th class="datetimewidth">Drop off Location</th>
+                        <th class="datetimewidth">Drop off Time</th>
+                        <th class="datetimewidth">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="data in ongoingList track by $index">
+                        <td class="serialWidth">{{(currentPage-1)*10+$index+1}}</td>
+                        <td class="datetimewidth">{{data.session_id}}</td>
+                        <td class="datetimewidth">{{data.accept_time|date:'MMM dd yyyy, hh:mm a'}}</td>
+                        <td class="datetimewidth">
+                          <b>Name - </b>{{data.user_name}} <br>
+                          <b>Contact - </b>{{data.user_mobile}}<br>
+                          <!-- <img class="img-circle img-thumbnail" style="width:100px;height:100px;margin:auto" ng-src="{{data.user_image}}"> -->
+                        </td>
+                        <td class="datetimewidth" ng-if="data.driver_name!=null">
+                          <b>Name - </b>{{data.driver_name}} <br>
+                          <b>Contact - </b>{{data.driver_mobile}}<br>
+                          <!-- <img class="img-circle img-thumbnail" style="width:100px;height:100px;margin:auto" ng-src="{{data.driver_image}}"> -->
+                        </td>
+                        <td class="datetimewidth" ng-if="data.driver_name==null">N/A</td>
+                        <td class="datetimewidth">
+                          <b>Type - </b>{{data.car_name}} <br>
+                          <b>Number - </b>{{data.car_no}}<br>
+                          <!-- <img class="img-circle img-thumbnail" style="width:100px;height:100px;margin:auto" ng-src="{{data.car_image}}"> -->
+                        </td>
+                        <td class="datetimewidth">{{data.pickup_location_address}}</td>
+                        <td class="datetimewidth" ng-if="data.start_time!=null">{{data.start_time|date:'MMM dd yyyy, hh:mm a'}}</td>
+                        <td class="datetimewidth" ng-if="data.start_time==null">N/A</td>
+                        <td class="datetimewidth">{{data.manual_destination_address}}</td>
+                        <td class="datetimewidth" ng-if="data.drop_time!=null">{{data.drop_time|date:'MMM dd yyyy, hh:mm a'}}</td>
+                        <td class="datetimewidth" ng-if="data.drop_time==null">N/A</td>
+                        <td class="datetimewidth"></td>
+                      </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script type="text/ng-template" id="force_stop_modalDialog">
+        <div class="ngdialog-message">
+            <h4>Are you sure you want to complete this ride?</h4>
+            <div >
+                <form method="post" validate-form="" novalidate="" style="text-align: right;margin-top: 20px;">
+                    <button type="submit" ng-click="force_stop()" class="btn btn-primary" >Yes</button>
+                    <button type="button" ng-click="closeThisDialog(0)" class="btn btn-default" style='margin-left:20px;'>No</button>
+                </form>
+            </div>
+        </div>
+    </script>
+    <script type="text/ng-template" id="display_msg_modalDialog">
+        <div class="ngdialog-message">
+            <h4>{{displaymsg}}</h4>
+            <a type="submit" ng-click="refreshPage()" class="btn btn-primary" style="margin-top:20px;float:right;">OK</a>
+            <div style="clear: both;"></div>
+        </div>
+    </script>
+
+
+
+</div>

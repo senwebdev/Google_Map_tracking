@@ -1,0 +1,247 @@
+<div class="row">
+    <div class="col-md-12">
+        <div style="padding-top: 50px" ba-panel ba-panel-title="List of All" ba-panel-class="with-scroll">
+            <div class="horizontal-scroll">
+                <form method="post" name="approve" ng-submit="approve.$submitted&&approveDriverFunction()">
+
+                    <!-- START panel-->
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div id="panelPortlet13" class="panel panel-theme">
+                                <div class="panel-heading">User Details</div>
+                            </div>
+
+                            <div class="col-lg-6">
+
+                                <div class="form-group">
+                                    <label class="control-label">Driver Name<span class="astrick">*</span></label>
+                                    <input type="text" name="driver_name" required="required" class="form-control"
+                                           ng-model="approveDriver.driver_name" onkeydown="return alphaOnly(event)">
+                                </div>
+
+                                <div class="form-group ">
+                                    <label class="control-label">Email-Id<span class="astrick">*</span></label>
+                                    <input type="text" name="email_id" required="required" class="form-control" data-parsley-type="email"
+                                           readonly=""
+                                           ng-model="approveDriver.email_id"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">Mobile Number<span class="astrick">*</span></label><br>
+                                    <div style="float: left;background: rgb(238,241,242);padding:5px;">+</div>
+                                    <div style="float: right;width: 91%;">
+                                        <input type="text" name="phn_no" required="required" data-parsley-type="digits" class="form-control"
+                                               ng-model="approveDriver.phn_no"
+                                               placeholder="Phone number with country code" maxlength="12" onkeypress="javascript:return check_number(event)"/>
+                                    </div>
+                                    <div style="clear:both"></div>
+                                </div>
+
+                                <div class="form-group ">
+                                    <label class="control-label">Licence Number<span class="astrick">*</span></label>
+                                    <input type="text" name="license_number" required="required" class="form-control"
+                                           ng-model="approveDriver.license_number" onkeypress="javascript:return IsAlphaNumeric(event)"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">Licence Expiry<span class="astrick">*</span></label>
+                                    <input class="form-control date_input_field" required="required" ng-model="approveDriver.license_expiry"
+                                           id="license_expiry"  type="text" placeholder="Expires on">
+                                    <input type="text" class="form-control" datepicker-popup="yyyy-mm-dd" ng-model="approveDriver.license_expiry" is-open="popup1.opened"
+                                           datepicker-options="dateOptions" placeholder="Expires on" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                                </div>
+
+                                <div class="form-group ">
+                                    <label class="control-label">Vehicle Number<span class="astrick">*</span></label>
+                                    <input type="text" name="driver_vehicle_number" required="required" class="form-control"
+                                           ng-model="approveDriver.driver_vehicle_number" onkeypress="javascript:return IsAlphaNumeric(event)"/>
+                                </div>
+
+                                <div class="form-group ">
+                                    <label class="control-label">Vehicle Model<span class="astrick">*</span></label>
+                                    <input type="text" name="vehicle_model" required="required" class="form-control"
+                                           ng-model="approveDriver.vehicle_model" onkeypress="javascript:return IsAlphaNumeric(event)"/>
+                                </div>
+
+                                <!--<div class="form-group ">-->
+                                <!--<label class="control-label">Commission<span class="astrick">*</span></label>-->
+                                <!--<input type="text" name="commission" required="required" class="form-control" data-parsley-type="number"-->
+                                <!--data-parsley-min="0" data-parsley-max="100"-->
+                                <!--ng-model="approveDriver.commission"/>-->
+                                <!--</div>-->
+
+                                <div class="form-group" >
+                                    <label class="control-label" placeholder="Select-car">Car Type <span class="astrick">*</span></label>
+                                    <select name="account" class="form-control" ng-model="approveDriver.car_type" required="" ng-options="item.car_type as item.car_name for item in list">
+                                        <option value="" disabled="disabled">Select car Type</option>
+                                        <!--<option ng-repeat="cars in list" ng-value="cars.car_type" ng-selected="cars.car_type == approveDriver.car_type">{{cars.car_name}}</option>-->
+                                    </select>
+                                </div>
+                                <!--<div class="form-group ">-->
+                                <!--<label class="control-label">Car Name<span class="astrick">*</span></label>-->
+                                <!--<input type="text" name="driver_car_name" required="required" class="form-control"-->
+                                <!--ng-model="approveDriver.car_name" onkeypress="javascript:return IsAlphaNumeric(event)"/>-->
+                                <!--</div>-->
+                            </div>
+                            <!-- end of left div -->
+
+
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div style="display:flex">
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <label class="control-label">Driver Image<span class="astrick">*</span></label>
+
+                                            <div class="fileUpload btn btn-info">
+                                                <span>Upload</span>
+                                                <input filestyle="" type="file" accept="image/*" image="image"
+                                                       onchange="angular.element(this).scope().file_to_upload(this.files,1)"
+                                                       data-button-text="Single" data-class-button="btn btn-default"
+                                                       data-classinput="form-control inline" nv-file-select=""
+                                                       uploader="uploader" class="form-control upload"/>
+                                            </div>
+                                            <br>
+                                            <span>{{driver_image_name}}</span>
+                                            <br>
+                                  <span class="portfolio">
+                                    <a target="_self" href="{{driver_image}}" download="{{driver_image_name}}"
+                                       title="Driver Image">
+                                        <img ng-src="{{driver_image}}"
+                                             id="driver_image">
+                                    </a>
+                                  </span>
+                                        </div>
+
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <label class="control-label">Vehicle Image<span class="astrick">*</span></label>
+
+                                            <div class="fileUpload btn btn-info">
+                                                <span>Upload</span>
+                                                <input filestyle="" type="file" accept="image/*" image="image"
+                                                       onchange="angular.element(this).scope().file_to_upload(this.files,0)"
+                                                       data-button-text="Single" data-class-button="btn btn-default"
+                                                       data-classinput="form-control inline" nv-file-select=""
+                                                       uploader="uploader" class="form-control upload"/>
+                                            </div>
+                                            <br>
+                                            <span>{{vehicle_image_name}}</span>
+                                            <br>
+                                 <span class="portfolio">
+                                    <a target="_self" href="{{vehicle_image}}" download="{{vehicle_image_name}}"
+                                       title="Vehicle Image">
+                                        <img  ng-src="{{vehicle_image}} "
+                                              id="vehicle_image">
+                                    </a>
+                                 </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end of right div -->
+
+                        </div>
+                        <div class="panel-footer" style="text-align:center">
+                            <button type="submit"  class="btn btn-mixColor">Submit</button>
+                        </div>
+                    </div>
+                    <!-- END panel-->
+
+
+
+                    <div class="col-lg-12">
+                        <div class="col-lg-3"></div>
+                        <div class="col-lg-6" style=' margin: auto;'>
+
+                            <div ng-show="successMsg" class="alert alert-success text-center" style="margin-top: 10px;">{{successMsg}}</div>
+                            <div ng-show="errorMsg" class="alert alert-danger text-center" style="margin-top: 10px;">{{errorMsg}}</div>
+
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <script type="text/ng-template" id="display_msg_modalDialog">
+        <div class="ngdialog-message">
+            <h4>{{displaymsg}}</h4>
+            <a type="submit" ng-click="refreshPage()" class="btn btn-mixColor" style="margin-top:20px;float:right;">OK</a>
+            <div style="clear: both;"></div>
+        </div>
+    </script>
+    <script type="text/ng-template" id="display_msg_modalDialogSuccess">
+        <div class="ngdialog-message">
+            <h4>{{displaymsg}}</h4>
+            <a type="submit" ng-click="refreshPage(1)" class="btn btn-mixColor" style="margin-top:20px;float:right;">OK</a>
+            <div style="clear: both;"></div>
+        </div>
+    </script>
+    <script>
+        $('#license_expiry').datepicker({
+            format : 'yyyy-mm-dd',
+            viewMode: "years",
+            minViewMode: "months",
+            autoclose: true,
+            startDate:new Date()
+        });
+        $('#license_expiry').change(function(){
+            $(this).removeClass("parsley-error");
+            var a = $(this).addClass("parsley-success");
+            a.siblings("ul").removeClass("filled");
+        });
+    </script>
+    <script>
+        function alphaOnly(event) {
+            var key = event.keyCode;
+            return ((key >= 65 && key <= 90) || key == 8 || key == 9 ||key ==32);
+        }
+    </script>
+
+    <script type="text/javascript">
+        var specialKeys = new Array();
+        specialKeys.push(8); //Backspace
+        //        specialKeys.push(9); //Tab
+        specialKeys.push(46); //Delete
+        specialKeys.push(36); //Home
+        specialKeys.push(35); //End
+        specialKeys.push(37); //Left
+        specialKeys.push(39); //Right
+        function IsAlphaNumeric(e) {
+            var keyCode = e.keyCode == 0 ? e.charCode : e.keyCode;
+            var ret = ((keyCode >= 48 && keyCode <= 57) || (keyCode >= 65 && keyCode <= 90) || (keyCode >= 97 && keyCode <= 122) || (specialKeys.indexOf(e.keyCode) != -1 && e.charCode != e.keyCode));
+
+            return ret;
+        }
+    </script>
+    <script>
+        function isNumber(evt) {
+            var iKeyCode = (evt.which) ? evt.which : evt.keyCode
+            if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
+                return false;
+            return true;
+        }
+    </script>
+    <script>
+        function check_number(event) {
+            if(!(event.charCode>47 && event.charCode<58) && event.charCode && !(event.metaKey || event.ctrlKey))
+                event.preventDefault();
+        }
+    </script>
+</div>
+<style>
+    .glyphicon {
+        position: relative;
+        top: 1px;
+        display: inline-block;
+        font-family: 'Glyphicons Halflings';
+        font-style: normal;
+        font-weight: normal;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .glyphicon-calendar:before {
+        content: "\e109";
+    }
+</style>

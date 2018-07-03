@@ -1,0 +1,58 @@
+<!--<div ba-panel>-->
+    <!--<h4 style="margin: 0">Live Tracking (No. Of Customers {{total_no_of_drivers}})</h4>-->
+<!--</div>-->
+<style>
+    .paddingTop {
+        padding-top: 30px;
+    }
+</style>
+<div class="row paddingTop">
+  <label class="pull-left" style="margin-left: 30px; color: #838383 !important; padding-top: 10px;">Car Type : </label>
+  <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12 pull-left">
+    <div class="btn-group bootstrap-select form-control">
+        
+        <button type="button" class="btn dropdown-toggle btn-default" data-toggle="dropdown" aria-expanded="true">
+            <span class="filter-option pull-left" style="color: #838383 !important;text-transform: capitalize;">{{car_type_name}}</span>&nbsp;<span class="bs-caret">
+                <span class="caret"></span>
+            </span>
+        </button>
+
+        <div class="dropdown-menu open" style="max-height: 427px; overflow: hidden; min-height: 89px;">
+            <ul class="dropdown-menu inner" role="menu" style="max-height: 416px; overflow-y: auto; min-height: 78px;">
+                <li>
+                    <a style="color: #838383 !important;text-transform: capitalize" tabindex="0" class="" style="" data-tokens="null" ng-click="sortBy(0)">
+                        <span class="text" style="color: #838383 !important;text-transform: capitalize">All Car Types</span>
+                        <span class="glyphicon glyphicon-ok check-mark"></span>
+                    </a>
+                </li>
+                <li ng-repeat="car in carTypes">
+                    <a tabindex="0" class="" style="" data-tokens="null" ng-click="sortBy(car)">
+                        <span class="text" style="text-transform: capitalize">{{car.car_name}}</span>
+                        <span class="glyphicon glyphicon-ok check-mark"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+  </div>
+</div>
+
+<div ba-panel ba-panel-title="{{total_no_of_users}}" class="viewport100" style="padding-top:20px">
+
+    <div class="panel-body">
+        <div id="map-div-content">
+            <!-- <button id="fullScreen" ng-click="fullscreenToggle()">{{fullScreen}}</button> -->
+            <input id="pac-input-customer" class="controls" type="text" style="color:#000" placeholder="Search Box">
+            <div id="google-mapsDriver" style="height: 70vh"></div>
+            <div id="map-info">
+                <div class="fa fa-circle online-free" style="margin:2px"><span>Online - Free</span></div><br>
+                <div class="fa fa-circle busy" style="margin:2px"><span>Online - Busy</span></div><br>
+                <div class="fa fa-circle offmode" style="margin:2px"><span>Offline</span></div><br>
+            </div>
+            <div style="clear:both"></div>
+        </div>
+
+    </div>
+
+</div>

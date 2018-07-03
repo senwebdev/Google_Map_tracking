@@ -1,0 +1,59 @@
+<style>
+    body:before
+{
+    background-color: white!important;
+   
+}
+.panel-body {
+    background-color: white!important;
+    border-color:#c0c0c0;
+}
+.gothicFamily {
+   font-family: 'gothic';
+}
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <md-button ng-click="back()" class="btn btn-secondary pull-right head_button gothicFamily">BACK</md-button>
+        <div class="gothicFamily" ba-panel ba-panel-title="User Details" ba-panel-class="with-scroll" style="padding-top:50px;font-family: 'gothic';">
+           
+            <div class="horizontal-scroll gothicFamily">
+                <form enctype="multipart/form-data" ng-submit="editForm.$submitted&&editSave()" name="editForm" id="editForm">
+                    <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12">
+                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12">
+                            <div class="col-lg-4 col-xs-12 col-md-4 col-sm-4 text-center" style="margin-bottom:15px">
+                                <img class="img-circle img-thumbnail" style="width:150px;height:150px;margin:auto" ng-src="{{userTemp.user_image}}">
+                                <br>
+                                <div class="fileUploadAdd btn btn-info" style="margin: 20px auto;">
+                                    <span><i class="fa fa-paperclip"></i></span>
+                                    <input filestyle="" type="file" accept="image/png,image/jpg,image/jpeg" image="image" onchange="angular.element(this).scope().file_to_upload(this.files)" data-button-text="Single" data-class-button="btn btn-default" data-classinput="form-control inline"
+                                        nv-file-select="" uploader="uploader" class="form-control upload" data-errormessage="Please select a file" />
+                                </div>
+                                <p class="fileName col-lg-12 col-sm-12 col-md-12 col-xs-12 tlc_name text-center" ng-if="userTemp.user_image_name!=''">{{userTemp.user_image_name}}</p>
+                            </div>
+
+                            <div class="col-lg-8 col-xs-12 col-md-8 col-sm-8" style="margin-bottom:15px">
+                                <label>Name</label>
+                                <input ng-model="userTemp.user_name" class="form-control" style="margin-bottom:15px" required>
+                                <label>Contact</label>
+                                <input ng-model="userTemp.user_mobile" class="form-control" style="margin-bottom:15px" required>
+                                <label>Email</label>
+                                <input ng-model="userTemp.user_email" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-top:20px;margin-bottom:20px;text-align:center">
+                        <md-button type="submit" class="btn btn-sm btn-secondary gothicFamily">SAVE</md-button>
+                        <md-button type="button" class="btn btn-sm btn-secondary gothicFamily" ng-click="back()">CANCEL</md-button>
+                        <!-- ng-if="docLength>0" -->
+                        <!-- <a style="background: #c0c0c0;color: #505050;max-width: 190px;margin: 15px"
+              class="btn btn-sm btn-mixColor">Add Documents</a> -->
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

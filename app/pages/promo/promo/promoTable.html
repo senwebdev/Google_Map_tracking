@@ -1,0 +1,158 @@
+<style>
+.gothicFamily {
+   font-family: 'gothic';
+}
+.al-content {
+  padding: 0px 20px 0px 30px;
+}
+table.md-table .md-row:hover {
+  -webkit-box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+  -moz-box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+  box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+}
+</style>
+<div class="row gothicFamily">
+    <div >
+        <md-content layout="column" >
+            <!-- <md-card> -->
+                <md-toolbar class="md-table-toolbar md-default" ng-hide="options.rowSelection && selected.length">
+                    <div class="md-toolbar-tools">
+                        <span>Promo Codes</span>
+                        <div flex></div>
+                        <md-button id="addPromo" class="btn btn-secondary" ui-sref="promo.add" ng-style="GENERICS.promoBtnX">ADD PROMO CODE</md-button>
+                    </div>
+                </md-toolbar>
+                <md-toolbar class="md-table-toolbar alternate" ng-show="options.rowSelection && selected.length">
+                    <div class="md-toolbar-tools">
+                        <span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
+                    </div>
+                </md-toolbar>
+                <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{desserts.count}}" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination"></md-table-pagination>
+                <md-table-container>
+                    <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
+                        <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
+                        <tr class="gothicFamily" md-row>
+                            <th style="text-align: center;" md-column md-order-by="promo_code"><span>Promo Code</span></th>
+                            <th style="text-align: center;" md-column md-numeric md-order-by="promo_type"><span>Promo Type</span></th>
+                            <th style="text-align: center;" md-column md-numeric  ><span>Image</span></th>
+                            <th style="text-align: center;" md-column md-numeric md-order-by="description" md-desc><span>Description</span></th>
+                            <th style="text-align: center;" md-column md-numeric md-order-by="start_date"><span>Start Date</span></th>
+                            <th style="text-align: center;" md-column md-numeric md-order-by="end_date"><span>End Date</span></th>
+                            <th style="text-align: center;" md-column md-numeric md-order-by="max_off" ><span>Maximum Discount</span></th>
+                            <th style="text-align: center;" md-column md-numeric md-order-by="percent_discount" ><span>Variable Discount</span></th>
+                            <th style="text-align: center;" md-column md-numeric md-order-by="days_validity"><span>Validity ( No. of Days )</span></th>
+                            <th style="text-align: center;" md-column md-numeric md-order-by="number_issued" hide-gt-xs show-gt-md><span>Number's Issued</span></th>
+                            <th style="text-align: center;" md-column md-numeric md-order-by="per_user" hide-gt-xs show-gt-lg><span>User Quota</span></th>
+                        </tr>
+                        </thead>
+                        <tbody md-body>
+                        <tr class="gothicFamily" md-row md-select="dessert" md-on-select="logItem" md-auto-select="options.autoSelect" ng-disabled="dessert.calories.value > 400" ng-repeat="dessert in desserts.data | filter: filter.search | orderBy: query.order">
+                            <td md-cell>{{dessert.promo_code}}</td>
+                            <td style="text-align: center;" md-cell>{{dessert.promo_type}}</td>
+                            <td md-cell><img  style="height: 60px; width: 60px;" ng-src="{{dessert.promo_image}}"></td>
+                            <td style="text-align: center;padding: 0px;" md-cell>{{dessert.description}}</td>
+                            <td style="text-align: center;padding: 0px;" md-cell>{{dessert.start_date | date}}</td>
+                            <td style="text-align: center;padding: 0px;" md-cell>{{dessert.end_date | date}}</td>
+
+                            <td style="text-align: center;" md-cell><span>{{dessert.max_off}}</span></td>
+                            <td style="text-align: center;" md-cell><span ng-if="dessert.promo_type">{{dessert.percent_discount}} %</span><span ng-if="!dessert.promo_type">N.A.</span></td>
+                            <td style="text-align: center;" md-cell>{{dessert.days_validity}}</td>
+                            <td style="text-align: center;" md-cell hide-gt-xs show-gt-md>{{dessert.number_issued}}</td>
+                            <td style="text-align: center;" md-cell hide-gt-xs show-gt-lg>{{dessert.per_user}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </md-table-container>
+            <!-- </md-card> -->
+        </md-content>
+    </div>
+    <script type="text/ng-template" id="tabDialog.tmpl.html">
+        <md-dialog aria-label="Login Dialog" style="max-height: 100%; top:50px;" class="md-primary">
+            <form class="gothicFamily">
+                <md-toolbar>
+                    <div class="md-toolbar-tools gothicFamily">
+                        <h2> ADD NEW PROMOCODE</h2>
+                        <span flex></span>
+                        <md-button class="md-icon-button" ng-click="cancel()">
+                            <md-icon md-font-icon="zmdi zmdi-close" aria-label="Close Login dialog"></md-icon>
+                        </md-button>
+                    </div>
+                </md-toolbar>
+                <md-dialog-content style="min-width:360px; max-height: 100%;">
+                    <md-content layout-padding>
+                        <div>
+                            <form name="userForm">
+
+                                <div layout-gt-xs="row">
+                                    <md-input-container class="md-block gothicFamily" flex-gt-xs>
+                                        <label>Promo Code Name</label>
+                                        <input ng-model="promo.promo_code" >
+                                    </md-input-container>
+                                </div>
+                                <div>
+                                    <md-input-container class="md-block gothicFamily">
+                                        <label>Date Range</label>
+                                        <input
+                                                class="form-control daterange"
+                                                type="daterange"
+                                                ng-model="dates.dates2"
+                                                format="YYYY/MM/DD"
+                                                separator=" "
+                                                ng-blur="dateFilter()" required>
+                                    </md-input-container>
+                                </div>
+                                <md-input-container class="md-block gothicFamily">
+                                    <label>Description</label>
+                                    <input ng-model="promo.decription">
+                                </md-input-container>
+                                <div layout-gt-sm="row">
+                                    <md-input-container class="md-block gothicFamily" flex-gt-sm>
+                                        <label>Validity</label>
+                                        <input ng-model="promo.days_validity" ng-pattern="/^[0-9]{5}$/">
+                                    </md-input-container>
+
+                                    <md-input-container class="md-block gothicFamily" flex-gt-sm>
+                                        <label>No. Of Coupons</label>
+                                        <input ng-model="promo.number_issued" ng-pattern="/^[0-9]{5}$/">
+                                    </md-input-container>
+
+                                    <md-input-container class="md-block gothicFamily" flex-gt-sm>
+                                        <label>No. of Coupons/User</label>
+                                        <input name="postalCode" ng-model="promo.per_user"
+                                               required ng-pattern="/^[0-9]{5}$/" >
+                                    </md-input-container>
+                                </div>
+                                <div layout-gt-sm="row">
+                                <md-input-container class="md-block gothicFamily" flex-gt-sm>
+                                    <label>Maximum Discount</label>
+                                    <input ng-model="user.city">
+                                </md-input-container>
+
+                                    <div class="md-block gothicFamily" flex-right>
+                                        <label style="color: #b6b6b6;" >Promo Image</label>
+                                        <div class="form-group">
+                                            <img id="promo_code_image" class='uploaded_img left-div'
+                                                 style="width:100px;height:100px" id="promo_code_image"/>
+                                        </div>
+                                        <div style="clear:both"></div>
+                                        <div class="fileUpload btn btn-mixColor">
+                                            <span class="fa fa-folder-open">Upload</span>
+                                            <input id="imagecropupload" filestyle="" type="file" accept="image/*"
+                                                   onchange="file_to_upload(this.files)"
+                                                   data-button-text="Single" data-class-button="btn btn-default"
+                                                   data-classinput="form-control inline" nv-file-select="" uploader="uploader"
+                                                   class="form-control upload" img-cropper-fileread image="cropper.sourceImage" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <md-button class="md-raised md-primary gothicFamily">ADD PROMO CODE</md-button>
+                                </md-input-container>
+                            </form>
+                        </div>
+                    </md-content>
+                </md-dialog-content>
+            </form>
+        </md-dialog>
+    </script>
+</div>

@@ -1,0 +1,126 @@
+<style>
+ .panel-body { color: #000 !important; background-color: #fff !important; }
+</style>
+
+<div class="col-lg-6" style="float: none">
+    <div style="padding-top: 50px" ba-panel ba-panel-title="Fare Details" ba-panel-class="with-scroll">
+    <div class="horizontal-scroll">
+
+    <form method="post" validate-form="" novalidate="" ng-submit="addCarFare(cars)" id="add-promo">
+        <!-- START panel-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title " style="text-align: center">Update Car Fare</div>
+            </div>
+            <div ng-if="successMsg" class="alert alert-success text-center">{{successMsg}}</div>
+            <div ng-if="errorMsg" class="alert alert-danger text-center">{{errorMsg}}</div>
+            <div class="panel-body">
+                <div class="form-group col-md-6">
+
+                    <label class="control-label" placeholder="Select-car">Select Region<span class="astrick">*</span></label>
+                    <select name="account" required="required"class="form-control" ng-model="region_id" ng-change="set(1)" ng-options="item.region_id as item.region_name for item in regionlist" ng-selected="item.region_id == region_id">
+                        <option value="" disabled="disabled">Select Region Type</option>
+                        <!--<option ng-repeat="item in regionlist"  ng-value="{{item.region_id}}" ng-selected="item.region_id == region_id">{{item.region_name}}</option>-->
+                        <!--<option value="" style="display:none" disabled="disabled">&#45;&#45; Select Region &#45;&#45;</option>-->
+
+                    </select>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label class="control-label" placeholder="Select-car">Car Type<span class="astrick">*</span></label>
+                    <select name="account" required="required"class="form-control" ng-model="select_car" 
+                    ng-change="set(1,select_car)" ng-options="item.car_type as item.car_name for item in list">
+                        <option value="" disabled>Select Car Type</option>
+                        <!--<option ng-repeat="cars in list"  ng-value="{{cars.car_type}}" ng-selected="cars.car_type == select_car">{{cars.car_name}}</option>-->
+                        <!--<option value="" style="display:none" disabled="disabled">&#45;&#45; Select Car Type &#45;&#45;</option>-->
+
+                    </select>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <h5 class="control-label fare_heading">Car Fares</h5>
+                        <hr class="line-hr">
+                        <div class="form-group">
+                            <span class="control-label">Per Min</span>
+                            <input type="number" name="start_date" required="required" class="form-control" data-parsley-type="number"
+                                   ng-model="cars.fare_per_min" onkeypress="javascript:return isNumber(event)"/>
+                        </div>
+                        <div class="form-group">
+                            <span class="control-label">Per Mile</span>
+                            <input type="number" name="end_date" required="required" class="form-control" data-parsley-type="number"
+                                   ng-model="cars.fare_per_km" onkeypress="javascript:return isNumber(event)"/>
+                        </div>
+                        <div class="form-group">
+                            <span class="control-label">Base</span>
+                            <input type="number" name="num_coupons" required="required" class="form-control" data-parsley-type="number"
+                                   ng-model="cars.fare_fixed" onkeypress="javascript:return isNumber(event)"/>
+                        </div>
+                        <div class="form-group">
+                            <span class="control-label">Cancellation Fee</span>
+                            <input type="number" name="cancellation_fee" required="required" class="form-control" data-parsley-type="number"
+                                   ng-model="cars.cancellation_fee" onkeypress="javascript:return isNumber(event)"/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="control-label fare_heading">Threshold Fares</h5>
+                        <hr class="line-hr">
+                        <div class="form-group">
+                            <span class="control-label">Distance</span>
+                            <input type="number" required="required" class="form-control" data-parsley-type="number"
+                                   ng-model="cars.fare_threshold_distance" onkeypress="javascript:return isNumber(event)"/>
+                        </div>
+                        <div class="form-group">
+                            <span class="control-label">Time</span>
+                            <input type="number" required="required" class="form-control" data-parsley-type="number"
+                                   ng-model="cars.fare_threshold_time" onkeypress="javascript:return isNumber(event)"/>
+                        </div>
+                        <div class="form-group">
+                            <span class="control-label">Wait (Per Min)</span>
+                            <input type="number" required="required" class="form-control" data-parsley-type="number"
+                                   ng-model="cars.wait_time_fare_per_min" onkeypress="javascript:return isNumber(event)"/>
+                        </div>
+                        <div class="form-group">
+                            <span class="control-label">Cancellation Time</span>
+                            <input type="number" name="cancellation_time" required="required" class="form-control" data-parsley-type="number"
+                                   ng-model="cars.cancellation_time" onkeypress="javascript:return isNumber(event)"/>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="control-label fare_heading">Other Details</h5>
+                        <hr class="line-hr">
+                        <div class="form-group">
+                            <span class="control-label">Car Seats</span>
+                            <input type="number" required="required" class="form-control" data-parsley-type="digits"
+                                   ng-model="cars.car_seats" onkeypress="javascript:return check_number(event)"/>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="panel-footer">
+                <button type="submit" class="btn btn-mixColor">Update Fare</button>
+            </div>
+        </div>
+        <!-- END panel-->
+    </form>
+</div>
+    </div>
+</div>
+
+<script>
+    function isNumber(evt) {
+        var iKeyCode = (evt.which) ? evt.which : evt.keyCode;
+        if (iKeyCode !=46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
+            return false;
+        return true;
+    }
+</script>
+<script>
+    function check_number(event) {
+        if(!(event.charCode>47 && event.charCode<58) && event.charCode && !(event.metaKey || event.ctrlKey))
+            event.preventDefault();
+    }
+</script>

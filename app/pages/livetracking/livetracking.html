@@ -1,0 +1,654 @@
+<style>
+	body::before {
+		background-color: #fff;
+	}
+	
+	.table > tbody > tr > td:first-child {
+		line-height: 25px !important;
+		width: 5%;
+		/*border-left: 0.5px solid #e0e0e0;*/
+	}
+	
+	md-backdrop.md-opaque {
+		background-color: transparent;
+	}
+	
+	.md-sidenav-right {
+		z-index: 0;
+		left: 75%;
+	}
+	
+	.table > tbody > tr > td {
+		line-height: 25px !important;
+	}
+	
+	.table > tbody > tr > td {
+		padding: 0px;
+	}
+	
+	.table > tbody > tr > td:last-child {
+		padding-right: 0px !important;
+		border-right: none;
+	}
+	
+	.table > tbody > tr > td {
+		border-top: none !important;
+		padding: 0px;
+	}
+	
+	thead tr th {
+		border: none !important;
+	}
+	
+	.btn:hover {
+		-webkit-transform: none !important;
+		transform: none !important;
+	}
+	
+	#labelhead {
+		font-family: Roboto;
+	}
+	
+	.rightside {
+		padding: 10px 0px 10px 0px;
+	}
+	
+	.formLeft input {
+		background-color: #f5f5f5 !important;
+	}
+	
+	#map {
+		height: 100%;
+		overflow: hidden !important;
+	}
+	
+	.gm-style-iw {
+		color: black;
+	}
+	
+	.ba-panelL {
+		background-color: #f5f5f5;
+		position: absolute;
+		height: calc(100% - 70px);
+		padding-left: 0 !important;
+		margin: -4px 0px 0px -10px;
+		z-index: 1;
+		overflow: hidden;
+		width: 385px;
+		border-bottom-left-radius: 0px;
+		border-bottom-right-radius: 0px;
+		box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px 0px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 2px 1px -1px;
+	}
+	
+	.live-tracking .md-tab{
+		padding: 14px;
+	}
+	
+	.md-padding {
+		padding: 16px;
+	}
+	
+	#Nav {
+		z-index: 1;
+		width: 400px;
+		right: -35px;
+		position: fixed;
+		height: calc(100vh - 5em);
+		background-color: #f5f5f5;
+		margin-top: -4px;
+		border-bottom-left-radius: 0px;
+		border-bottom-right-radius: 0px;
+		box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px 0px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 2px 1px -1px;
+	}
+	
+	input[type=search] {
+		width: 90%;
+		font-size: 16px;
+		background-color: transparent;
+		background-image: url("assets/img/search_icon.svg");
+		background-size: 24px 24px;
+		background-position: 10px 10px;
+		background-repeat: no-repeat;
+		padding: 12px 20px 12px 40px;
+		-webkit-transition: width 0.4s ease-in-out;
+		transition: width 0.4s ease-in-out;
+	}
+	
+	#driText {
+		color: rgb(63, 81, 181);
+		font-size: 20px;
+		padding-left: 22%;
+	}
+	
+	.circular--square {
+		border-radius: 50%;
+	}
+	
+	.fa-times:hover {
+		-webkit-transform: rotate(30deg);
+		-moz-transform: rotate(30deg);
+		transform: rotate(30deg);
+	}
+	
+	.rotate-180 {
+		-webkit-transform: rotate(180deg);
+		-moz-transform: rotate(180deg);
+		-ms-transform: rotate(180deg);
+		-o-transform: rotate(180deg);
+		transform: rotate(180deg);
+	}
+	
+	body::before {
+		overflow: none;
+	}
+	
+	.alignCenter {
+		text-align: center;
+	}
+	
+	.infoBlock {
+		text-align: left;
+		padding-left: 5px;
+		text-transform: capitalize;
+	}
+	
+	.md-button, button {
+		text-transform: capitalize;
+		min-height: 28px !important;
+		background-color: #3281C9;
+	}
+	
+	.btn.btn-secondary.md-button.md-ink-ripple {
+		min-height: 28px !important;
+	}
+	
+	@media screen and (max-width: 1440px) {
+		
+		.md-sidenav-right {
+			left: 75% !important;
+		}
+	}
+	
+	@media screen and (min-width: 1440px) {
+		.md-sidenav-right {
+			left: 81% !important;
+		}
+	}
+	
+	.drvimg {
+		width: 100px;
+		height: 100px;
+		border-radius: 100px;
+	}
+</style>
+
+<div>
+	<!--Left Side NavBar Starts Here-->
+	
+	<div class="ba-panelL">
+		<input type="search" id="search" name="search" placeholder="Search.." ng-model="data"
+		       ng-change="searchL(data, left.selectedIndex)">
+		<md-content>
+			<md-tabs md-dynamic-height md-border-bottom md-selected="left.selectedIndex">
+				<md-tab label="{{totalItemsOngoing}} ONGOING" id="ongoing" ng-click="collapseDisc()">
+					<md-content class="md-padding">
+						
+						<table>
+							<tr ng-repeat="data in onGoingRidePag" style="border-bottom: 1px solid rgba(0,0,0,.14);">
+								<td class="tDataSelf alignCenter"><img ng-src="{{data.driver_image}}"
+								                                       style="border-radius:50%" height="50px"
+								                                       width="50px"><br>
+									<h1 class="driverNameCus">{{data.driver_name}}</td>
+								<td class="tDataSelf"><img style="margin-top:-10%;" src="assets/img/timeline-line.svg">
+								</td>
+								
+								<td class="tDataSelf infoBlock">
+									<h1 class="dateDetails">{{data.start_time|date:'MM/dd/yyyy'}}</h1>
+									<h1 class="dateDetails">{{data.start_time|date:'hh-mm a'}}</h1>
+									<p style="color:rgba(0,0,0,.5);">{{data.user_name}}</p>
+								</td>
+								
+								<td class="tDataSelf" ng-if="data.ride_status==1">
+									<button id="but1" style="width: 90px;min-height: 28px !important;"
+									        ng-click="showonm(data)" class="btn btn-secondary">Accepted
+									</button>
+									<br>
+									<img style="float: right;padding: 15px 0 0 0;" src="assets/img/forward.svg"
+									     ng-click="expandDisc(data)">
+								</td>
+								
+								<td class="tDataSelf" ng-if="data.ride_status==2">
+									<button id="but3" style="width: 90px;min-height: 28px !important;"
+									        ng-click="showonm(data)" class="btn btn-secondary">Arrived
+									</button>
+									<br>
+									<img style="float: right;padding: 15px 0 0 0;" src="assets/img/forward.svg"
+									     ng-click="expandDisc(data)">
+								</td>
+								
+								<td class="tDataSelf" ng-if="data.ride_status==3">
+									<button id="but2" style="width: 90px;min-height: 28px !important;"
+									        ng-click="showonm(data)" class="btn btn-secondary">En Route
+									</button>
+									<br>
+									<img style="float: right;padding: 15px 0 0 0;" src="assets/img/forward.svg"
+									     ng-click="expandDisc(data)">
+								</td>
+								
+								<!-- <td class="tDataSelf" ng-if="data.ride_status==4"><md-button id="but2" ng-click="showonm(data)" class="md-raised ">ENDED</md-button><br><img style="float: right;padding: 15px 0 0 0;" src="assets/img/forward.svg" ng-click="expandDisc(data)"></td> -->
+								<!--<td class="tDataSelf" ng-if="expand"><md-button id="but1" ng-click="showonm(data)" class="md-raised ">STARTED</md-button><br><img style="float: right;padding: 15px 0 0 0;" src="assets/img/forward.svg" ng-click="expandDisc(data)"></td>-->
+								<!--<td class="tDataSelf" ng-if="!(expand)"><md-button id="but1" ng-click="showonm(data)" class="md-raised "></md-button><br></td>-->
+							</tr>
+						</table>
+						<div>
+							Scheduled Rides {{totalItemsScheduled}}
+							<br>
+							Completed Rides {{totalItemsCompleted}}
+						</div>
+					</md-content>
+				</md-tab>
+				<!-- TODO: Dynamic tabs -->
+				<!-- <md-tab label= "{{totalItemsScheduled}} SCHEDULED" id="scheduled" ng-click="collapseDisc()" >
+				  <div class="md-padding" ng-style="GENERICS.dahboard.leftPane">
+					  <table>
+						  <tr ng-repeat="data in scheduled_rides" ng-style="dashboardCss.scheduled_rides">
+							  <td class="tDataSelf"><button type="button" ng-style="GENERICS.dashboard.discountBtn" class="btn" id="butOne">S</button><br><h1 class="driverNameCus">{{data.user_name}}</h1></td>
+							  <td class="tDataSelf"><img style="margin-top:-10%;" src="assets/img/timeline-line.svg"></td>
+							  <td class="tDataSelf" style="padding-left:5%!important"><h1 class="dateDetails">{{data.pickup_time|date:'MM/dd/yyyy'}}</h1><p>{{data.pickup_time|date:'hh-mm a'}}</p>{{data.user_name}}</td>
+		  
+							  <td class="tDataSelf" ng-if="expand">
+								   <md-button id="but2" ng-click="showonm(data)" class="md-raised" ng-style="GENERICS.dashboard.scheduleBtn">SCHEDULED</md-button>
+								  <br>
+								  <img id="{{ 'object-' + $index }}" style="float:right;" src="assets/img/forward.svg" ng-click="expandDisc(data,$index); check($index)"></td>
+							  <td class="tDataSelf" ng-if="(expand)"><md-button id="but3" ng-click="showonm(data)" class="md-raised ">SCHEDULED</md-button><br><img  style="float:right;padding:15px 0 0 0;" src="assets/img/forward.svg" ng-click="expandDisc(data,data.index)"></td>
+						   </tr>
+					  </table>
+				  </div>
+			  </md-tab>-->
+			</md-tabs>
+			</md-content>
+	</div>
+	
+	<!--Left Side NavBar Ends Here-->
+	<!-- <a href="" data-toggle="collapse" data-target=".collapse" ng-click="isOpen=!isOpen">
+		<i class="fa" ng-class="(isOpen) ? 'fa-chevron-right' : 'fa-chevron-left'" ng-click="expandDisc(data,this) "></i>
+	  </a>-->
+	
+	<!--Map Div Starts Here-->
+	<div class="row">
+		<div class="col-lg-10 col-md-12 col-sm-12" id="mapCustom"
+		     style="overflow:inherit;margin-left:388px;position: absolute;height: calc(100vh - 5.0em);padding: 0px !important;margin-top:-4px;z-index:0;">
+			<div id="map"></div>
+		
+		</div>
+		<!--Map Div Ends Here-->
+		
+		<!--Right Side Nav Bar Starts Here-->
+		
+		<div ng-cloak class="pull-right" id="Nav">
+			<div ng-click="toggleRight(this);collapseDiscR()" id="bttt"
+			     style="position:absolute;z-index:2;right:100%; width: 35px;padding: 10px;background: #717171;float:right;"
+			     class="primary">
+				
+				<i id="ffff" style="color:white" class="fa fa-chevron-right" aria-hidden="true"></i></div>
+			<input type="search" id="ser" style="border-top:transparent" name="search1" placeholder="Search.."
+			       ng-model="data" style="margin-top:-4%" ng-change="searchR(data, select.selectedIndex)">
+			<md-content class="live-tracking">
+				<md-tabs md-dynamic-height md-border-bottom md-selected="select.selectedIndex">
+					<md-tab label="{{avail.length}} Available" id="available" ng-click="collapseDiscR()">
+						<md-content class="md-padding">
+							<table>
+								<tr ng-repeat="data in avail" style="border-bottom: 1px solid rgba(0,0,0,.14);">
+									<td class="rightside" style="width: 15%;">
+										<img class="circular--square" ng-src="{{data.driver_image}}"
+										     style="border-radius:100%" height="40px" width="40px">
+									</td>
+									<td class="rightside" style="width: 35%;"> {{data.driver_name}} <br>
+										{{data.driver_mobile}}
+									</td>
+									<td class="rightside" style="margin-left:-10%; width: 30%;"> {{ data.car_name }}
+										<br>{{data.car_no}}
+									</td>
+									<td class="rightside">
+										<img src="assets/generic/img/icon.svg" style="color: rgba(0,0,0,0.54);"
+										     style="margin-left:-33%; width: 30%;" height="20px" width="20px"
+										     ng-click="togRight(data)">
+									</td>
+								</tr>
+							</table>
+						</md-content>
+					</md-tab>
+					
+					<md-tab label="{{busy.length}} Busy" id="busy" ng-click="collapseDiscR()">
+						<md-content class="md-padding">
+							<table>
+								<tr ng-repeat="data in busy" style="border-bottom: 1px solid rgba(0,0,0,.14);">
+									<td class="rightside" style="width: 15%;"><img class="circular--square"
+									                                               ng-src="{{data.driver_image}}"
+									                                               style="border-radius:100%"
+									                                               height="40px" width="40px"></td>
+									<td class="rightside" style="width: 35%;">{{ data.driver_name }} <br>
+										{{data.driver_mobile}}
+									</td>
+									<td class="rightside" style="width: 30%;">{{ data.car_name }} <br>{{data.car_no}}
+									</td>
+									<td class="rightside" style="width: 30%;">
+										<img src="assets/generic/img/icon.svg" style="margin-left:-33%;" height="20px"
+										     width="20px" ng-click="togRight(data)"></td>
+								</tr>
+							</table>
+						</md-content>
+					</md-tab>
+					
+					<md-tab label="{{offline.length}} Offline" id="offline" ng-click="collapseDiscR()">
+						<md-content class="md-padding">
+							<table>
+								<tr ng-repeat="data in offline" style="border-bottom: 1px solid rgba(0,0,0,.14);">
+									<td class="rightside" style="width: 15%;"><img class="circular--square"
+									                                               ng-src="{{data.driver_image}}"
+									                                               style="border-radius:100%"
+									                                               height="40px" width="40px"></td>
+									<td class="rightside" style="width: 35%;">{{ data.driver_name }} <br>
+										{{data.driver_mobile}}
+									</td>
+									<td class="rightside" style="width: 30%;">{{ data.car_name }} <br>{{data.car_no}}
+									</td>
+									<td class="rightside" style="width: 30%;">
+										<img src="assets/generic/img/icon.svg" style="margin-left:-33%;" height="20px"
+										     width="20px" ng-click="togRight(data)"></td>
+								</tr>
+							</table>
+						</md-content>
+					</md-tab>
+					
+					<md-tab label="{{all.length}} All" id="all" ng-click="collapseDiscR()">
+						<md-content class="md-padding">
+							<table>
+								<tr ng-repeat="data in all" style="border-bottom: 1px solid rgba(0,0,0,.14);">
+									<td class="rightside" style="width: 15%;">
+										<img class="circular--square" ng-src="{{data.driver_image}}" height="40px"
+										     width="40px">
+									</td>
+									<td class="rightside" style="width: 35%;">{{ data.driver_name }} <br>
+										{{data.driver_mobile}}
+									</td>
+									<td class="rightside" style="width: 30%;">{{ data.car_name }} <br>{{data.car_no}}
+									</td>
+									<!-- <td class="rightside"><img src="assets/generic/img/icon.svg" style="margin-left:-33%" height="20px" width="20px" ng-click="expanded(data)"> -->
+									<td class="rightside" style="width: 30%;">
+										<img src="assets/generic/img/icon.svg" style="margin-left:-33%;" height="20px"
+										     width="20px" ng-click="togRight(data)">
+									</td>
+								</tr>
+							</table>
+						</md-content>
+					</md-tab>
+				</md-tabs>
+			</md-content>
+		</div>
+		
+		<!--Right Side Nav Bar Ends Here-->
+		
+		
+		<!--Left Expandable Bar Starts Here-->
+		<div class="ba-panel" id="expandedDiv"
+		     style="background-color:#f9f9f9;position: absolute;height: calc(100vh - 5em);transform:translate(-200%);margin-top:-0.5%;width:425px;z-index:0;left: 4% !important;">
+			<table class="table">
+				<tbody>
+				<tr>
+					<!-- <i class="material-icons">clear</i> -->
+					<td style="background-color: #4990e2; color:#fff;padding:1%;">{{ tripnumber }} <i
+							class="material-icons md-light pull-right" style="font-size:22px;padding-right:1%"
+							ng-click="collapseDisc()" aria-hidden="true">clear</i></td>
+				</tr>
+				</tbody>
+				<table class="table">
+					<thead>
+					</thead>
+					<tbody>
+					<div ng-cloak>
+						<md-content>
+							<md-tabs md-dynamic-height md-border-bottom>
+								<md-tab label="Trip Details">
+									<md-content class="md-padding">
+										<div class="formLeft col-lg-6 col-sm-6 col-md-6 col-xs-12"
+										     style="margin-top: 6%; float:none;">
+											<label style="font-size: 14px;font-weight: 500;color: #000000!important">Pickup</label><br>
+											<input style="border: none;background-color: #f9f9f9;font-size: 12px;color: #989898;"
+											       type="text" placeholder="07:10 pm" maxlength="20" required
+											       onkeypress="return FirsText(event)"
+											       style="text-transform:capitalize">
+											<input style="border: none;background-color: #f9f9f9;font-size: 12px;color: #989898;width:100%"
+											       type="text" placeholder="Unavailable" maxlength="30"
+											       ng-model="pickup_location_address" required
+											       onkeypress="return FirsText(event)"
+											       style="text-transform:capitalize">
+										</div>
+										<div class="formLeft col-lg-6 col-sm-6 col-md-6 col-xs-12"
+										     style="margin-top: 6%; float:none;">
+											<label style="font-size: 14px;font-weight: 500;color: #000000!important">Destination</label><br>
+											<input style="border: none;background-color: #f9f9f9;font-size: 12px;color: #989898;"
+											       type="text" placeholder="Unavailable"
+											       ng-model="manual_destination_address" maxlength="20" required
+											       onkeypress="return FirsText(event)"
+											       style="text-transform:capitalize">
+										</div>
+										<div class="formLeft col-lg-6 col-sm-6 col-md-6 col-xs-12"
+										     style="margin-top: 6%; float:none;">
+											<label style="font-size: 14px;font-weight: 500;color: #000000!important">Fare
+												Details</label><br>
+											<input style="border: none;font-size: 12px;color: #989898;" type="text"
+											       placeholder="Unavailable" maxlength="20" ng-model="fare_calculated"
+											       required onkeypress="return FirsText(event)"
+											       style="text-transform:capitalize">
+										</div>
+										<div class="formRight col-lg-6 col-sm-6 col-md-6 col-xs-12"
+										     style="margin-top: 6%;float:right">
+											<label style="font-size: 14px;font-weight: 500;color: #000000!important">Car
+												Type</label><br>
+											<input style="border: none;background-color : #f5f5f5!important; ;font-size: 12px;color: #989898;"
+											       type="text" placeholder="Unavailable" ng-model="car_name"
+											       maxlength="20" required onkeypress="return FirsText(event)"
+											       style="text-transform:capitalize">
+										</div>
+										<div class="formLeft col-lg-6 col-sm-6 col-md-6 col-xs-12"
+										     style="margin-top: 6%; float:none;">
+											<label style="font-size: 14px;font-weight: 500;color: #000000!important">Driver</label><br>
+											<input style="border: none;background-color: #f9f9f9;font-size: 12px;color: #989898;"
+											       type="text" placeholder="Unavailable" ng-model="driver_name"
+											       maxlength="20" required onkeypress="return FirsText(event)"
+											       style="text-transform:capitalize">
+										</div>
+										<div class="formLeft col-lg-6 col-sm-6 col-md-6 col-xs-12"
+										     style="margin-top: 6%; float:none;">
+											<label style="font-size: 14px;font-weight: 500;color: #000000!important">Contact
+												Driver</label><br>
+											<input style="border: none;background-color: #f9f9f9;font-size: 12px;color: #989898;"
+											       type="text" placeholder="" ng-model="driver_mobile" maxlength="20"
+											       required onkeypress="return FirsText(event)"
+											       style="text-transform:capitalize">
+										</div>
+										<div class="button-wrapper">
+											<md-button type="button" class="btn btn-secondary" style="margin-top: 2%">
+												CREATE TICKET
+											</md-button>
+										</div>
+									</md-content>
+								</md-tab>
+								
+								
+								<!--Customer-->
+								
+								<md-tab label="Customer">
+									<md-content class="md-padding">
+										<img ng-if="user_image" ng-src="{{user_image}}" height="120px"
+										     style="border-radius:50%;" class="center-block">
+										<div class="formLeft col-lg-6 col-sm-6 col-md-6 col-xs-12"
+										     style="margin-top: 6%; float:none;">
+											<label style="font-size: 14px;font-weight: 500;color: #000000!important">Customer
+												Name</label><br>
+											<input disabled
+											       style="border: none;background-color: #f9f9f9;font-size: 12px;color: #989898;"
+											       type="text" placeholder="Unavailable" ng-model="user_name"
+											       maxlength="20" required onkeypress="return FirsText(event)"
+											       style="text-transform:capitalize">
+										</div>
+										<div class="formLeft col-lg-6 col-sm-6 col-md-6 col-xs-12"
+										     style="margin-top: 6%; float:none;">
+											<label style="font-size: 14px;font-weight: 500;color: #000000!important">Contact
+												Customer</label><br>
+											<input disabled
+											       style="border: none;background-color: #f9f9f9;font-size: 12px;color: #989898;"
+											       type="text" placeholder="" ng-model="user_mobile" maxlength="20"
+											       required onkeypress="return FirsText(event)"
+											       style="text-transform:capitalize">
+										</div>
+										<div class="formLeft col-lg-6 col-sm-6 col-md-6 col-xs-12"
+										     style="margin-top: 6%; float:none;">
+											<label style="font-size: 14px;font-weight: 500;color: #000000!important">
+												User Email ID</label><br>
+											<input disabled
+											       style="border: none;background-color: #f9f9f9;font-size: 12px;color: #989898;"
+											       type="text" placeholder="Unavailable" maxlength="20"
+											       ng-model="user_email" required onkeypress="return FirsText(event)"
+											       style="text-transform:capitalize">
+										</div>
+										<div class="formLeft col-lg-6 col-sm-6 col-md-6 col-xs-12"
+										     style="margin-top: 6%; float:none;">
+											<label style="font-size: 14px;font-weight: 500;color: #000000!important">User
+												Rating</label><br>
+											<input disabled
+											       style="border: none;background-color: #f9f9f9;font-size: 12px;color: #989898;"
+											       type="text" placeholder="Unavailable" ng-model="user_rating"
+											       maxlength="20" required onkeypress="return FirsText(event)"
+											       style="text-transform:capitalize">
+										</div>
+									</md-content>
+								</md-tab>
+								<!--History-->
+								<md-tab label="History">
+									<md-content class="md-padding">
+										<p>Not Available</p>
+									</md-content>
+								</md-tab>
+							</md-tabs>
+						</md-content>
+					</div>
+				</table>
+			</table>
+		</div>
+		<!--Left Expandable Bar Ends Here-->
+		<!--Right Expandable Starts Ends Here-->
+	</div>
+	<section layout="row" flex>
+		<md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right" md-disable-backdrop="true"
+		            style="position:fixed;top:70px">
+			<table class="table">
+				<tbody>
+				<tr>
+					<!-- <td style="background-color: #4990e2;padding:1%;"> <i class="material-icons md-light pull-left" style="font-size:22px;margin-top:-1%;padding-right:1%" ng-click="togRight()" aria-hidden="true">clear</i></td> -->
+					<td style="background-color: #4990e2;padding:1%;"></td>
+				</tr>
+				</tbody>
+				<table class="table">
+					<thead></thead>
+					<tbody>
+					<div ng-cloak>
+						<md-content>
+							<md-tabs md-dynamic-height md-border-bottom>
+								<md-tab class="gothicFamily" label="Driver Detail">
+									<md-content class="md-padding" style="padding-top:10%">
+										<div style="background-color:#4990e2;height:200px;margin-left:-4.5%;margin-right: -3.5%;
+                        margin-top: -11%;"><br><br>
+											<img ng-src="{{driver_image}}" height="110px" width="110px"
+											     style="border-radius:50%;" class="center-block">
+										</div>
+										<div class="formLeft col-lg-6 col-sm-6 col-md-6 col-xs-12"
+										     style="margin-top: 6%; float:none;">
+											<label style="font-size: 14px;font-weight: 500;color: #000000!important">Driver
+												Name</label><br>
+											<input class="gothicFamily"
+											       style="border: none;background-color: #f9f9f9;font-size: 12px;color: #989898;"
+											       type="text" placeholder="Unavailable" ng-model="driver_name"
+											       maxlength="20" required onkeypress="return FirsText(event)"
+											       style="text-transform:capitalize">
+										</div>
+										<div class="formLeft col-lg-6 col-sm-6 col-md-6 col-xs-12"
+										     style="margin-top: 6%; float:none;">
+											<label style="font-size: 14px;font-weight: 500;color: #000000!important">Driver
+												Contact</label><br>
+											<input class="gothicFamily"
+											       style="border: none;background-color: #f9f9f9;font-size: 12px;color: #989898;"
+											       type="text" placeholder="" ng-model="driver_mobile" maxlength="20"
+											       required onkeypress="return FirsText(event)"
+											       style="text-transform:capitalize">
+										</div>
+										<div class="formLeft col-lg-6 col-sm-6 col-md-6 col-xs-12"
+										     style="margin-top: 6%; float:none;">
+											<label style="font-size: 14px;font-weight: 500;color: #000000!important">Driver
+												Email ID</label><br>
+											<input class="gothicFamily"
+											       style="border: none;background-color: #f9f9f9;font-size: 12px;color: #989898;"
+											       type="text" placeholder="Unavailable" maxlength="20"
+											       ng-model="driver_email" required onkeypress="return FirsText(event)"
+											       style="text-transform:capitalize">
+										</div>
+										<div class="formLeft col-lg-6 col-sm-6 col-md-6 col-xs-12"
+										     style="margin-top: 6%; float:none;">
+											<label style="font-size: 14px;font-weight: 500;color: #000000!important">Device
+												Name</label><br>
+											<input class="gothicFamily"
+											       style="border: none;background-color: #f9f9f9;font-size: 12px;color: #989898;"
+											       type="text" placeholder="Unavailable" ng-model="device_name"
+											       maxlength="20" required onkeypress="return FirsText(event)"
+											       style="text-transform:capitalize">
+										</div>
+										<div class="formLeft col-lg-6 col-sm-6 col-md-6 col-xs-12"
+										     style="margin-top: 6%; float:none;">
+											<label style="font-size: 14px;font-weight: 500;color: #000000!important">Car
+												Name</label><br>
+											<input class="gothicFamily"
+											       style="border: none;background-color: #f9f9f9;font-size: 12px;color: #989898;"
+											       type="text" placeholder="Unavailable" ng-model="car_name"
+											       maxlength="20" required onkeypress="return FirsText(event)"
+											       style="text-transform:capitalize">
+										</div>
+										<div class="formLeft col-lg-6 col-sm-6 col-md-6 col-xs-12"
+										     style="margin-top: 6%; float:none;">
+											<label style="font-size: 14px;font-weight: 500;color: #000000!important">Car
+												Number</label><br>
+											<input class="gothicFamily"
+											       style="border: none;background-color: #f9f9f9;font-size: 12px;color: #989898;"
+											       type="text" placeholder="Unavailable" ng-model="car_no"
+											       maxlength="20" required onkeypress="return FirsText(event)"
+											       style="text-transform:capitalize">
+										</div>
+									</md-content>
+								</md-tab>
+							</md-tabs>
+						</md-content>
+					</div>
+				</table>
+			</table>
+		</md-sidenav>
+	</section>
+	<!--Right Expandable Ends Here-->
+</div>
+<script type="text/ng-template" id="driverDetails">
+	<h4 class="bgcolotdialog">Driver Information</h4>
+	<div class="row">
+		<div class="col-sm-4">
+			<img src="{{driver_image}}" class="drvimg">
+		</div>
+		<div class="col-sm-8">
+			<strong>Driver Name:</strong>{{driver_name}}<br>
+			<strong>Mobile:</strong>{{driver_mobile}}<br>
+			<strong>Driver Email:</strong>{{driver_email}}<br>
+			<strong>Device Name:</strong>{{device_name}}<br>
+			<strong>Car Name:</strong>{{car_name}}<br>
+			<strong>Car No.:</strong>{{car_no}}
+		</div>
+	</div>
+
+
+</script>

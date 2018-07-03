@@ -1,0 +1,819 @@
+<style>
+    .align-center{
+        text-align: center;
+    }
+    .panel-body {
+        background-color: white;
+    }
+
+    label {
+        color: #666;
+    }
+
+    .pendingDocsBlock {
+        margin-top: 60px;
+    }
+
+    .gothicFamily {
+        font-family: 'gothic';
+    }
+
+    .marginTopBottom15 {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    .imgDoc {
+        width: 373px;
+        height: 200px;
+    }
+
+    .driverDetails md-tabs:not(.md-no-tab-content):not(.md-dynamic-height) {
+        min-height: 700px;
+    }
+
+    .md-button {
+        margin: unset;
+    }
+
+    md-checkbox:not([disabled]).md-primary.md-checked .md-icon {
+        background-color: rgb(48, 120, 205);
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <a ng-click="back()" class="pull-right btn btn-sm btn-secondary gothicFamily">BACK</a>
+        <!-- <a ng-click="downloadForm()"  class="pull-right btn btn-sm btn-secondary gothicFamily">DOWNLOAD</a> -->
+        <a ng-if="is_verified" ng-click="approveDriver()" class="pull-right btn btn-sm btn-secondary gothicFamily">APPROVE</a>
+        <div style="padding-top: 50px" ba-panel ba-panel-title="{{driverProfile}}" ba-panel-class="with-scroll">
+            <div class="horizontal-scroll driverDetails">
+
+                <md-tabs class="gothicFamily" md-selected="data.selectedIndex">
+                    <md-tab id="driver">
+                        <md-tab-label class="gothicFamily">Driver</md-tab-label>
+                            <md-tab-body>
+
+                            <ul class="nav nav-pills gothicFamily">
+                                <li ng-class="{active: isActive}">
+                                    <a data-toggle="pill" ng-click="toggleActive('driver_info')">Driver Info</a>
+                                </li>
+                                <li ng-class="{active: !isActive}">
+                                    <a data-toggle="pill" ng-click="toggleActive('driver_docs')">Driver Docs</a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content gothicFamily">
+
+                                <div id="driver_info" class="tab-pane fade" ng-class="{in: isActive, active: isActive}">
+
+                                    <div class="col-lg-6 col-xs-12 col-md-6 col-sm-6 gothicFamily" style="margin-bottom:15px">
+
+                                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                                            <label class="gothicFamily">First Name</label>
+                                            <input ng-disabled="!edit.driver" ng-model="driver.first_name" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                                            <label class="gothicFamily">Last Name</label>
+                                            <input ng-disabled="!edit.driver" ng-model="driver.last_name" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                                            <label class="gothicFamily">Email</label>
+                                            <input ng-disabled="!edit.driver" ng-model="driver.email" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                                            <label class="gothicFamily">Phone Number</label>
+                                            <input ng-disabled="!edit.driver" ng-model="driver.mobile" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                                            <label class="gothicFamily">Registration Date</label>
+                                            <input disabled value="{{driver.date_registered | date}}" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                                            <label class="gothicFamily">Zipcode</label>
+                                            <input ng-disabled="!edit.driver" ng-model="driver.zipcode" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                                            <label class="gothicFamily">TLC number</label>
+                                            <input ng-disabled="!edit.driver" ng-model="driver.tlc_num" class="form-control">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-lg-6 col-xs-12 col-md-6 col-sm-6 gothicFamily" style="margin-bottom:15px">
+
+                                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                                            <label class="gothicFamily">Reference</label>
+                                            <input ng-disabled="!edit.driver" ng-model="driver.how_hear_us" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                                            <label class="gothicFamily">Uber User</label>
+                                            <input ng-disabled="!edit.driver" ng-model="driver.uberUser" placeholder="Yes/No" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                                            <label class="gothicFamily">Uber Rating</label>
+                                            <input ng-disabled="!edit.driver || driver.uberUser.toLowerCase()=='no'" ng-model="driver.uber_rating" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                                            <label class="gothicFamily">Lyft User</label>
+                                            <input ng-disabled="!edit.driver" ng-model="driver.lyftUser" placeholder="Yes/No" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                                            <label class="gothicFamily">Lyft Rating</label>
+                                            <input ng-disabled="!edit.driver || driver.lyftUser.toLowerCase()=='no'" ng-model="driver.lyft_rating" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                                            <label class="gothicFamily">Income</label>
+                                            <input ng-disabled="!edit.driver" ng-model="driver.annual_income" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                                            <label class="gothicFamily">Drivers license</label>
+                                                <input class="form-control" ng-model="driver.dmv_num" ng-disabled="!edit.driver">
+                                        </div>
+                                    </div>
+
+                                    <div class="row align-center" ng-hide="">
+                                        <md-button class="md-button md-primary" ng-click="editDetails('driver')">
+                                            {{edit.driver ? 'Save' : 'Edit'}}
+                                        </md-button>
+                                    </div>
+
+                                    <!-- <div class="col-lg-6 col-xs-12 col-md-6 col-sm-6" style="margin-bottom:15px">
+
+                                    <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                                        <label>TLC License </label>
+                                        <input disabled ng-if="driver.tlc_num!=''" ng-model="driver.tlc_num" class="form-control">
+                                        <input disabled ng-if="driver.tlc_num==''" value='-' class="form-control">
+                                    </div>
+                                    <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                                        <label style="float: left;width: 100%;">TLC License Image</label>
+                                        <div ng-if="driver.tlc_number!=''&&driver.tlc_number" fancybox fancybox-image="{{driver.tlc_number}}" class="viewPicDetails col-lg-10" fancybox-template="template.html">
+                                            <img ng-src="{{driver.tlc_number}}">
+                                        </div>
+                                        <a style="float:right;" ng-if="driver.tlc_number!=''&&driver.tlc_number" href="{{driver.tlc_number}}" download="{{driver.tlc_number}}"><i class="fa fa-download fa-2x"></i></a>
+                                        <label ng-if="driver.tlc_number==''||!driver.tlc_number">No Image Uploaded Yet</label>
+                                    </div>
+                                </div> -->
+
+                                    <!-- <div class="col-lg-6 col-xs-12 col-md-6 col-sm-6" style="margin-bottom:15px">
+
+                                    <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                                        <label>DMV License</label>
+                                        <input disabled ng-if="driver.dmv_num!=''" ng-model="driver.dmv_num" class="form-control">
+                                        <input disabled ng-if="driver.dmv_num==''" value='-' class="form-control">
+                                    </div>
+
+                                    <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                                        <label style="float: left;width: 100%;">DMV License Image</label>
+                                        <div ng-if="driver.dmv_license!=''&&driver.dmv_license" fancybox fancybox-image="{{driver.dmv_license}}" class="viewPicDetails col-lg-10" fancybox-template="template.html">
+                                            <img ng-src="{{driver.dmv_license}}">
+                                        </div>
+                                        <a style="float:right;" ng-if="driver.dmv_license!=''&&driver.dmv_license" href="{{driver.dmv_license}}" download="{{driver.dmv_license}}"><i class="fa fa-download fa-2x"></i></a>
+                                        <label ng-if="driver.dmv_license==''||!driver.dmv_license">No Image Uploaded Yet</label>
+                                    </div>
+
+                                    <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:0px" ng-if="driver.docs.length>0">
+                                        <label>Other Docs</label>
+                                        <img ng-if="doc.document_url!=''||!doc.document_url" ng-repeat="doc in driver.docs" ng-src="{{doc.document_url}}" style="max-width:100%;width:auto;max-height:200px;display:block;">
+                                        <br>
+                                    </div>
+
+                                    <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                                        <md-button ng-click="addDocDialog()" class="btn btn-secondary pull-right head_button">ADD DOCUMENTS</md-button>
+                                    </div>
+
+                                </div> -->
+
+                                </div>
+
+                                <div id="driver_docs" class="tab-pane fade" ng-class="{in: !isActive, active: !isActive}">
+                                    <div class="row uploadedDocsBlock" ng-if="docsList.length">
+                                        <div class="col-sm-4 marginTopBottom15" ng-if="doc.doc_type == 0 && doc.is_valid" ng-repeat="doc in docsList track by $index">
+                                            <div class="doc row">
+                                                <div class="col-sm-12">
+                                                    <input disabled value="{{ doc.document_name }}" class="form-control">
+                                                    <input type="text" name="doc_type" value="{{doc.doc_type}}" style="display:none;">
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <a data-fancybox href="{{  doc.document_url }}">
+                                                        <img class="imgDoc" ng-src="{{  doc.document_url }}">
+                                                    </a>
+                                                </div>
+                                                <div class="col-sm-12 text-center">
+
+                                                    <md-button ng-if="!doc.is_verified" class="btn btn-secondary gothicFamily" ng-click="verify_driver_doc(doc.doc_id)">Verify Doc</md-button>
+
+                                                    <md-button ng-if="!doc.is_valid" style="text-transform:initial" class="btn btn-secondary gothicFamily" ng-click="valid_invalid_doc(doc.doc_id, 1)">Validate Doc</md-button>
+
+                                                    <md-button ng-if="doc.is_valid" style="text-transform:initial" class="btn btn-secondary gothicFamily" ng-click="valid_invalid_doc(doc.doc_id, 0)">Remove Doc</md-button>
+
+                                                    <md-button ng-if="!doc.is_valid" class="btn btn-secondary gothicFamily" ng-click="addNewDocDialog(doc.document_type_id, doc.document_name, doc.doc_type)">Edit DOC</md-button>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row pendingDocsBlock" ng-if="pendingDocsList.length">
+                                        <h3>Pending Docs</h3>
+                                        <div class="col-sm-6 marginTopBottom15" ng-if="pendDoc.doc_type == 0" ng-repeat="pendDoc in pendingDocsList track by $index">
+                                            <div class="doc row">
+                                                <div class="col-sm-9">
+                                                    <input disabled value="{{pendDoc.document_name }}" class="form-control">
+                                                    <input type="text" name="doc_type" value="{{pendDoc.doc_type}}" style="display:none;">
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <md-button class="btn btn-secondary gothicFamily" ng-click="addNewDocDialog(pendDoc.document_type_id, pendDoc.document_name, pendDoc.doc_type)">Upload DOC</md-button>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </md-tab-body>
+                    </md-tab>
+
+                    <md-tab id="car" class="gothicFamily">
+                        <md-tab-label class="gothicFamily">Car</md-tab-label>
+                        <md-tab-body>
+
+                            <ul class="nav nav-pills gothicFamily">
+
+                                <li ng-class="{active: isActive}">
+                                    <a data-toggle="pill" ng-click="toggleActive('car_info')">Car Info</a>
+                                </li>
+
+                                <li ng-class="{active: !isActive}">
+
+                                    <a data-toggle="pill" ng-click="toggleActive('car_docs')">Car Docs</a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content gothicFamily">
+                                <div id="car_info" class="tab-pane fade" ng-class="{in: isActive, active: isActive}">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-bottom:15px">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="margin-bottom:15px">
+                                                    <label class="gothicFamily">License plate</label>
+                                                    <input ng-disabled="!edit.car" ng-model="car_info.car_no" class="form-control">
+                                                </div>
+                                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="margin-bottom:15px">
+                                                    <label class="gothicFamily">Make-Model-Year</label>
+                                                    <input ng-disabled="!edit.car" ng-model="car_info.car_name" class="form-control">
+                                                </div>
+                                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="margin-bottom:15px">
+                                                    <label class="gothicFamily">No. of passengers</label>
+                                                    <input ng-disabled="!edit.car" ng-model="car_info.passenger_count" class="form-control">
+                                                </div>
+                                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="margin-bottom:15px">
+                                                    <label class="gothicFamily">Vehicle Type</label>
+                                                    <select ng-disabled="!edit.car" ng-model="car_info.car_type" class="form-control">
+                                                        <option ng-repeat="x in carTypes" value="{{x.type}}" >{{x.name}}</option>
+                                                    </select>
+
+                                                </div>
+                                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="margin-bottom:15px" ng-repeat="cid in car_info.driverDocs track by $index"
+                                                    ng-if="cid.doc_type === 1">
+                                                    <label style="margin-top:15px" class="gothicFamily">{{cid.document_name}}
+                                                        <p>[Exp. Date: {{cid.expiry_date | date}}]</p>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row align-center">
+                                        <md-button class="md-button md-primary" ng-click="editDetails('car')">
+                                            {{edit.car ? 'Save' : 'Edit'}}
+                                        </md-button>
+                                    </div>
+
+
+                                </div>
+
+                                <div id="car_docs" class="tab-pane fade" ng-class="{in: !isActive, active: !isActive}">
+
+                                    <div class="row docsBlock" ng-if="docsList.length">
+
+                                        <div class="col-sm-4 marginTopBottom15 gothicFamily" ng-if="uploadedDoc.doc_type == 1 && uploadedDoc.is_valid" ng-repeat="uploadedDoc in docsList  track by $index">
+
+                                            <div class="doc row">
+
+                                                <div class="col-sm-12">
+                                                    <input disabled value="{{ uploadedDoc.document_name }}" class="form-control">
+                                                </div>
+
+                                                <input type="text" name="doc_type" value="{{uploadedDoc.doc_type}}" style="display:none;">
+
+                                                <div class="col-sm-12">
+                                                    <!-- <img class="imgDoc"  ng-src="{{  uploadedDoc.document_url }}"> -->
+                                                    <a data-fancybox href="{{uploadedDoc.document_url}}">
+                                                        <img class="imgDoc" ng-src="{{uploadedDoc.document_url}}">
+                                                    </a>
+                                                </div>
+
+                                                <div class="col-sm-12 text-center">
+
+                                                    <md-button ng-if="!uploadedDoc.is_verified" class="btn btn-secondary gothicFamily" ng-click="verify_driver_doc(uploadedDoc.doc_id)">Verify Doc</md-button>
+
+                                                    <md-button ng-if="!uploadedDoc.is_valid" style="text-transform:initial" class="btn btn-secondary gothicFamily" ng-click="valid_invalid_doc(uploadedDoc.doc_id, 1)">Validate Doc</md-button>
+
+                                                    <md-button ng-if="uploadedDoc.is_valid" style="text-transform:initial" class="btn btn-secondary gothicFamily" ng-click="valid_invalid_doc(uploadedDoc.doc_id, 0)">Remove Doc</md-button>
+
+                                                    <md-button ng-if="!uploadedDoc.is_valid" class="btn btn-secondary gothicFamily" ng-click="addNewDocDialog(uploadedDoc.document_type_id, uploadedDoc.document_name, uploadedDoc.doc_type)">Edit DOC</md-button>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <h3 class="pendingDocsBlock" ng-if="pendingDocsList.length > 0">Pending Car Docs</h3>
+
+                                    <div class="col-sm-6 marginTopBottom15 gothicFamily" ng-if="pendCarDoc.doc_type == 1" ng-repeat="pendCarDoc in pendingDocsList  track by $index">
+
+                                        <div class="doc row">
+
+                                            <div class="col-sm-9">
+                                                <input disabled value="{{ pendCarDoc.document_name }}" class="form-control">
+                                                <input type="text" name="doc_type" value="{{pendCarDoc.doc_type}}" style="display:none;">
+                                            </div>
+
+                                            <div class="col-sm-3">
+                                                <md-button class="btn btn-secondary gothicFamily" ng-click="addNewDocDialog(pendCarDoc.document_type_id, pendCarDoc.document_name, pendCarDoc.doc_type)">Upload DOC</md-button>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </md-tab-body>
+                    </md-tab>
+
+                    <md-tab id="braintree" >
+                        <md-tab-label class="gothicFamily">Braintree</md-tab-label>
+                        <md-tab-body>
+
+                            <div class="tab-content gothicFamily">
+
+                                <div id="accnt_info" class="tab-pane fade in active">
+
+                                    <div layout="column" ng-cloak flex="50">
+
+                                        <md-content layout-padding>
+                                            <form name="myForm" ng-submit="myForm.$valid && handleSubmit(myForm.$valid)" novalidate>
+                                                <h3>Basic Details </h3>
+                                                <div layout="row">
+                                                    <md-input-container flex="50">
+                                                        <label>First Name</label>
+                                                        <input required maxlength="255" ng-pattern="/^[A-Za-z]+$/" name="firstName" ng-model="accntParams.individual.firstName" required>
+                                                        <div ng-messages="myForm.firstName.$error">
+                                                            <div ng-message="required">This is required.</div>
+                                                            <div ng-message="maxlength">Maximum 255 characters</div>
+                                                            <div ng-message="pattern">First Name must be a string.</div>
+                                                        </div>
+                                                    </md-input-container>
+
+                                                    <md-input-container flex="50">
+                                                        <label>Last Name</label>
+                                                        <input required maxlength="255" ng-pattern="/^[A-Za-z]+$/" name="lastName" ng-model="accntParams.individual.lastName" required>
+                                                        <div ng-messages="myForm.lastName.$error">
+                                                            <div ng-message="required">This is required.</div>
+                                                            <div ng-message="maxlength">Maximum 255 characters</div>
+                                                            <div ng-message="pattern">Last Name must be a string.</div>
+                                                        </div>
+                                                    </md-input-container>
+
+                                                </div>
+
+                                                <div layout="row">
+                                                    <md-input-container flex="50">
+                                                        <label>Email</label>
+                                                        <input required type="email" name="email" ng-model="accntParams.individual.email" minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/">
+                                                        <div ng-messages="myForm.email.$error">
+                                                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                                                                Your email must be between 10 and 100 characters long and look like an e-mail address.
+                                                            </div>
+                                                        </div>
+                                                    </md-input-container>
+
+                                                    <md-input-container flex="50">
+                                                        <label>Phone</label>
+                                                        <input required name="phone" ng-model="accntParams.individual.phone">
+                                                        <div ng-messages="myForm.phone.$error">
+                                                            <div ng-message="required">This is required.</div>
+                                                        </div>
+                                                    </md-input-container>
+                                                </div>
+
+                                                <div layout="row">
+
+                                                    <md-input-container flex="80">
+                                                        <label> Social Security Number</label>
+                                                        <input required name="ssn" minlength="9" maxlength="9" ng-model="accntParams.individual.ssn" ng-pattern="/^[0-9]+$/">
+                                                        <div ng-messages="myForm.ssn.$error">
+                                                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                                                                Individual SSN must be full 9 digits.
+                                                            </div>
+                                                        </div>
+                                                    </md-input-container>
+
+                                                    <md-input-container>
+                                                        <label>Date Of Birth</label>
+                                                        <!-- <input required name="dateOfBirth" ng-model="accntParams.individual.dateOfBirth" > -->
+                                                        <input class="form-control daterange" name="dateOfBirth" ng-model="accntParams.individual.dateOfBirth" type="date" min="1940-01-01"
+                                                            max="2000-12-31" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" required>
+
+                                                    </md-input-container>
+
+                                                </div>
+
+                                                <div layout="row">
+                                                    <md-input-container flex="100">
+                                                        <label>Street Address</label>
+                                                        <input required name="streetAddress" ng-model="accntParams.individual.address.streetAddress" maxlength="255">
+                                                        <div ng-messages="myForm.streetAddress.$error">
+                                                            <div ng-message="required">This is required.</div>
+                                                            <div ng-message="maxlength">Maximum 255 characters</div>
+                                                        </div>
+                                                    </md-input-container>
+                                                </div>
+
+                                                <div layout="row">
+
+                                                    <md-input-container flex="35">
+                                                        <label>Locality</label>
+                                                        <input required name="locality" ng-model="accntParams.individual.address.locality" maxlength="255">
+                                                        <div ng-messages="myForm.locality.$error">
+                                                            <div ng-message="required">This is required.</div>
+                                                            <div ng-message="maxlength">Maximum 255 characters</div>
+                                                        </div>
+                                                    </md-input-container>
+
+                                                    <md-input-container flex="35">
+                                                        <label>Region</label>
+                                                        <md-select name="region" ng-model="accntParams.individual.address.region" required>
+                                                            <md-option ng-repeat="state in states" value="{{state.abbrev}}">
+                                                                {{state.abbrev}}
+                                                            </md-option>
+                                                        </md-select>
+                                                    </md-input-container>
+
+                                                    <md-input-container flex="30">
+                                                        <label>Postal Code</label>
+                                                        <input required name="postalCode" ng-model="accntParams.individual.address.postalCode" maxlength="9" ng-pattern="/^[A-Za-z0-9][A-Za-z0-9- ]+$/">
+                                                        <div ng-messages="myForm.postalCode.$error">
+                                                            <div ng-message="required">This is required.</div>
+                                                            <div ng-message="maxlength">Postal code may contain no more than 9 letter or number characters.</div>
+                                                            <div ng-message="pattern">Postal code can only contain letters, numbers, spaces, and hyphens.</div>
+                                                        </div>
+                                                    </md-input-container>
+
+                                                </div>
+
+
+                                                <h3>Business Details</h3>
+                                                <div layout="row">
+                                                    <md-input-container flex="40">
+                                                        <label>Legal Name</label>
+                                                        <input required name="legalName" ng-model="accntParams.business.legalName" md-maxlength="255">
+                                                        <div ng-messages="myForm.legalName.$error">
+                                                            <div ng-message="required">This is required.</div>
+                                                            <div ng-message="md-maxlength">Maximum 255 characters</div>
+                                                        </div>
+                                                    </md-input-container>
+
+                                                    <md-input-container flex="40">
+                                                        <label>DBA (Doing Business As)</label>
+                                                        <input required name="dbaName" ng-model="accntParams.business.dbaName" md-maxlength="255">
+                                                        <div ng-messages="myForm.dbaName.$error">
+                                                            <div ng-message="required">This is required.</div>
+                                                            <div ng-message="md-maxlength">Maximum 255 characters</div>
+                                                        </div>
+                                                    </md-input-container>
+
+                                                    <md-input-container flex="20">
+                                                        <label>Tax Id</label>
+                                                        <input required name="taxId" ng-model="accntParams.business.taxId" minlength="9" maxlength="9" ng-pattern="/^[0-9]+$/">
+                                                        <div ng-messages="myForm.taxId.$error">
+                                                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                                                                The applicant's tax id must be 9 digits long.
+                                                            </div>
+                                                        </div>
+                                                    </md-input-container>
+                                                </div>
+
+                                                <div layout="row">
+                                                    <md-input-container flex="100">
+                                                        <label>Street Address</label>
+                                                        <input required name="streetAddress" ng-model="accntParams.business.address.streetAddress" maxlength="255">
+                                                        <div ng-messages="myForm.streetAddress.$error">
+                                                            <div ng-message="required">This is required.</div>
+                                                            <div ng-message="maxlength">Maximum 255 characters</div>
+                                                        </div>
+                                                    </md-input-container>
+                                                </div>
+
+                                                <div layout="row">
+
+                                                    <md-input-container flex="35">
+                                                        <label>Locality</label>
+                                                        <input required name="locality" ng-model="accntParams.business.address.locality" maxlength="255">
+                                                        <div ng-messages="myForm.locality.$error">
+                                                            <div ng-message="required">This is required.</div>
+                                                            <div ng-message="maxlength">Maximum 255 characters</div>
+                                                        </div>
+                                                    </md-input-container>
+
+                                                    <md-input-container flex="35">
+                                                        <label>Region</label>
+                                                        <md-select name="region" ng-model="accntParams.business.address.region" required>
+                                                            <md-option ng-repeat="state in states" value="{{state.abbrev}}">
+                                                                {{state.abbrev}}
+                                                            </md-option>
+                                                        </md-select>
+                                                    </md-input-container>
+
+                                                    <md-input-container flex="30">
+                                                        <label>Postal Code</label>
+                                                        <input required name="postalCode" ng-model="accntParams.business.address.postalCode" maxlength="9" ng-pattern="/^[A-Za-z0-9][A-Za-z0-9- ]+$/">
+                                                        <div ng-messages="myForm.postalCode.$error">
+                                                            <div ng-message="required">This is required.</div>
+                                                            <div ng-message="maxlength">Postal code may contain no more than 9 letter or number characters.</div>
+                                                            <div ng-message="pattern">Postal code can only contain letters, numbers, spaces, and hyphens.</div>
+                                                        </div>
+                                                    </md-input-container>
+
+                                                </div>
+
+
+                                                <h3>Account Details</h3>
+                                                <!-- <div layout="row">
+                                                    <md-input-container flex="50">
+                                                        <label>Descriptor</label>
+                                                        <input required name="descriptor" ng-model="accntParams.funding.descriptor">
+                                                        <div ng-messages="myForm.descriptor.$error">
+                                                            <div ng-message="required">This is required.</div>
+                                                        </div>
+                                                    </md-input-container>
+
+                                                    <md-input-container flex="50">
+                                                        <label>Bank Name (Destination)</label>
+                                                        <input required name="destination" ng-model="accntParams.funding.destination">
+                                                        <div ng-messages="myForm.destination.$error">
+                                                            <div ng-message="required">This is required.</div>
+                                                        </div>
+                                                    </md-input-container>
+
+                                                </div> -->
+
+                                                <!-- <div layout="row">
+                                                    <md-input-container flex="50">
+                                                        <label>Email</label>
+                                                        <input required type="email" name="email" ng-model="accntParams.funding.email">
+                                                        <div ng-messages="myForm.email.$error">
+                                                            <div ng-message="required">This is required.</div>
+                                                        </div>
+                                                    </md-input-container>
+
+                                                    <md-input-container flex="50">
+                                                        <label>Mobile Phone</label>
+                                                        <input required name="mobilePhone" ng-model="accntParams.funding.mobilePhone" minlength="10" maxlength="14" ng-pattern="/^[0-9]+$/">
+                                                        <div ng-messages="myForm.mobilePhone.$error">
+                                                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                                                                Phone must be 10 - 14 characters and can only contain numbers
+                                                            </div>
+                                                        </div>
+                                                    </md-input-container>
+                                                </div> -->
+
+                                                <div layout="row">
+                                                    <md-input-container flex="auto">
+                                                        <label>Account Number</label>
+                                                        <input required name="accountNumber" ng-model="accntParams.funding.accountNumber"
+                                                        ng-pattern="/^[0-9]+$/">
+                                                        <div ng-messages="myForm.accountNumber.$error">
+                                                            <div ng-message="required">This is required.</div>
+                                                            <div ng-message="pattern">Only numbers are allowed.</div>
+                                                        </div>
+                                                    </md-input-container>
+
+                                                    <md-input-container flex="auto">
+                                                        <label>Routing Number</label>
+                                                        <input required name="routingNumber" ng-model="accntParams.funding.routingNumber"
+                                                        ng-pattern="/^[0-9]+$/">
+                                                        <div ng-messages="myForm.routingNumber.$error">
+                                                            <div ng-message="required">This is required.</div>
+                                                            <div ng-message="pattern">Only numbers are allowed.</div>
+                                                        </div>
+                                                    </md-input-container>
+
+                                                    <!-- <md-input-container flex="auto">
+                                                        <label>Merchant Account Id</label>
+                                                        <input required name="masterMerchantAccountId" ng-model="accntParams.masterMerchantAccountId" maxlength="32">
+                                                        <div ng-messages="myForm.masterMerchantAccountId.$error">
+                                                            <div ng-message="required">This is required.</div>
+                                                            <div ng-message="maxlength">The merchant account id cannot be longer than 32 characters.</div>
+                                                        </div>
+                                                    </md-input-container> -->
+                                                </div>
+
+                                                <md-input-container class="md-block">
+                                                    <md-checkbox md-no-ink class="md-primary" name="tosAccepted" ng-model="accntParams.tosAccepted" required>
+                                                        I accept the
+                                                        <a href="https://www.braintreepayments.com/legal/bank-agreement"
+                                                            target="_blank">
+                                                            <span style="color:rgb(48, 120, 205);">
+                                                                terms of service.
+                                                            </span>
+                                                            </span>
+                                                        </a>
+                                                    </md-checkbox>
+                                                    <div ng-messages="myForm.tosAccepted.$error">
+                                                        <div ng-message="required">
+                                                            You must accept the terms of service before you can proceed.
+                                                        </div>
+                                                    </div>
+                                                </md-input-container>
+
+                                                <div>
+                                                    <md-button class="md-raised md-primary" type="submit">Submit</md-button>
+                                                </div>
+
+                                            </form>
+
+                                        </md-content>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </md-tab-body>
+                    </md-tab>
+
+                </md-tabs>
+
+            </div>
+        </div>
+
+    </div>
+    <script type="text/ng-template" id="document_dialog">
+        <div class="ngdialog-message gothicFamily">
+            <h4>{{verifymsg}}</h4>
+            <h3>Documents</h3>
+
+            <div class="gothicFamily">
+                <form enctype="multipart/form-data" name="myForm" ng-submit="myForm.$submitted&&addEditDocType(doc, type)">
+                    <div ng-show="doc.successMsg" class="alert alert-success text-center">{{doc.successMsg}}</div>
+                    <div ng-show="doc.errorMsg" class="alert alert-danger text-center">{{doc.errorMsg}}</div>
+
+                    <div class="">
+                        <div class="form-group">
+                            <!-- Document Type Name <span class="astrick">*</span> -->
+                            <!-- <input type="text" placeholder="Enter document type name" class="form-control"
+                        ng-model="doc.document_name" required="required" id="doc" autocomplete="off" /> -->
+                            <label style="display: block;margin-left: 0px;" ng-if="type==1">Document Type : {{docName}}</label>
+
+
+                            <select class="gothicFamily" style="width:50%;margin:15px 0;min-width: 150px;" class="form-control" ng-options="docType as docType.document_name for docType in docTypes track by docType.document_type_id"
+                                ng-model="doc.docType" ng-change="typeSelect(doc.docType)">
+                                <option value="">Select Document Type</option>
+                            </select>
+
+
+                            <input type="text" placeholder="Remind Duration (in Days)" class="form-control" ng-model="doc.reminder_before" required="required"
+                                autocomplete="off" style="margin:15px 0;" />
+
+                            <input type="text" value="{{doc.doc_type}}" name="doc_type" style="display: none;">
+                            <!-- <input type="text" placeholder="Expiry Date" class="form-control"
+                                ng-model="doc.expiry_date" required="required" autocomplete="off" style="margin:15px 0;"/> -->
+                            <div class="form-group gothicFamily">
+                                <label>Expiry Date *</label>
+                                <div class="datepickercustomHHH" style="height:20px">
+                                    <!-- <p class="input-group">
+                                            <input type="text" ng-model="doc.expiry_date" class="form-control" uib-datepicker-popup="{{format}}"
+                                            ng-readonly='true' datepicker-options="dateOptions" is-open="popup.opened" close-text="Close">
+
+                                            <span class="input-group-btn" required>
+                                                <button type="button" class="btn btn-default" ng-click="open()"><i style="color:#209e91" class="fa fa-calendar"></i></button>
+                                            </span>
+                                        </p> -->
+                                    <input class="form-control" ng-model="doc.expiry_date" min="{{minDate}}" type="date">
+                                </div>
+                            </div>
+                            <br>
+                            <!-- doc_file -->
+                            <label class="gothicFamily" style="display: block;margin-left: 0px;" ng-if="type==0">Choose the document : </label>
+                            <div class="fileUpload btn btn-info" style="height: 35px;padding: 7px;width: 40px;" ng-if="type==0">
+                                <span>
+                                    <i class="fa fa-paperclip"></i>
+                                </span>
+                                <input filestyle="" type="file" accept="image/*" image="image" onchange="angular.element(this).scope().file_to_upload(this.files)"
+                                    data-button-text="Single" data-class-button="btn btn-default" data-classinput="form-control inline"
+                                    nv-file-select="" uploader="uploader" class="form-control upload tlc_img" required data-errormessage="Please select a file"
+                                />
+                            </div>
+                            <p class="fileName fileName2 col-lg-6 col-sm-6 col-md-6 col-xs-12 tlc_name" ng-if="type==0">{{doc.doc_file_name}}</p>
+
+                        </div>
+                    </div>
+
+                    <div class="btn-align gothicFamily">
+                        <button type="submit" class="btn btn-mixColor" ng-disable="submitText!='Submit'">{{submitText}}</button>
+                        <button type="button" ng-click="closeThisDialog()" class="btn btn-mixColor" ng-hide="submitText!='Submit'">Cancel</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </script>
+
+
+
+    <script type="text/ng-template" id="addNewDocDialog">
+        <div class="ngdialog-message gothicFamily">
+            <h4>{{verifymsg}}</h4>
+            <h3>Add New Document</h3>
+
+            <div class="gothicFamily">
+                <form enctype="multipart/form-data" name="myForm" ng-submit="myForm.$submitted&&addNewDocType(newDoc, newDoc_type_id, doc_type)">
+                    <!-- <div ng-show="doc.successMsg" class="alert alert-success text-center">{{doc.successMsg}}</div>
+            <div ng-show="doc.errorMsg" class="alert alert-danger text-center">{{doc.errorMsg}}</div> -->
+
+                    <div class="">
+                        <div class="form-group">
+
+                            <select style="width:50%;margin:15px 0;min-width: 150px;" class="form-control">
+                                <!-- <option value="">Select Document Type</option> -->
+                                <option value="newDoc_type_id">{{newDoc_name}}</option>
+                            </select>
+
+                            <input type="text" placeholder="Remind Duration (in Days)" class="form-control" ng-model="newDoc.reminder_before" required="required"
+                                autocomplete="off" style="margin:15px 0;" />
+                            <input type="text" value="{{doc_type}}" name="doc_type" style="display:none;">
+
+                            <div class="form-group">
+                                <label>Expiry Date *</label>
+                                <div class="datepickercustomHHH" style="height:20px">
+                                    <!-- <p class="input-group">
+                                    <input type="text" ng-model="newDoc.expiry_date" class="form-control" uib-datepicker-popup="{{format}}"
+                                    ng-readonly='true' datepicker-options="dateOptions" is-open="popup.opened" close-text="Close">
+
+                                    <span class="input-group-btn" required>
+                                        <button type="button" class="btn btn-default" ng-click="open()"><i style="color:#209e91" class="fa fa-calendar"></i></button>
+                                    </span>
+                                </p> -->
+                                    <input class="form-control" ng-model="newDoc.expiry_date" min="{{minDate}}" max="2999-12-31" type="date">
+                                </div>
+                            </div>
+                            <br>
+
+                            <label class="gothicFamily" style="display: block;margin-left: 0px;">Choose the document : </label>
+                            <div class="fileUpload btn btn-info" style="height: 35px;padding: 7px;width: 40px;">
+                                <span>
+                                    <i class="fa fa-paperclip"></i>
+                                </span>
+                                <input filestyle="" type="file" accept="image/*" image="image" onchange="angular.element(this).scope().addNewFile(this.files)"
+                                    data-button-text="Single" data-class-button="btn btn-default" data-classinput="form-control inline"
+                                    nv-file-select="" uploader="uploader" class="form-control upload tlc_img" required data-errormessage="Please select a file"
+                                />
+                            </div>
+                            <!-- <image-editor image="{{ image }}"
+                                          width="{{ width }}"
+                                          selection-width="{{ selectionWidth }}"
+                                          selection-height="{{ selectionHeight }}"
+                            ></image-editor> -->
+                            <p class="fileName fileName2 col-lg-6 col-sm-6 col-md-6 col-xs-12 tlc_name">{{newDoc.doc_file_name}}</p>
+
+                        </div>
+                    </div>
+
+                    <div class="btn-align gothicFamily">
+                        <button type="submit" class="btn btn-mixColor" ng-disable="submitText!='Submit'">{{submitText}}</button>
+                        <button type="button" ng-click="closeThisDialog()" class="btn btn-mixColor" ng-hide="submitText!='Submit'">Cancel</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </script>
+
+
+</div>

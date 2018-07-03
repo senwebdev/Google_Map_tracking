@@ -1,0 +1,132 @@
+<div class="row">
+  <div class="col-md-12">
+    <button ng-click="AddAdminDialog()" class="btn btn-mixColor pull-right head_button">Add Admin</button>
+    <div style="padding-top:50px" ba-panel ba-panel-title="List of All Admins in the System" ba-panel-class="with-scroll">
+      <div class="horizontal-scroll">
+
+        <table class="table table-striped"  id="datatableAdmin">
+          <thead>
+          <tr>
+            <th class="table-id">S.No</th>
+            <th>Admin Id</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Admin Type</th>
+            <th>Region Name</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr  ng-repeat="data in list">
+            <td class="table-id">{{$index + 1}}</td>
+            <td>{{data.admin_id}}</td>
+            <td>{{data.user_name}}</td>
+            <td>{{data.email}}</td>
+            <td>{{data.type}}</td>
+            <td>{{data.region_name}}</td>
+            <td>
+              <!-- data.is_blocked =0 means passenger is unblock do it block -->
+              <a class="btn btn-sm btn-default1" ng-click="deleteadmin(data.user_name,data.user_email,data.admin_id)"
+                 title="Delete" ng-disabled="data.type == 0">
+                <i class="fa fa-trash-o block-icon"></i>
+              </a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/ng-template" id="modalToAddAdmin">
+    <div class="ngdialog-message">
+      <h3>Add Admin</h3>
+      <div class="">
+        <form name ="myForm" method="post" validate-form="" novalidate="" id="add-admin" ng-submit="submit(addAdmin)">
+          <div ng-show="addAdmin.successMsg" class="alert alert-success text-center">{{addAdmin.successMsg}}</div>
+          <div ng-show="addAdmin.errorMsg" class="alert alert-danger text-center">{{addAdmin.errorMsg}}</div>
+          <div class="">
+            <div class="form-group">
+              Email Id <span class="astrick">*</span>
+              <input type="email" name="admin_email" class="form-control"  required="required"  ng-model="addAdmin.email"
+                     placeholder='Enter the email-id of admin' data-parsley-type="email"/>
+            </div>
+            <div class="form-group">
+              User Name <span class="astrick">*</span>
+              <input type="text" name="user_name" class="form-control"  required="required"  ng-model="addAdmin.name"
+                     placeholder='Enter the username' onkeydown="return alphaOnly(event)"/>
+            </div>
+            <div class="form-group">
+              <select required ="required" ng-model="addAdmin.type_of_admin"  class="chosen-select input-md form-control" ng-options="item as item.name for item in type_of_admin">
+                <option value="">-- Select an option-</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <select required="required" ng-model="addAdmin.region_id"  class="chosen-select input-md form-control" ng-options="item.region_id as item.region_name for item in list2">
+                <option value="">-- Select a region-</option>
+              </select>
+            </div>
+          </div>
+          <div class="btn-align">
+            <button type="submit" class="btn btn-mixColor" >Add</button>
+            <button type="button" ng-click="closeThisDialog(0)" class="btn btn-default">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/ng-template" id="delete_admin_modalDialog">
+    <div class="ngdialog-message">
+      <h4>Are you sure you want to delete {{delete_admin_name}} admin?</h4>
+      <div  style="  margin-top: 20px;text-align: right;">
+        <form method="post" validate-form="" novalidate="" id="approve-driver" >
+          <button type="submit" ng-click="delete_admin()" class="btn btn-mixColor" >Submit</button>
+          <button type="button" ng-click="closeThisDialog(0)" class="btn btn-default" style='margin-left:20px;'>Cancel</button>
+        </form>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/ng-template" id="display_msg_modalDialog">
+    <div class="ngdialog-message">
+      <h4>{{displaymsg}}</h4>
+      <a type="submit" ng-click="refreshPage()" class="btn btn-mixColor" style="margin-top:20px;float:right;">OK</a>
+      <div style="clear: both;"></div>
+    </div>
+  </script>
+
+  <script>
+    function alphaOnly(event) {
+      var key = event.keyCode;
+      return ((key >= 65 && key <= 90) || key == 8 || key == 9 ||key ==32);
+    }
+
+    var specialKeys = new Array();
+    specialKeys.push(8); //Backspace
+    //        specialKeys.push(9); //Tab
+    specialKeys.push(46); //Delete
+    specialKeys.push(36); //Home
+    specialKeys.push(35); //End
+    specialKeys.push(37); //Left
+    specialKeys.push(39); //Right
+    function IsAlphaNumeric(e) {
+      var keyCode = e.keyCode == 0 ? e.charCode : e.keyCode;
+      var ret = ((keyCode >= 48 && keyCode <= 57) || (keyCode >= 65 && keyCode <= 90) || (keyCode >= 97 && keyCode <= 122) || (specialKeys.indexOf(e.keyCode) != -1 && e.charCode != e.keyCode));
+
+      return ret;
+    }
+    function isNumber(evt) {
+      var iKeyCode = (evt.which) ? evt.which : evt.keyCode
+      if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
+        return false;
+      return true;
+    }
+
+    function check_number(event) {
+      if(!(event.charCode>47 && event.charCode<58) && event.charCode && !(event.metaKey || event.ctrlKey))
+        event.preventDefault();
+    }
+  </script>
+
+</div>

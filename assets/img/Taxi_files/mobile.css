@@ -1,0 +1,263 @@
+/* Copyrights-Developed by Taxi Technologies INC. */
+@media (min-width : 320px)
+and (max-width : 480px) {
+    /* Styles */
+    .page-top {
+        padding: 0 2px !important;
+    }
+    a.collapse-menu-link {
+        margin-left: 10px;
+        margin-top: 4% !important;
+    }
+
+    .al-user-profile img {
+        background-color: white;
+        margin-top: -71px !important;
+        margin-left: 25px !important;
+    }
+
+    .col-xs-8 {
+        width: 66.66666667%;
+        margin-top: -23% !important;
+        margin-left: 19% !important;
+        /* background-color: white; */
+        color: #e5dde8 !important;
+    }
+    .pull-left {
+        float: left;
+        margin-top: -23% !important;
+        margin-left: 19% !important;
+    }
+
+    label {
+        margin-top: 5px !important;
+        color: white !important;
+    }
+
+    .al-main {
+        margin-left: 0px !important;
+        padding: 66px 0 34px 0;
+        min-height: calc(100vh - 36px);
+    }
+
+    .top-dropdown-menu.profile-dropdown {
+        width: 145px;
+        top: 4px !important;
+        right: -45px !important;
+        height: 34px !important;
+    }
+
+    .form-control {
+        color: white !important;
+    }
+
+    body.mobile .body-bg1 {
+        display: block !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        bottom: 0 !important;
+        right: 0 !important;
+        background-attachment: inherit !important;
+        background-color: #525252 !important;
+        opacity: 0;
+    }
+
+    .top-dropdown-menu.profile-dropdown a {
+        margin-top: -2% !important;
+        font-size: 16px !important;
+    }
+
+    .logo-div {
+        width: 50% !important;
+        margin-left: 25%;
+    }
+
+    .auth-block h1 {
+        font-weight: 300;
+        margin-bottom: 28px;
+        text-align: center;
+        font-size: 25px !important;
+    }
+
+    .auth-block {
+        margin-top: 0% !important;
+    }
+
+    button.btn.btn-default {
+        margin-top: 10% !important;
+    }
+
+    a.forgot-pass {
+        display: block;
+        text-align: right;
+        margin-bottom: -20px;
+        float: right;
+        z-index: 2;
+        position: relative;
+    }
+
+}
+@media (min-width: 1440px) {
+    .body-bg1 {
+        display: block !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        bottom: 0 !important;
+        right: 0 !important;
+        background-attachment: inherit !important;
+        background-color: #525252 !important;
+        opacity: 0;
+    }
+    .logo-div {
+        width: 25% !important;
+        display: block;
+        margin-left: 37.5%;
+    }
+    .auth-block{
+        width: 800px!important;
+    }
+    .auth-block h1{
+        font-size: 30px!important;
+    }
+    button.btn.btn-default {
+        /*font-size: 20px!important;*/
+    }
+    /*a.forgot-pass {*/
+        /*font-size: 20px!important;*/
+    /*}*/
+
+}
+@media (min-width: 700px) and (max-width: 800px){
+    .auth-block {
+        text-align: center !important;
+        width: 640px!important;
+        margin: 0 auto!important;
+        border-radius: 5px!important;
+        background: rgba(0, 0, 0, 0.55)!important;
+        color: #fff!important;
+        padding: 32px!important;
+    }
+    body.mobile .body-bg1 {
+        display: block !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        bottom: 0 !important;
+        right: 0 !important;
+        background-attachment: inherit !important;
+        background-color: #525252 !important;
+        opacity: 0;
+    }
+    button.btn.btn-default {
+        font-size: 20px!important;
+    }
+    /*a.forgot-pass{*/
+        /*font-size: 20px;!important;*/
+    /*}*/
+    .form-control, .form-control:focus {
+        font-size: 20px!important;
+    }
+    .label{
+        font-size: 20px!important;
+    }
+    .al-main{
+        /*margin-left: 25% !important;*/
+        background: rgba(0,0,0,0.7) !important;
+        width: 80% !important;
+    }
+    .al-sidebar{
+        /*width: 180px!important;*/
+    }
+    .pull-left{
+        color: white!important;
+    }
+    .al-content{
+        /*margin-left: -5px!important;*/
+    }
+    a.al-sidebar-list-link i{
+        font-size: 30px!important;
+    }
+    a.al-sidebar-list-link{
+        font-size: 15px!important;
+    }
+    main.ng-scope.menu-collapsed{
+        overflow: hidden!important;
+    }
+
+}
+@media (max-width: 1024px) {
+    body.mobile .body-bg1 {
+        display: block !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        bottom: 0 !important;
+        right: 0 !important;
+        background-attachment: inherit !important;
+        background-color: #525252 !important;
+        opacity: 0;
+    }
+    .al-main{
+        margin-left: 5.1%;
+    }
+    .top-dropdown-menu.profile-dropdown a {
+        font-size: 18px;!important;
+    }
+    .auth-block h1{
+        font-size: 20px!important;
+    }
+    .auth-block .control-label{
+        font-size: 1.5rem!important;
+    }
+    /*a.forgot-pass{*/
+        /*font-size: 16px!important;*/
+    /*}*/
+    .auth-block{
+        /*margin-top: -12% !important;*/
+    }
+    a.collapse-menu-link{
+        margin-top: 2%;
+    }
+    .top-dropdown-menu.profile-dropdown a i{
+        font-size: 16px!important;
+    }
+    .al-content{
+        /*margin-left: -5px!important;*/
+    }
+    .al-main{
+        background: rgba(0,0,0,0.7) !important;
+        transition: width 0.5s ease;
+    }
+    .collapsedAlMain{
+        margin-left: 52px!important;
+        transition: width 0.5s ease;
+    }
+    .expandAlMain{
+        margin-left:180px!important;
+        transition: width 0.5s ease;
+    }
+    a.al-sidebar-list-link i{
+        font-size: 30px!important;
+    }
+    a.al-sidebar-list-link{
+        font-size: 15px!important;
+    }
+    .dataTables_filter label{
+        display: flex;
+    }
+
+}
+
+@media (min-width: 1000px) and (max-width: 1080px){
+    /*.al-sidebar{*/
+        /*width: 180px!important;*/
+    /*}*/
+    .al-main{
+        margin-left: 0!important;
+    }
+    /*.menu-collapsed .al-sidebar{*/
+        /*width: 180px!important;*/
+    /*}*/
+}

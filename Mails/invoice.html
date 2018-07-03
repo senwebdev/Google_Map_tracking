@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" style="background-color: #f5f5f5">
+<head>
+    <title>Qudos Invoice</title>
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+</head>
+<body style="margin:0">
+<div class="container" style="max-width:900px;margin:10vh auto;background:#15232c">
+    <div  style="text-align:center">
+        <img style="margin:45px auto 20px;width: 169px;height: 40px;object-fit: contain;" src="https://s3.ap-south-1.amazonaws.com/taxiemail/Taxi_White.png">
+        <div style="width: 100%"><img style="width: 100%;background-size: contain;background-repeat: no-repeat;" src="https://s3.ap-south-1.amazonaws.com/taxiemail/graphic.png"></div>
+        <div style="background: rgba(24, 39, 49, 1) url('https://s3.ap-south-1.amazonaws.com/taxiemail/pattern.png') repeat;">
+            <div style="width: 85%;max-width: 600px;padding: 3.5% 5%;margin:auto;">
+                <table>
+                    <tr>
+                        <p style="font-family: HelveticaNeue;font-size: 36px;font-weight: 500;font-style: normal;font-stretch: normal;color: #ffffff;text-align: left">$ {{AMOUNT}}</p>
+                        </tr>
+                    <tr>
+                        <p  style="font-family: HelveticaNeue;font-size: 14px;font-weight: normal;font-style: normal;font-stretch: normal;color: #ffffff;text-align: left">{{DATE}}</p>
+                    </tr>
+                    <tr>
+                        <div>
+                                <ol style="list-style: disc;padding-left: 15px">
+
+                                <li style="text-align: left;color:#27aa0b">
+                                    <p style="opacity: 0.7;font-family: HelveticaNeue;font-size: 14px;font-weight: normal;font-style: normal;font-stretch: normal;color: #ffffff;">{{PICKUP_TIME}} {{PICKUP_ADDRESS}}
+                                    </p>
+                                </li>
+                            <li style="text-align: left;color:#b52a09">
+                                <p style="opacity: 0.7;font-family: HelveticaNeue;font-size: 14px;font-weight: normal;font-style: normal;font-stretch: normal;color: #ffffff;">{{DROP_TIME}} {{DROP_ADDRESS}}
+                                </p>
+                            </li>
+                                </ol>
+                        </div>
+                    </tr>
+                </table>
+                <div style="height: 200px">
+                    <img src="https://maps.googleapis.com/maps/api/staticmap?size=540x200&style=feature%3Alandscape%7Cvisibility%3Aoff&style=feature%3Apoi%7Cvisibility%3Aoff&style=feature%3Atransit%7Cvisibility%3Aoff&style=feature%3Aroad.highway%7Celement%3Ageometry%7Clightness%3A39&style=feature%3Aroad.local%7Celement%3Ageometry%7Cgamma%3A1.45&style=feature%3Aroad%7Celement%3Alabels%7Cgamma%3A1.22&style=feature%3Aadministrative%7Cvisibility%3Aoff&style=feature%3Aadministrative.locality%7Cvisibility%3Aon&style=feature%3Alandscape.natural%7Cvisibility%3Aon&scale=2&markers=shadow%3Afalse%7Cscale%3A2%7Cicon%3Ahttps://s3.ap-south-1.amazonaws.com/taxiemail/pickup.png%7C'+{{latitude}}+'%2C'+{{longitude}}+'&markers=shadow%3Afalse%7Cscale%3A2%7Cicon%3Ahttps://s3.ap-south-1.amazonaws.com/taxiemail/drop_off.png%7C'+{{manual_destination_latitude}}+'%2C'+{{manual_destination_longitude}}+'&path=geodesic:true%7Cweight:3%7Ccolor:0x2dbae4ff%7C'+{{path_string}}+'&key=AIzaSyADXfBi40lkKpklejdGIWNxdkqQCKz8aKI" style="width: 600px;height: 200px;max-width: 100%;">
+                </div>
+                <hr style="opacity: 0.2;background-color: #ffffff;margin-top: 6%">
+                <table style="width: 100%">
+                    <tr>
+                        <th width="33.33%"><label style="font-family: HelveticaNeue;font-size: 14px;font-weight: normal;font-style: normal;font-stretch: normal;text-align: center;color: #ffffff;">Vehicle</label></th>
+                        <th  width="33.33%"><label style="font-family: HelveticaNeue;font-size: 14px;font-weight: normal;font-style: normal;font-stretch: normal;text-align: center;color: #ffffff;">Trip Time</label></th>
+                        <th  width="33.33%"><label style="font-family: HelveticaNeue;font-size: 14px;font-weight: normal;font-style: normal;font-stretch: normal;text-align: center;color: #ffffff;">Kilometers</label></th>
+                    </tr>
+                </table>
+                <table  style="width: 100%">
+                    <tr>
+                        <th  width="33.33%"><label style="font-family: HelveticaNeue;font-size: 14px;font-weight: normal;font-style: normal;font-stretch: normal;text-align: center;color: #ffffff;">{{VEHICLE_NAME}}</label></th>
+                        <th  width="33.33%"><label style="font-family: HelveticaNeue;font-size: 14px;font-weight: normal;font-style: normal;font-stretch: normal;text-align: center;color: #ffffff;">{{TRIP_TIME}}</label></th>
+                        <th width="33.33%"><label style="font-family: HelveticaNeue;font-size: 14px;font-weight: normal;font-style: normal;font-stretch: normal;text-align: center;color: #ffffff;">{{MILES}}</label></th>
+                    </tr>
+                </table>
+                <hr style="opacity: 0.2;background-color: #ffffff;">
+                <div style="background-color: #212f39;padding: 3%;margin-top: 6%">
+                <table style="width:100%">
+                    <tr>
+                        <th style="font-family: HelveticaNeue;text-align:left;font-size: 16px;font-weight: 500;font-style: normal;font-stretch: normal;color: #ffffff;height: 55px">Fare Breakdown</th>
+                    </tr>
+                    <tr>
+                        <td style="opacity: 0.7;text-align:left;font-family: HelveticaNeue;font-size: 14px;font-weight: normal;font-style: normal;font-stretch: normal;color: #ffffff;">Fare and Toll</td>
+                        <td style="opacity: 0.7;text-align:right;font-family: HelveticaNeue;font-size: 14px;font-weight: normal;font-style: normal;font-stretch: normal;text-align: right;color: #ffffff;">$ {{BASE_FARE}}</td>
+                    </tr>
+                    <tr>
+                        <td style="opacity: 0.7;text-align:left;font-family: HelveticaNeue;font-size: 14px;font-weight: normal;font-style: normal;font-stretch: normal;color: #ffffff;height: 55px">Tax</td>
+                        <td style="opacity: 0.7;text-align:right;font-family: HelveticaNeue;font-size: 14px;font-weight: normal;font-style: normal;font-stretch: normal;text-align: right;color: #ffffff;">{{DISTANCE}}</td>
+                    </tr>
+                    <tr>
+                        <td style="opacity: 0.7;text-align:left;font-family: HelveticaNeue;font-size: 14px;font-weight: normal;font-style: normal;font-stretch: normal;color: #ffffff;">Black Car Fund</td>
+                        <td style="opacity: 0.7;text-align:right;font-family: HelveticaNeue;font-size: 14px;font-weight: normal;font-style: normal;font-stretch: normal;text-align: right;color: #ffffff;">{{TIME}}</td>
+                    </tr>
+                </table>
+                    <hr style="opacity: 0.2;background-color: #ffffff;">
+                    <table style="width: 100%">
+                        <tr>
+                            <td style="opacity: 0.7;text-align:left;font-family: HelveticaNeue;font-size: 14px;font-weight: normal;font-style: normal;font-stretch: normal;color: #ffffff;">Subtotal</td>
+                            <td style="opacity: 0.7;text-align:right;font-family: HelveticaNeue;font-size: 14px;font-weight: normal;font-style: normal;font-stretch: normal;text-align: right;color: #ffffff;">${{subtotal}}</td>
+                        </tr>
+                    </table>
+                    <hr style="opacity: 0.2;background-color: #ffffff;">
+                    <table style="width: 100%">
+                        <tr>
+                            <td style="opacity: 0.7;text-align:left;font-family: HelveticaNeue;font-size: 14px;font-weight: normal;font-style: normal;font-stretch: normal;color: #ffffff;">Charged</td>
+                            <td style="opacity: 0.7;text-align:right;font-family: HelveticaNeue;font-size: 14px;font-weight: normal;font-style: normal;font-stretch: normal;text-align: right;color: #ffffff;">$ {{CHARGED}}</td>
+                        </tr>
+                    </table>
+                    </div>
+                <table>
+                    <tr>
+                <p style="opacity: 0.7;text-align: left;font-family: HelveticaNeue;font-size: 10px;font-weight: bold;font-style: normal;font-stretch: normal;color: #ffffff;"><a href="" style="color: #ffffff">Visit the trip details</a> page for more information.</p>
+                        </tr>
+                    </table>
+
+                <div style="max-width:600px;width:100%;height: 140px;background-color: #212f39;">
+
+                    <tc style="padding:1px">
+                        <p style="text-align:center;font-family: HelveticaNeue;font-size: 14px;font-weight: normal;font-style: normal;font-stretch: normal;color: #ffffff;">
+                            <img src="{{driver_image}}" >
+                               You rode with {{DRIVER_NAME}}</p>
+                    </tc>
+                    <label style="opacity: 0.7;font-family: HelveticaNeue;
+                    font-size: 14px;font-weight: normal;font-style: normal;
+                    font-stretch: normal;color: #ffffff;">Your Ratings:
+                        <a href=""><img src="https://s3.ap-south-1.amazonaws.com/taxiemail/star_off.png"></a>
+                        <a href=""><img src="https://s3.ap-south-1.amazonaws.com/taxiemail/star_off.png"></a>
+                            <a href=""><img src="https://s3.ap-south-1.amazonaws.com/taxiemail/star_off.png"></a>
+                                <a href=""><img src="https://s3.ap-south-1.amazonaws.com/taxiemail/star_off.png"></a>
+                                    <a href=""><img src="https://s3.ap-south-1.amazonaws.com/taxiemail/star_off.png"></a>
+                    </label>
+                </div>
+                <div style="text-align:center;max-width:400px;width:90%;border: dashed 1px #ffffff;margin: 10% auto 0;border-radius: 4px;padding:10px;display: inline-table;">
+                    <img src="https://s3.ap-south-1.amazonaws.com/taxiemail/refer_code.png">
+                    <div style="width: 70%;float: right;">
+                        <p style="font-family: HelveticaNeue;font-size: 16px;font-weight: bold;font-style: normal;font-stretch: normal;text-align: left;color: #ffffff;margin: 5px">Share your code</p>
+                        <p style="font-family: HelveticaNeue;font-size: 21px;font-weight: bold;font-style: normal;font-stretch: normal;text-align: left;color: #ffffff;margin:5px;word-wrap:break-word">WDFFEEX554266545D</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--<img class="driverImage" src="mailer/image.png">-->
+        <div style="padding-bottom:0;background-color: #15232c;text-align: center">
+            <div style="padding:15px 20px 20px;text-align: center">
+                <div style="display:block;">
+                    <a href="https://facebook.com/TaxiTechnologies">
+                        <img style="padding: 1.5%" src="https://s3.ap-south-1.amazonaws.com/taxiemail/facebook.png"></a>
+                    <a href=""><img style="padding: 1.5%" src="https://s3.ap-south-1.amazonaws.com/taxiemail/twitter.png"></a>
+                    <a href=""><img style="padding: 1.5%" src="https://s3.ap-south-1.amazonaws.com/taxiemail/linked_in.png"></a>
+                    <a href=""><img style="padding: 1.5%" src="https://s3.ap-south-1.amazonaws.com/taxiemail/insta.png"></a>
+                    <a href=""><img style="padding: 1.5%" src="https://s3.ap-south-1.amazonaws.com/taxiemail/pinterest.png"></a>
+                </div>
+                <!--<div style="margin:auto;display:inline-block;padding-top:30px;padding-bottom:20px;">-->
+                <!--<div class="col-lg-3 col-xs-12" style="width:30%;float:left;margin:auto;text-align: right;"></div>-->
+                <!--</div>-->
+                <label style="opacity: 0.7;font-family: HelveticaNeue;font-size: 10px;letter-spacing:1px;font-weight: bold;font-style: normal;font-stretch: normal;text-align: center;color: #ffffff;"><u>Unsubscribe</u>&nbsp;&#xb7;&nbsp;<u>Privacy Policy</u>&nbsp;&#xb7;&nbsp;<u>Contact Us</u></label>
+                <br>
+                <label style="opacity: 0.7;font-family: HelveticaNeue;font-size: 10px;letter-spacing:1px;font-weight: normal;font-style: normal;font-stretch: normal;text-align: center;color: #ffffff;">Copyright &copy; 2016 Taxi. All rights reserved.</label>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<!--
+<br>
+<p style="font-family: HelveticaNeue;font-size: 14px;font-weight: normal;font-style: normal;font-stretch: normal;text-align: left;color: #ffffff;">Best Wishes</p>
+ -->

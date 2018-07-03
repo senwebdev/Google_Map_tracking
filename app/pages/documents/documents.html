@@ -1,0 +1,112 @@
+<div class="row">
+  <div class="col-md-12">
+    <button ng-click="addDocDialog()" class="btn btn-mixColor pull-right head_button">Add Document Type</button>
+    <!--<ul uib-pagination ng-if="totalItems!=0" total-items="totalItems" ng-change="pageChanged(currentPage)" items-per-page="itemsPerPage"-->
+        <!--ng-model="currentPage" max-size="maxSize" rotate="true"  class="pagination-sm pull-right"-->
+        <!--style="margin-bottom: 10px" boundary-links="true"></ul>-->
+    <div style="padding-top:50px;" ba-panel ba-panel-title="List of All Document Types" ba-panel-class="with-scroll">
+        <div class="horizontal-scroll">
+          <table id="datatableDocTypes" class="table table-striped table-hover" ng-class="{'whirl duo' : showloader }">
+              <thead>
+              <tr>
+                  <th class="datetimewidth">Document Type ID</th>
+                  <th class="datetimewidth">Document Type</th>
+                  <th class="datetimewidth">Date Added</th>
+                  <th>Action</th>
+              </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="data in docTypes">
+                  <td>{{data.document_type_id}}</td>
+                  <td>{{data.document_name}}</td>
+                  <td>{{data.date_added|date:'MMM dd yyyy, hh:mm a'}}</td>
+                  <td>
+                    <a class="btn btn-sm btn-default1" title="block" ng-click="editDocDialog(data)">
+                      Edit
+                    </a>
+                  </td>
+                </tr>
+
+              </tbody>
+          </table>
+        </div>
+    </div>
+  </div>
+
+
+
+  <!-- ***************************************************************************
+  *********** Modal for confirm whether passenger is to be delete or not *********
+  ********************************************************************************-->
+  <script type="text/ng-template" id="display_msg_modalDialog">
+    <div class="ngdialog-message">
+      <h4>{{displaymsg}}</h4>
+      <a type="submit" ng-click="refreshPage()" class="btn btn-mixColor" style="margin-top:20px;float:right;">OK</a>
+      <div style="clear: both;"></div>
+    </div>
+  </script>
+
+  <!-- ***************************************************************************
+  *********** Modal for confirm whether passenger is to be delete or not *********
+  ********************************************************************************-->
+  <script type="text/ng-template" id="delete_passenger_modalDialog">
+    <div class="ngdialog-message">
+      <h4>Are you sure you want to delete  this passenger?</h4>
+      <div style="margin-top: 20px;text-align: right;" >
+        <form method="post" validate-form="" novalidate="">
+          <button type="submit" ng-click="delete_passenger(delete_passenger_id)" class="btn btn-mixColor" >Yes</button>
+          <button type="button" ng-click="closeThisDialog(0)" class="btn btn-mixColor" style='margin-left:20px;'>No</button>
+        </form>
+      </div>
+    </div>
+  </script>
+
+  <!-- ***************************************************************************
+  ******************* Modal for block unblock driver ************************************
+  ********************************************************************************-->
+  <script type="text/ng-template" id="block_unblock_passenger_modalDialog">
+    <div class="ngdialog-message">
+      <h4>{{blockunblockmsg}}</h4>
+      <div >
+        <form method="post" validate-form="" novalidate="" style="text-align: right;margin-top: 20px;">
+          <button type="submit" ng-click="do_block_unblock_passenger(is_blocked,blockunblockid)" class="btn btn-mixColor" >Yes</button>
+          <button type="button" ng-click="closeThisDialog(0)" class="btn btn-mixColor" style='margin-left:20px;'>No</button>
+        </form>
+      </div>
+    </div>
+  </script>
+  <!-- ***************************************************************************
+  ******************* Modal for change pass of customer  ***************************
+  ********************************************************************************-->
+  <script type="text/ng-template" id="document_dialog">
+    <div class="ngdialog-message">
+      <h3>Document Type</h3>
+
+      <div class="">
+        <form method="post" name="myForm" ng-submit="myForm.$submitted&&addEditDocType(docTypeName,type)">
+          <div ng-show="docTypeName.successMsg" class="alert alert-success text-center">{{docTypeName.successMsg}}</div>
+          <div ng-show="docTypeName.errorMsg" class="alert alert-danger text-center">{{docTypeName.errorMsg}}</div>
+          <div class="">
+            <div class="form-group">
+              <!-- Document Type Name <span class="astrick">*</span> -->
+              <input type="text" placeholder="Enter document type name" class="form-control"
+                     ng-model="docTypeName.document_name" required="required" id="docTypeName" autocomplete="off" />
+            </div>
+          </div>
+          <div class="btn-align">
+            <button type="submit" class="btn btn-mixColor" >Submit</button>
+            <button type="button" ng-click="closeThisDialog(0)" class="btn btn-mixColor">Cancel</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+  </script>
+
+</div>
+<style>
+.dataTables_paginate{
+  display:block;
+}
+</style>

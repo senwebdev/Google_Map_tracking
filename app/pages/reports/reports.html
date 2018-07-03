@@ -1,0 +1,98 @@
+<style>
+  body:before {
+    background-color: #fff!important;
+  }
+  md-card {
+      min-height: 190px !important;
+  }
+  .userReport, .paymentReport, .ridesReport {
+    min-width: 320px;
+  }
+</style>
+<div>
+  <md-content style="background-color:white!important" class="md-padding"  layout="row" layout-xs="column" >
+
+    <div class="row">
+      <div class="col-sm-12 col-md-4">
+        <div class="userReport" ng-style="GENERICS.reports.card1.display">
+        <md-card style="border: 1px solid #dedede" flex="100">
+        
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">User Reports</span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <!-- <p class="gothicFamily">
+              Some default text.
+            </p> -->
+          </md-card-content>
+          <md-card-actions layout="row" layout-align="end center">
+            <md-button class="md-raised" ng-disabled="GENERICS.reports.card1.disableBtn" ng-style="GENERICS.reports.btnColor" ui-sref="reportdetails.userreport">VIEW</md-button>
+          </md-card-actions>
+        </md-card>
+      </div>
+      </div>
+      <div class="col-sm-12 col-md-4">
+        <div class="paymentReport" ng-style="GENERICS.reports.card2.display">
+          <md-card style="border: 1px solid #dedede" flex="100">   
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">Braintree Reports</span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+              <!-- <p class="gothicFamily">
+                Some default text.
+              </p> -->
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="end center">
+              <md-button class="md-raised" ng-disabled="GENERICS.reports.card2.disableBtn" ng-style="GENERICS.reports.btnColor" ui-sref="reportdetails.paymentreport">VIEW</md-button>
+            </md-card-actions>
+          </md-card>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-4">
+        <div class="ridesReport" ng-style="GENERICS.reports.card3.display">
+          <md-card style="border: 1px solid #dedede" flex="100">   
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">Past Rides</span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+              <!-- <p class="gothicFamily">
+                Some default text.
+              </p> -->
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="end center">
+              <md-button class="md-raised" ng-disabled="GENERICS.reports.card3.disableBtn" ng-style="GENERICS.reports.btnColor" ui-sref="reportdetails.pastridesreport">VIEW</md-button>
+            </md-card-actions>
+          </md-card>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-4">
+        <div class="ridesReport" ng-style="GENERICS.reports.card3.display">
+          <md-card style="border: 1px solid #dedede" flex="100">   
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">Payment Payout Rides</span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+              <!-- <p class="gothicFamily">
+                Some default text.
+              </p> -->
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="end center">
+              <md-button class="md-raised" ng-disabled="GENERICS.reports.card3.disableBtn" ng-style="GENERICS.reports.btnColor" ui-sref="reportdetails.paymentpayoutreport">VIEW</md-button>
+            </md-card-actions>
+          </md-card>
+        </div>
+      </div>
+    
+    </div>
+
+  </md-content>
+</div>

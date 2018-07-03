@@ -1,0 +1,69 @@
+<style>
+.gothicFamily {
+  font-family: 'gothic';
+}
+body::before{
+  background-color: #fff;
+} 
+</style>
+
+<div class="clearfix" ng-style="GENERICS.styles_page_top" scroll-position="scrolled" max-height="50" ng-class="{'scrolled': scrolled}">
+  <!--<a href class="collapse-menu-link ion-navicon" ba-sidebar-toggle-menu></a>-->
+  <!--<h1 class="al-title">{{ activePageTitle }}</h1>-->
+  <!--<div class="search">-->
+    <!--<i class="ion-ios-search-strong" ng-click="startSearch()"></i>-->
+    <!--<input id="searchInput" type="text" placeholder="Search for...">-->
+  <!--</div>-->
+
+
+   
+      
+      <!--<md-datepicker ng-model="ctrl.myDate" md-placeholder="Enter date"></md-datepicker>-->
+   
+    <div class="topCenterLogo">
+        <a ui-sref="home" class="al-logo clearfix">
+          <img alt="LOGO" ng-style="GENERICS.topCenterLogo.logoDem" ng-src="assets/generic/img/{{GENERICS.topCenterLogo.logo_url}}" class="">
+        </a>
+    </div>
+    <div style="float:right;font-size:12px;padding:25px 0;" class="gothicFamily">
+      <span class="dateCurrent" ng-style="GENERICS.topCenterLogo.dateTime">{{date | date:'dd-MM-yyyy'}}</span>
+      <span class="timeCurrent" ng-style="GENERICS.topCenterLogo.dateTime">{{date.getHours() + ':' + date.getMinutes()}} {{timetoDis}}</span>
+      <!--<i style="float:right;margin-top: -6%" class="fa fa-sun-o" aria-hidden="true"></i>-->
+    </div>
+    <div class="user-profile clearfix">
+        <msg-center></msg-center>
+    </div>
+
+  <!--<div class="user-profile clearfix">-->
+      <!--<div class="col-lg-12 col-md-12 col-sm-12 pull-left centerSelect">-->
+      <!--<label style="margin-top:10px;margin-right: 5px;display: inline-table">Center : </label>-->
+      <!--&lt;!&ndash; <select class="pull-right form-control">-->
+        <!--<option value="New York">New York</option>-->
+        <!--<option value="Los Angeles">Los Angeles</option>-->
+        <!--<option value="Boston">Boston</option>-->
+        <!--<option value="Chicago">Chicago</option>-->
+        <!--<option value="Washington">Washington</option>-->
+        <!--<option value="New Jersey">New Jersey</option>-->
+        <!--<option value="Conneticut">Conneticut</option>-->
+        <!--<option value="North Carolina">North Carolina</option>-->
+      <!--</select> &ndash;&gt;-->
+      <!--<select class="pull-right form-control"-->
+           <!--ng-options="region as region for region in regionList track by $index"-->
+           <!--ng-model="regions" ng-change="regionSelect(regions)">-->
+         <!--<option value="">Select Region</option>-->
+      <!--</select>-->
+    <!--</div>-->
+    <!--<div class="al-user-profile" uib-dropdown>-->
+      <!--<a uib-dropdown-toggle class="profile-toggle-link">-->
+        <!--<img src="assets/img/taxi/taxiLogo.png" style="background-color: white;margin-top: 10px;margin-left: 30px;">-->
+      <!--</a>-->
+      <!--<ul  class="top-dropdown-menu profile-dropdown" uib-dropdown-menu>-->
+        <!--<li><i class="dropdown-arr"></i></li>-->
+        <!--&lt;!&ndash;<li><a href="#/profile"><i class="fa fa-user"></i>Profile</a></li>&ndash;&gt;-->
+        <!--&lt;!&ndash;<li><a href><i class="fa fa-cog"></i>Settings</a></li>&ndash;&gt;-->
+        <!--<li><a ng-click="logout()" class="signout"><i class="fa fa-power-off"></i>Sign Out</a></li>-->
+      <!--</ul>-->
+    <!--</div>-->
+    <!--&lt;!&ndash;<msg-center></msg-center>&ndash;&gt;-->
+  <!--</div>-->
+</div>

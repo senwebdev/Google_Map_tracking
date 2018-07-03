@@ -1,0 +1,596 @@
+<h3>
+    Add Fleets
+    <small>Displaying to Add Fleets</small>
+</h3>
+<div class="row">
+    <div class="col-lg-12">
+        <form method="post" validate-form="" novalidate="" ng-submit="add_vehicle_function(vehicle)">
+
+            <!-- START panel-->
+            <div class="panel panel-default" ng-class="{'whirl duo' : showloader }">
+                <div class="panel-body">
+                    <!--<div id="panelPortlet13" class="panel panel-theme">-->
+                    <!--<div class="panel-heading">Vehicle Details</div>-->
+                    <!--</div>-->
+
+                    <div class="col-lg-8 col-md-8 col-sm-8">
+
+                        <div class="form-group" ng-controller="CarController">
+                            <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+                                <label class="control-label inline">Type <span class="astrick">*</span></label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 form-group">
+                                <select name="account" class="form-control" ng-model="vehicle.type" required="" ng-options="item.car_type as item.car_name for item in list">
+                                    <option value="" disabled="disabled">Select Vehicle Type</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+                                <label class="control-label">Vehicle Name<span class="astrick">*</span></label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 form-group">
+                                <input type="text" name="vehicle-name" required="required" class="form-control"
+                                       ng-model="vehicle.name" placeholder="Vehicle Name" onkeypress="javascript:return IsAlphaNumeric(event)" data-parsley-pattern="/^[a-zA-Z0-9\-\s]+$/"/>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+                                <label class="control-label">VIN<span class="astrick">*</span></label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 form-group" >
+                                <input type="text" name="vin" required="required" class="form-control" data-parsley-type="digits"
+                                       ng-model="vehicle.vin" placeholder="VIN" onkeypress="javascript:return check_number(event)"/>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+                                <label class="control-label">Make<span class="astrick">*</span></label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 form-group">
+                                <input type="text" name="make" required="required" class="form-control"
+                                       ng-model="vehicle.make" placeholder="Make" onkeypress="javascript:return IsAlphaNumeric(event)" data-parsley-pattern="/^[a-zA-Z0-9\-\s]+$/"/>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+                                <label class="control-label">Model<span class="astrick">*</span></label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 form-group">
+                                <input type="text" name="model" required="required" class="form-control"
+                                       ng-model="vehicle.model" placeholder="Model" onkeypress="javascript:return IsAlphaNumeric(event)" data-parsley-pattern="/^[a-zA-Z0-9\-\s]+$/"/>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+                                <label class="control-label">Year<span class="astrick">*</span></label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 form-group">
+                                <input class="form-control date_input_field" required="required" ng-model="vehicle.year"
+                                       id="year"  type="text" placeholder="Select Year" readonly="">
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+                                <label class="control-label">Color</label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 form-group">
+                                <input type="text" name="model" class="form-control"
+                                       ng-model="vehicle.color" placeholder="Enter Color" onkeydown="return alphaOnly(event)" data-parsley-pattern="/^[a-zA-Z ]*$/"/>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+                                <label class="control-label">Licence Plate<span class="astrick">*</span></label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 form-group">
+                                <input type="text" name="model" required="required" class="form-control"
+                                       ng-model="vehicle.license" placeholder="Enter Licence Plate" onkeypress="javascript:return IsAlphaNumeric(event)" data-parsley-pattern="/^[a-zA-Z0-9\-\s]+$/"/>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+                                <label class="control-label">Max Passengers<span class="astrick">*</span></label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 form-group">
+                                <input type="text" name="model" required="required" class="form-control" data-parsley-type="digits"
+                                       ng-model="vehicle.passengers" placeholder="Enter Max Passengers" onkeypress="javascript:return check_number(event)" />
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+                                <label class="control-label">Assigned Driver</label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 form-group">
+                                <!--<span ng-repeat="code in vehicle.assigned_driver track by $index" >-->
+                                <!--<input type="text" ng-model="code" class="form-control"-->
+                                <!--style="width:20% !important;display:inline;" disabled />-->
+                                <!--<button type="button"  id="crossButton" ng-click="delete($index)" class="btn">-->
+                                <!--<span style="font-weight: bolder">x</span>-->
+                                <!--</button>-->
+                                <!--</span>-->
+                                <input type="text" name="model"  class="form-control" ng-click="openModal()"
+                                       ng-model="vehicle.assigned_driver" placeholder="Enter Assigned Driver" onkeydown="return alphaOnly(event)" data-parsley-pattern="/^[a-zA-Z ]*$/"/>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group ">
+                            <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+                                <label class="control-label">Luggages</label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 form-group">
+                                <input type="text" name="model" class="form-control" data-parsley-type="digits"
+                                       ng-model="vehicle.luggage" placeholder="Enter No. of Luggages" onkeypress="javascript:return check_number(event)"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- end of right div -->
+                </div>
+
+                <div  class="panel" style="border-bottom: 1px solid #e0e0e0">
+                    <div class="panel-heading" style="font-size: large"><b>INSURANCE</b></div>
+                </div>
+                <div class="panel-body">
+                    <div class="col-lg-8 col-md-8 col-sm-8">
+
+                        <div class="form-group">
+                            <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+                                <label class="control-label">Policy Number</label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 form-group">
+                                <input type="text" name="policy"  class="form-control" data-parsley-type="digits"
+                                       ng-model="vehicle.policy_number" placeholder="Policy Number" onkeypress="javascript:return check_number(event)"/>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+                                <label class="control-label">Insurance Company</label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 form-group">
+                                <input type="text" name="vehicle-name" class="form-control"
+                                       ng-model="vehicle.ins_company" placeholder="Insurance Company" onkeydown="return alphaOnly(event)" data-parsley-pattern="/^[a-zA-Z ]*$/"/>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+                                <label class="control-label">Policy Owner</label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 form-group">
+                                <input type="text" name="policy_owner" class="form-control"
+                                       ng-model="vehicle.policy_owner" placeholder="Policy Owner" onkeydown="return alphaOnly(event)" data-parsley-pattern="/^[a-zA-Z ]*$/"/>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+                                <label class="control-label">Policy Premium</label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 form-group">
+                                <input type="text" name="make" class="form-control"
+                                       ng-model="vehicle.premium" placeholder="Policy Premium" onkeypress="javascript:return IsAlphaNumeric(event)" data-parsley-pattern="/^[a-zA-Z0-9\-\s]+$/"/>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+                                <label class="control-label">Policy Start Date</label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 form-group">
+                                <input class="form-control date_input_field" ng-model="vehicle.policy_start"
+                                       id="start"  type="text" placeholder="Select Date" readonly="">
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+                                <label class="control-label">Policy Expiration Date</label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 form-group">
+                                <input class="form-control date_input_field" ng-model="vehicle.policy_end"
+                                       id="expiry"  type="text" placeholder="Select Date" readonly="">
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+                                <label class="control-label">Upload Document Here<span class="astrick">*</span></label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 form-group">
+                                <div class="fileUpload btn btn-info">
+                                    <span>Upload</span>
+                                    <input filestyle="" type="file" accept="application/pdf" image="image"
+                                           onchange="angular.element(this).scope().file_to_upload(this.files,0)"
+                                           data-button-text="Single" data-class-button="btn btn-default"
+                                           data-classinput="form-control inline" nv-file-select=""
+                                           uploader="uploader" class="form-control upload"/>
+                                </div>
+                                <br>
+                                <span>{{insurance_doc_name}}</span>
+                                <br>
+                                  <span>
+
+                                        <object data="{{vehicle.insurance_doc}}" width="200"
+                                                id="insurance_doc"></object>
+                                  </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end of right div -->
+                </div>
+
+
+                <div  class="panel" style="border-bottom: 1px solid #e0e0e0">
+                    <div class="panel-heading" style="font-size: large"><b>TLC LICENCE</b></div>
+                </div>
+                <div class="panel-body">
+                    <div class="col-lg-8 col-md-8 col-sm-8">
+
+                        <div class="form-group">
+                            <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+                                <label class="control-label">Medallion Number</label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 form-group">
+                                <input type="text" name="policy" class="form-control" data-parsley-type="digits"
+                                       ng-model="vehicle.medallion" placeholder="Medallion Number" onkeypress="javascript:return check_number(event)"/>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+                                <label class="control-label">Expiration Date</label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 form-group">
+                                <input class="form-control date_input_field" ng-model="vehicle.TLCexpiry"
+                                       id="expiry1"  type="text" placeholder="Select Date" readonly="">
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+                                <label class="control-label">Upload Document Here<span class="astrick">*</span></label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 form-group">
+                                <div class="fileUpload btn btn-info">
+                                    <span>Upload</span>
+                                    <input filestyle="" type="file" accept="application/pdf" image="image"
+                                           onchange="angular.element(this).scope().file_to_upload(this.files,1)"
+                                           data-button-text="Single" data-class-button="btn btn-default"
+                                           data-classinput="form-control inline" nv-file-select=""
+                                           uploader="uploader" class="form-control upload"/>
+                                </div>
+                                <br>
+                                <span>{{TLCdoc_name}}</span>
+                                <br>
+                                  <span>
+
+                                        <object data="{{vehicle.TLCdoc}}" width="200"
+                                                id="TLCdoc"></object>
+
+                                  </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end of right div -->
+                </div>
+
+                <div  class="panel" style="border-bottom: 1px solid #e0e0e0">
+                    <div class="panel-heading" style="font-size: large"><b>INSPECTION ENTRY</b></div>
+                </div>
+                <div class="panel-body">
+                    <div class="col-lg-8 col-md-8 col-sm-8">
+
+                        <div class="form-group">
+                            <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+                                <label class="control-label">Select Type</label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 form-group">
+                                <select name="account" class="form-control" ng-model="vehicle.typeEntry"  ng-options="item.type as item.name for item in list1">
+                                    <option value="" disabled="">Select Type</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+                                <label class="control-label">Inspection Number</label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 form-group">
+                                <input type="text" name="policy" class="form-control" data-parsley-type="digits"
+                                       ng-model="vehicle.inspectionNumber" placeholder="Inspection Number" onkeypress="javascript:return check_number(event)"/>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+                                <label class="control-label">Inspection Date</label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 form-group">
+                                <input class="form-control date_input_field" ng-model="vehicle.inspectionDate"
+                                       id="inspection"  type="text" placeholder="Select Date" readonly="">
+                            </div>
+                        </div>
+
+                        <div class="form-group ">
+                            <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+                                <label class="control-label">Upload Document Here<span class="astrick">*</span></label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 form-group">
+                                <div class="fileUpload btn btn-info">
+                                    <span>Upload</span>
+                                    <input filestyle="" type="file" accept="application/pdf"
+                                           onchange="angular.element(this).scope().file_to_upload(this.files,2)"
+                                           data-button-text="Single" data-class-button="btn btn-default"
+                                           data-classinput="form-control inline" nv-file-select=""
+                                           uploader="uploader" class="form-control upload"/>
+                                </div>
+                                <br>
+                                <span>{{inspectionDoc_name}}</span>
+                                <br>
+                                  <span>
+                                      <!--<object data="{{vehicle.inspectionDoc}}" type="application/pdf">-->
+                                      <!--<embed src="{{vehicle.inspectionDoc}}" type="application/pdf" id="inspectionDoc"/>-->
+                                      <!--</object>-->
+                                        <object data="{{vehicle.inspectionDoc}}" width="300" height="500"
+                                                id="inspectionDoc"></object>
+                                  </span>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+                                <label class="control-label">Vehicle Front Photo<span class="astrick">*</span></label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 form-group">
+                                <div class="fileUpload btn btn-info">
+                                    <span>Upload</span>
+                                    <input filestyle="" type="file" accept="image/*" image="image"
+                                           onchange="angular.element(this).scope().file_to_upload(this.files,3)"
+                                           data-button-text="Single" data-class-button="btn btn-default"
+                                           data-classinput="form-control inline" nv-file-select=""
+                                           uploader="uploader" class="form-control upload"/>
+                                </div>
+                                <br>
+                                <span>{{frontPic_name}}</span>
+                                <br>
+                                  <span>
+                                        <img ng-src="{{vehicle.frontPic}}" width="200"
+                                             id="frontPic">
+                                  </span>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+                                <label class="control-label">Vehicle Back Photo<span class="astrick">*</span></label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 form-group">
+                                <div class="fileUpload btn btn-info">
+                                    <span>Upload</span>
+                                    <input filestyle="" type="file" accept="image/*" image="image"
+                                           onchange="angular.element(this).scope().file_to_upload(this.files,4)"
+                                           data-button-text="Single" data-class-button="btn btn-default"
+                                           data-classinput="form-control inline" nv-file-select=""
+                                           uploader="uploader" class="form-control upload"/>
+                                </div>
+                                <br>
+                                <span>{{backPic_name}}</span>
+                                <br>
+                                  <span>
+                                        <img ng-src="{{vehicle.backPic}}" width="200"
+                                             id="backPic">
+                                  </span>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+                                <label class="control-label">Registration Photo<span class="astrick">*</span></label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 form-group">
+                                <div class="fileUpload btn btn-info">
+                                    <span>Upload</span>
+                                    <input filestyle="" type="file" accept="image/*" image="image"
+                                           onchange="angular.element(this).scope().file_to_upload(this.files,5)"
+                                           data-button-text="Single" data-class-button="btn btn-default"
+                                           data-classinput="form-control inline" nv-file-select=""
+                                           uploader="uploader" class="form-control upload"/>
+                                </div>
+                                <br>
+                                <span>{{regPic_name}}</span>
+                                <br>
+                                  <span>
+                                        <img ng-src="{{vehicle.regPic}}" width="200"
+                                             id="regPic">
+                                  </span>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                        <div class="col-lg-3 col-md-3 col-sm-3 form-group"></div>
+                        <div class="col-lg-9 col-md-9 col-sm-9 form-group">
+                        <input ng-model="vehicle.checkbox" name="checkbox" type="checkbox" style="margin-right: 20px">
+                        <label class="control-label" style="display: inline">Active</label>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-4"></div>
+                    <!-- end of right div -->
+                </div>
+
+                <div class="panel-footer">
+                    <div class="col-lg-2 col-sm-2 col-md-2"></div>
+                    <div>
+                        <button type="submit"  class="btn btn-info">Add Vehicle</button>
+                        <a type="button" ui-sref="app.fleet" class="btn btn-default">Cancel</a>
+                    </div>
+
+                </div>
+            </div>
+            <!-- END panel-->
+            <div class="col-lg-12">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-6" style=' margin: auto;'>
+
+                    <div ng-show="successMsg" class="alert alert-success text-center" style="margin-top: 10px;">{{successMsg}}</div>
+                    <div ng-show="errorMsg" class="alert alert-danger text-center" style="margin-top: 10px;">{{errorMsg}}</div>
+
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+    <!-- **************************************************************************
+******************* Modal to display msg **************************************
+*******************************************************************************-->
+
+    <script type="text/ng-template" id="display_msg_modalDialog">
+        <div class="ngdialog-message">
+            <h4>{{displaymsg}}</h4>
+            <a type="submit" ng-click="refreshPage()" class="btn btn-info" style="margin-top:20px;float:right;">OK</a>
+            <div style="clear: both;"></div>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="errorMsgModal">
+        <div class="ngdialog-message">
+            <h4>{{error}}</h4>
+            <a type="submit" ng-click="closeModal()" class="btn btn-info" style="margin-top:20px;float:right;">OK</a>
+            <div style="clear: both;"></div>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="assignDriverPopup">
+        <div class="row">
+            <div class="panel-heading text-center">
+                <h3>Assign Driver</h3>
+            </div>
+            <!--<div class="col-lg-12">-->
+                <div class="panel panel-default" ng-class="{'whirl duo' : showloader }">
+                    <div style="clear:both"></div>
+
+                    <div class="table-responsive">
+                        <table id="datatable12" class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Select</th>
+                                <th>Driver Name</th>
+                                <th>Email</th>
+                                <th>Phone No.</th>
+                                <th>Image</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="data in list | orderBy:'-driver_id'">
+                                <td><input type="radio" style="text-align: center" name='users' ng-click="addUser(data.driver_id,data.user_name)"/></td>
+                                <td>{{data.user_name}}</td>
+                                <td>{{data.user_email}}</td>
+                                <td>{{data.phone_no}}</td>
+                                <td><img src="{{data.user_image}}" style="width:50px;height:50px"/></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="panel-footer btn-align">
+                    <button type="button" class="btn btn-info" ng-click="assignButton()" ng-disabled=assignDisable>Assign</button>
+                    <button type="button" ng-click="close()" class="btn btn-default">Cancel</button>
+
+                    <div ng-show="successMsg" class="alert alert-success text-center" style="margin-top: 10px;">{{successMsg}}</div>
+                    <div ng-show="errorMsg" class="alert alert-danger text-center" style="margin-top: 10px;">{{errorMsg}}</div>
+                </div>
+            <!--</div>-->
+        </div>
+    </script>
+
+    <script>
+        $('#year').datepicker({
+            format : 'yyyy',
+            viewMode: "years",
+            minViewMode: "years",
+            autoclose: true,
+            endDate:new Date()
+        });
+        $('#year').change(function(){
+            $(this).removeClass("parsley-error");
+            var a = $(this).addClass("parsley-success");
+            a.siblings("ul").removeClass("filled");
+        });
+        $('#expiry').datepicker({
+            format : 'yyyy-mm-dd',
+            viewMode: "years",
+            minViewMode: "days",
+            autoclose: true,
+            startDate:new Date()
+        });
+        $('#expiry').change(function(){
+            $(this).removeClass("parsley-error");
+            var a = $(this).addClass("parsley-success");
+            a.siblings("ul").removeClass("filled");
+        });
+
+        $('#expiry1').datepicker({
+            format : 'yyyy-mm-dd',
+            viewMode: "years",
+            minViewMode: "days",
+            autoclose: true,
+            startDate:new Date()
+        });
+        $('#expiry1').change(function(){
+            $(this).removeClass("parsley-error");
+            var a = $(this).addClass("parsley-success");
+            a.siblings("ul").removeClass("filled");
+        });
+
+        $('#inspection').datepicker({
+            format : 'yyyy-mm-dd',
+            viewMode: "years",
+            minViewMode: "days",
+            autoclose: true,
+            startDate:new Date()
+        });
+        $('#inspection').change(function(){
+            $(this).removeClass("parsley-error");
+            var a = $(this).addClass("parsley-success");
+            a.siblings("ul").removeClass("filled");
+        });
+        $('#start').datepicker({
+            format : 'yyyy-mm-dd',
+            viewMode: "years",
+            minViewMode: "days",
+            autoclose: true,
+            endDate:new Date()
+        });
+        $('#start').change(function(){
+            $(this).removeClass("parsley-error");
+            var a = $(this).addClass("parsley-success");
+            a.siblings("ul").removeClass("filled");
+        });
+    </script>
+    <script>
+        function alphaOnly(event) {
+            var key = event.keyCode;
+            return ((key >= 65 && key <= 90) || key == 8 || key == 9 ||key ==32);
+        }
+    </script>
+
+    <script type="text/javascript">
+        var specialKeys = new Array();
+        specialKeys.push(8); //Backspace
+        //        specialKeys.push(9); //Tab
+        specialKeys.push(46); //Delete
+        specialKeys.push(36); //Home
+        specialKeys.push(35); //End
+        specialKeys.push(37); //Left
+        specialKeys.push(39); //Right
+        function IsAlphaNumeric(e) {
+            var keyCode = e.keyCode == 0 ? e.charCode : e.keyCode;
+            var ret = (((keyCode ==32))||(keyCode >= 48 && keyCode <= 57) || (keyCode >= 65 && keyCode <= 90) || (keyCode >= 97 && keyCode <= 122) || (specialKeys.indexOf(e.keyCode) != -1 && e.charCode != e.keyCode));
+
+            return ret;
+        }
+    </script>
+    <script>
+        function isNumber(evt) {
+            var iKeyCode = (evt.which) ? evt.which : evt.keyCode;
+            if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
+                return false;
+            return true;
+        }
+    </script>
+    <script>
+        function check_number(event) {
+            if(!(event.charCode>47 && event.charCode<58) && event.charCode && !(event.metaKey || event.ctrlKey))
+                event.preventDefault();
+        }
+    </script>
+</div>

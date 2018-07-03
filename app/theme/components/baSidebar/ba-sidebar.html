@@ -1,0 +1,307 @@
+<style>
+    tbody tr td {
+        padding: 15px 0px 0px 0px;
+        border-right: none !important;
+        border-left: none !important;
+    }
+
+    .al-sidebar .active {
+        /*color: #3078CD!important;*/
+        color: #fff !important;
+        overflow-y: auto;
+    }
+
+    .activeTr {
+        background-color: #134B80;
+    }
+
+    i {
+        color: #fff;
+    }
+
+    .subt {
+        color: #fff;
+        padding: 0px;
+        margin: 0px;
+        font-size: 10px;
+    }
+
+    .leftLogo {
+        padding: 17px 0;
+        text-align: center;
+    }
+
+    .leftLogo img {
+        width: 32px;
+    }
+
+    .gothicFamily {
+        font-family: 'gothic';
+    }
+
+    .subt,
+    .subt:hover {
+        color: #fff !important;
+    }
+</style>
+<aside class="al-sidebar gothicFamily" ng-style="GENERICS.left_sidebar.bgColor" ng-swipe-right="$baSidebarService.setMenuCollapsed(false)"
+    ng-swipe-left="$baSidebarService.setMenuCollapsed(true)" ng-mouseleave="hoverElemTop=selectElemTop" style="top:0px!important;">
+    <div class="leftLogo" ng-style="GENERICS.left_sidebar.logoDem">
+        <img alt="LOGO" ng-src="assets/generic/img/{{GENERICS.left_sidebar.logo_url}}">
+    </div>
+    <div clas="gothicFamily">
+        <table class="gothicFamily" style="width:100%;height: 40%; padding-top: 66px">
+            <tr class="activeTr" style="height:15%;text-align: center;">
+                <td>
+                    <div style="text-align: center">
+
+                        <a ui-sref="dashboard" class="subt gothicFamily">
+                            <i aria-hidden="true" ng-style="GENERICS.left_sidebar.icon" class="material-icons active">dashboard</i>
+                            <br> Dashboard
+                        </a>
+                    </div>
+                    <div class="menuItems my_trips active" style="padding-top:3%;">
+                        <a class="myTripsNew"></a>
+                    </div>
+                </td>
+            </tr>
+            <table class="gothicFamily" style="width:100%;height: 40%; padding-top: 66px">
+                <tr style="height:15%;text-align: center;">
+                    <td>
+                        <div style="text-align: center">
+
+                            <a ui-sref="home" title="Livetracking" class="subt gothicFamily">
+                                <i class="fa fa-tasks" aria-hidden="true" ng-style="GENERICS.left_sidebar.icon"></i>
+                                <br> Live Tracking
+
+                            </a>
+
+                        </div>
+                        <div class="menuItems my_trips" style="padding-top:3%;">
+                            <a class="myTripsNew"></a>
+                        </div>
+                    </td>
+                </tr>
+                <tr style="height:15%;text-align: center;">
+                    <td>
+                        <div style="text-align: center">
+
+                            <a ui-sref="heat" title="Livetracking" class="subt gothicFamily">
+                                <i class="fa fa-map-marker" aria-hidden="true" ng-style="GENERICS.left_sidebar.icon"></i>
+                                <br> Heat Map
+
+                            </a>
+
+                        </div>
+                        <div class="menuItems my_trips" style="padding-top:3%;">
+                            <a class="myTripsNew"></a>
+                        </div>
+                    </td>
+                </tr>
+                <tr style="height:15% ">
+                    <td>
+                        <div style="text-align: center">
+                            <!-- <span> -->
+                            <a ui-sref="passengers" title="Passengers" class="subt gothicFamily">
+                                <i class="fa fa-users" aria-hidden="true" ng-style="GENERICS.left_sidebar.icon"></i>
+                                <br> Passengers
+                                <!-- <md-tooltip md-direction="right">Passengers</md-tooltip> -->
+                            </a>
+                            <!-- </span> -->
+
+                        </div>
+                        <div class="menuItems free_rides" style="padding-top:3%;text-align: center">
+                            <a class="myTripsNew"></a>
+                        </div>
+                    </td>
+                </tr>
+                <tr style="height:15% ">
+                    <td>
+                        <div style="text-align: center">
+                            <!-- <span> -->
+                            <a ui-sref="drivers.appointments" title="Pending Drivers" class="subt gothicFamily">
+                                <i class="fa fa-users" class="material-icons" aria-hidden="true" ng-style="GENERICS.left_sidebar.icon"></i>
+                                <!-- <img src="assets/img/driver.svg" > -->
+                                <br> New
+                                <br>Drivers
+                                <!-- <md-tooltip md-direction="right">Drivers</md-tooltip> -->
+                                <!-- </span> -->
+                            </a>
+                        </div>
+                        <div class="menuItems free_rides" style="padding-top:3%;text-align: center">
+                            <a class="myTripsNew"></a>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr style="height:15% ">
+                    <td>
+                        <div style="text-align: center">
+                            <!-- <span> -->
+                            <a ui-sref="drivers.approved" title="Approved Drivers" class="subt gothicFamily">
+                                <i class="fa fa-users" aria-hidden="true" ng-style="GENERICS.left_sidebar.icon"></i>
+                                <br> Approved
+                                <br>Drivers
+                                <!-- <img src="assets/img/driver.svg" style="width: 22px;height: 26px"> -->
+                                <!-- <md-tooltip md-direction="right">Drivers</md-tooltip> -->
+                            </a>
+                            <!-- </span> -->
+                            <!-- <p class="subt gothicFamily">Approved <br>Drivers</p> -->
+                        </div>
+                        <div class="menuItems free_rides" style="padding-top:3%;text-align: center">
+                            <a class="myTripsNew"></a>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr style="height:15% ">
+                    <td>
+                        <div style="text-align: center">
+                            <!-- <span> -->
+                            <a ui-sref="drivers.complete" title="Completed Rides" class="subt gothicFamily">
+                                <i class="fa fa-car" aria-hidden="true" ng-style="GENERICS.left_sidebar.icon"></i>
+                                <br> Completed
+                                <br>Rides
+                                <!-- <md-tooltip md-direction="right">Completed Rides</md-tooltip> -->
+                                <!-- </span> -->
+                                <!-- <p class="subt gothicFamily">Completed <br>Rides</p> -->
+                            </a>
+                        </div>
+                        <div class="menuItems free_rides" style="padding-top:3%;text-align: center">
+                            <a class="myTripsNew"></a>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr style="height:15% ">
+                    <td>
+                        <div style="text-align: center">
+
+                            <!-- <span> -->
+                            <a ui-sref="promo.list" title="Promocodes" class="subt gothicFamily">
+                                <i class="fa fa-tags" aria-hidden="true" ng-style="GENERICS.left_sidebar.icon"></i>
+                                <br> Promo
+                                <br>Codes
+                                <!-- <md-tooltip md-direction="right">Promo Codes</md-tooltip> -->
+                                <!-- </span> -->
+                                <!-- <p class="subt gothicFamily">Promo  <br>Codes</p> -->
+                            </a>
+                        </div>
+                        <div class="menuItems free_rides" style="padding-top:3%;text-align: center">
+                            <a class="myTripsNew"></a>
+                        </div>
+                    </td>
+                </tr>
+
+            </table>
+    </div>
+    <div class="gothicFamily" id="butt">
+        <table class-="bottomNavTable">
+            <tr style="text-align: center;">
+                <td>
+                    <div style="width: 40px; margin-left: 10px; height: 2px; border: solid 1px #6b6b6b;">
+                    </div>
+
+                </td>
+            </tr>
+            <tr style="height:15%;text-align: center;">
+                <td style="padding-top:20px">
+                    <div style="text-align: center">
+
+                        <a ui-sref="analytics " title="Log" class="subt gothicFamily">
+                            <i class="fa fa-line-chart" aria-hidden="true" ng-style="GENERICS.left_sidebar.icon"></i>
+                            <p class="subt gothicFamily">Analytics</p>
+                    </div>
+
+    </div>
+    <div class="menuItems active my_trips" style="padding-top:3%;">
+        <a class="myTripsNew"></a>
+    </div>
+    </td>
+    </tr>
+    <tr style="height:15%;text-align: center;">
+        <td style="padding-top:20px">
+            <div style="text-align: center">
+                <a class="subt gothicFamily" title="Reports" ui-sref="reports">
+                    <i class="fa fa-line-chart" ng-style="GENERICS.left_sidebar.icon" aria-hidden="true"></i>
+                    <br> Reports
+                </a>
+            </div>
+            <div class="menuItems active my_trips" style="padding-top:3%;">
+                <a class="myTripsNew"></a>
+            </div>
+        </td>
+    </tr>
+
+    <tr style="height:15% ">
+        <td>
+            <div style="text-align: center">
+                <i class="fa fa-usd" aria-hidden="true" ng-style="GENERICS.left_sidebar.icon"></i>
+                <p class="subt gothicFamily">Revenue</p>
+            </div>
+            <div class="menuItems free_rides" style="padding-top:3%;text-align: center">
+                <a class="myTripsNew"></a>
+            </div>
+        </td>
+    </tr>
+    <tr style="height:15% ">
+        <td>
+            <div style="text-align: center">
+                <a ui-sref="log" title="Log" class="subt gothicFamily">
+                    <i class="material-icons" aria-hidden="true" ng-style="GENERICS.left_sidebar.icon">info</i>
+                    <p class="subt gothicFamily">Audit Logs</p>
+            </div>
+            <div class="menuItems free_rides" style="padding-top:3%;text-align: center">
+                <a class="myTripsNew"></a>
+            </div>
+        </td>
+    </tr>
+
+    <tr style="height:15% ">
+        <td>
+            <div style="text-align: center">
+                <a ui-sref="setting" title="Settings" class="subt gothicFamily">
+                    <i class="fa fa-cog" aria-hidden="true" ng-style="GENERICS.left_sidebar.icon"></i>
+                    <br> Setting
+                    <!-- <p class="subt gothicFamily">Setting</p> -->
+                </a>
+            </div>
+            <div class="menuItems free_rides" style="padding-top:3%;text-align: center">
+                <a class="myTripsNew"></a>
+            </div>
+        </td>
+    </tr>
+
+    <tr style="height:15% ">
+        <td>
+            <div style="text-align: center; margin-bottom: 26px">
+                <!--<i class="fa fa-power-off" aria-hidden="true" style="width: 20px;height: 20px;font-size: 20px;"></i>-->
+                <!-- <img src="assets/img/settings-power-material.png" style="width: 15px; height: 21px;"> -->
+                <!-- <a ng-click="logout()" title="Logout" class="subt gothicFamily"> -->
+                <a ng-click="showConfirm($event)" title="Logout" class="subt gothicFamily">
+                    <i class="fa fa-sign-out" aria-hidden="true" ng-style="GENERICS.left_sidebar.icon"></i>
+                    <br> Logout
+                    <!-- <p class="subt gothicFamily">Logout</p> -->
+                </a>
+            </div>
+            <div class="menuItems free_rides" style="padding-top:3%;text-align: center">
+                <a class="myTripsNew"></a>
+            </div>
+        </td>
+    </tr>
+
+    </table>
+    </div>
+    <div class="sidebar-hover-elem" ng-style="{top: hoverElemTop + 'px', height: hoverElemHeight + 'px'}" ng-class="{'show-hover-elem': showHoverElem }"></div>
+</aside>
+<script>
+    $(document).ready(function () {
+        $('a').click(function () {
+            $('a').removeClass("active");
+            $('tr').removeClass("activeTr");
+            $(this).addClass("active");
+            $(this).closest('tr').addClass("activeTr");
+            //   $('p').addClass("active");
+        });
+    });
+</script>

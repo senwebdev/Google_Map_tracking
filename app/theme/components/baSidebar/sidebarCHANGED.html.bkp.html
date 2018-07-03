@@ -1,0 +1,189 @@
+<style>
+    .bottomNavTable tbody tr, .topNavTable tbody tr {
+        /*height:15%;*/
+        padding:0px;
+        margin: 10px 0;
+        display: inline-block;
+        width: 100%;
+    }
+    .bottomNavTable tbody tr td, .topNavTable tbody tr td {
+        padding: 10px 0;
+         border-right: none!important;
+         border-left: none!important;
+    }
+    .bottomNavTable .active, .topNavTable .active 
+    {
+        background-color: #134B80 !important;
+    }
+    .bottomNavTable i, .topNavTable i {
+        color: #fefefe;
+        font-size: 18px;
+    }
+    .bottomNavTable .subt, .topNavTable .subt
+    {
+        color: #fff;
+        
+        margin:0px;
+        font-size:10px;
+    }
+    
+</style>
+<aside class="al-sidebar" ng-style="GENERICS.left_sidebar.bgColor" ng-swipe-right="$baSidebarService.setMenuCollapsed(false)"
+    ng-swipe-left="$baSidebarService.setMenuCollapsed(true)"
+       ng-mouseleave="hoverElemTop=selectElemTop" style="top:0px!important">
+    <div class="leftLogo">
+        <!-- <img alt="LOGO" ng-style="GENERICS.left_sidebar.logoDem" ng-src="assets/generic/img/{{GENERICS.left_sidebar.logo_url}}"> -->
+        <img alt="LOGO" ng-style="GENERICS.left_sidebar.logoDem" ng-src="assets/generic/img/dashboard.svg">
+    </div>
+    <div clas="">
+        <table class="topNavTable "style="width:100%;height: 40%; padding-top: 66px">
+            <tr class="active" style="text-align: center;">
+                <td >
+                    <div style="text-align: center" >
+                        <span>
+                            <i class="fa fa-tasks" aria-hidden="true" ng-style="GENERICS.left_sidebar.icon" ui-sref="home" title="Dashboard"></i>
+                           <p class="subt">Dashboard</p>
+                            <md-tooltip md-direction="right">Dashboard</md-tooltip>
+                        </span>
+                       
+                    </div>
+                    <div class="menuItems my_trips" style="padding-top:3%;font-family: RalewayBold !important;" ><a class="myTripsNew"></a></div>
+                </td>
+            </tr>
+            <tr style="text-align: center;">
+                <td>
+                    <div style="text-align: center" >
+                        <span>
+                        <i class="fa fa-users" aria-hidden="true" ng-style="GENERICS.left_sidebar.icon" ui-sref="passengers" title="Passengers"></i>
+                        <p class="subt">Passengers</p>
+                         <md-tooltip md-direction="right">Passengers</md-tooltip>
+                               </span>
+                               
+                    </div>
+                    <div class="menuItems free_rides" style="padding-top:3%;font-family: RalewayBold !important;text-align: center"><a class="myTripsNew"></a></div>
+                </td>
+            </tr>
+
+            <tr style="text-align: center;">
+                <td>
+                    <div style="text-align: center" >
+                        <span>
+                            <i class="material-icons" aria-hidden="true"  ui-sref="drivers.appointments" ng-style="GENERICS.left_sidebar.icon" title="Pending Drivers">person_outline</i>
+                        <!-- <img src="assets/img/driver.svg" style="width: 22px;height: 26px"> -->
+                            <md-tooltip md-direction="right">Drivers</md-tooltip>
+                                </span>
+                                <p class="subt">Unapproved Drivers</p>
+                    </div>
+                    <div class="menuItems free_rides" style="padding-top:3%;font-family: RalewayBold !important;text-align: center"><a class="myTripsNew"></a></div>
+                </td>
+            </tr>
+            
+            <tr style="text-align: center;">
+                <td>
+                    <div style="text-align: center" >
+                        <span>
+                            <i class="fa fa-user" aria-hidden="true" ng-style="GENERICS.left_sidebar.icon" ui-sref="drivers.approved" title="Approved Drivers"></i>
+                            <!-- <img src="assets/img/driver.svg" style="width: 22px;height: 26px"> -->
+                            <md-tooltip md-direction="right">Drivers</md-tooltip>
+                        </span>
+                        <p class="subt">Approved Drivers</p>
+                    </div>
+                    <div class="menuItems free_rides" style="padding-top:3%;font-family: RalewayBold !important;text-align: center"><a class="myTripsNew"></a></div>
+                </td>
+            </tr>
+            <tr style="text-align: center;">
+                <td>
+                    <div style="text-align: center" >
+                        <span>
+                            <i class="fa fa-car" aria-hidden="true" ng-style="GENERICS.left_sidebar.icon" ui-sref="drivers.completed" title="Completed Rides"></i>
+                            <md-tooltip md-direction="right">Completed Rides</md-tooltip>
+                        </span>
+                        <p class="subt">Completed Rides</p>
+                    </div>
+                    <div class="menuItems free_rides" style="padding-top:3%;font-family: RalewayBold !important;text-align: center"><a class="myTripsNew"></a></div>
+                </td>
+            </tr>
+            <tr style="text-align: center;">
+                <td>
+                    <div style="text-align: center" >
+                      
+                       <span>
+                           <i class="fa fa-tags" aria-hidden="true" ng-style="GENERICS.left_sidebar.icon" ui-sref="promo" title="Promocodes"></i>
+                            <md-tooltip md-direction="right">Promo Codes</md-tooltip>
+                        </span>
+                        <p class="subt">Promo Codes</p>
+                    </div>
+                    <div class="menuItems free_rides" style="padding-top:3%;font-family: RalewayBold !important;text-align: center"><a class="myTripsNew"></a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="" id="butt">
+        <table class-="bottomNavTable">
+            <tr style="text-align: center;">
+                <td >
+                    <div style="width: 40px; margin-left: 10px; height: 2px; border: solid 1px #6b6b6b;">
+                    </div>
+
+                </td>
+            </tr>
+            <tr style="text-align: center;">
+                <td> 
+                    <div style="text-align: center">
+                            
+                    <i class="fa fa-line-chart" aria-hidden="true" ng-style="GENERICS.left_sidebar.icon"></i>
+                    <p class="subt">Analytics</p>
+    </div>
+                        
+                    </div>
+                    <div class="menuItems my_trips" style="padding-top:3%;font-family: RalewayBold !important;" ><a class="myTripsNew"></a></div>
+                </td>
+            </tr>
+            <tr style="text-align: center;">
+                <td>
+                    <div style="text-align: center">
+                        <i class="fa fa-usd" aria-hidden="true" ng-style="GENERICS.left_sidebar.icon"></i>
+                        <p class="subt">Revenue</p>
+                    </div>
+                    <div class="menuItems free_rides" style="padding-top:3%;font-family: RalewayBold !important;text-align: center">
+                        <a class="myTripsNew"></a>
+                    </div>
+                </td>
+            </tr>
+            <tr style="text-align: center;">
+                <td>
+                    <div style="text-align: center" >
+                            <i class="fa fa-cog" aria-hidden="true" ng-style="GENERICS.left_sidebar.icon" ui-sref="setting" title="Settings"></i>
+                            <p class="subt">Setting</p>
+                    </div>
+                    <div class="menuItems free_rides" style="padding-top:3%;font-family: RalewayBold !important;text-align: center"><a class="myTripsNew"></a></div>
+                </td>
+            </tr>
+            <tr style="text-align: center;">
+                <td>
+                    <div title="Logout" style="text-align: center; margin-bottom: 26px" ng-click="logout()">
+                        <!--<i class="fa fa-power-off" aria-hidden="true" style="width: 20px;height: 20px;font-size: 20px;"></i>-->
+                        <!-- <img src="assets/img/settings-power-material.png" style="width: 15px; height: 21px;"> -->
+                        <i class="fa fa-sign-out" aria-hidden="true" ng-style="GENERICS.left_sidebar.icon"></i>
+                        <p class="subt">Logout</p>
+                    </div>
+                    <div class="menuItems free_rides" style="padding-top:3%;font-family: RalewayBold !important;text-align: center"><a class="myTripsNew"></a></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+  <div class="sidebar-hover-elem" ng-style="{top: hoverElemTop + 'px', height: hoverElemHeight + 'px'}"
+       ng-class="{'show-hover-elem': showHoverElem }"></div>
+</aside>
+<script>
+$(document).ready(function()
+{
+    $('aside tr').click(function()
+    {
+      $('aside tr').removeClass("active");
+      $(this).addClass("active");
+    //   $('p').addClass("active");
+  });
+});
+  </script>

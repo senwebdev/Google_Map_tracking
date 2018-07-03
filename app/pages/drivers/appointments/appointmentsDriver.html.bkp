@@ -1,0 +1,269 @@
+<style>
+        body:before
+      {
+          /* background-color: white!important; */
+      }
+        .dropdown-menu {
+            top: -100px;
+        }
+        .panel-body
+        {
+          background-color:white;
+        }
+        body a
+        {
+          color:black;
+        }
+        .table-hover>tbody>tr:hover {
+          
+          -webkit-box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+          -moz-box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+          box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+      }
+      .table-hover>tbody>tr:hover {
+          background-color: white;
+      }
+      h3
+      {
+          color:#666
+      }
+      table.md-table .md-row:hover 
+  {
+    -webkit-box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+    -moz-box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+    box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+}
+body:before
+{
+    background-color: white!important;
+   
+}
+p
+{
+  margin: 0px;
+  margin-left: 4%;
+  font-size: 12px;
+}
+.marl
+{
+  margin-left:12%;
+}
+.al-content
+{
+  padding: 0px 20px 0px 30px;
+}
+md-tabs:not(.md-no-tab-content):not(.md-dynamic-height) {
+    min-height: 550px !important;
+}
+      </style>
+<!-- <div class="row">
+    <div class="col-md-12">
+        <h3 >
+            Total : {{totalItems}}
+        </h3>
+       
+        <a ng-click="exportData()" style="background: #c0c0c0;color: #505050;" class="pull-right btn btn-sm btn-mixColor">Export To CSV</a>
+        <ul uib-pagination ng-if="totalItems!=0" total-items="totalItems" ng-change="pageChanged(currentPage)" items-per-page="itemsPerPage"
+            ng-model="currentPage" max-size="maxSize" rotate="true"  class="pagination-sm pull-right" boundary-links="true"></ul>
+        <div class="typeahead-demo col-lg-6 pull right">
+            <input type="text" ng-model="search" placeholder="Search by name" uib-typeahead="item as item.driver_name for item in totalList | filter:{driver_name:$viewValue} | limitTo:10"
+            typeahead-on-select="openSearch($item, $model, $label, $event)" typeahead-loading="loadingSearch" style="color:white" typeahead-no-results="noResults" class="form-control">
+            <i ng-show="loadingSearch" class="ion-loop"></i>
+            <div ng-show="noResults&&search">
+              <i class="ion-android-close"></i> No Results Found
+            </div>
+          </div>
+        <div style="padding-top: 50px" ba-panel ba-panel-title="List of all the pending drivers" ba-panel-class="with-scroll">
+            <div class="horizontal-scroll" ng-if="view=='drivers'">
+                <table class="table table-hover" id="datatableAppointment" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th class="serialWidth">S.No</th>
+                        <th class="datetimewidth">Driver Name</th>
+                        <th class="datetimewidth">Email</th>
+                        <th class="datetimewidth">Mobile</th>
+                        <th class="datetimewidth">State</th>
+                        <th class="datetimewidth">Actions</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="data in pendingDrivers track by $index">
+                       
+                        <td class="serialWidth">{{(currentPage-1)*10+$index+1}}</td>
+                        <td class="datetimewidth">{{data.first_name}} {{data.last_name}} </td>
+                        <td class="datetimewidth">{{data.email}}</td>
+                        <td class="datetimewidth">{{data.mobile}}</td>
+                        <td class="datetimewidth">{{data.state_name}}</td>
+                        <td class="datetimewidth"><button class="btn btn-success" ng-click="viewDetails(data)">View Details</button></td>
+                      </tr>
+                      </tbody>
+                    </table>
+            </div>
+            <div class="horizontal-scroll" ng-if="view=='city'">
+                <div class="row" style="padding: 15px" ng-class="{'whirl duo' : showloader }" ng-if="view=='city'">
+                    <input class="form-control col-lg-6" style="width: 50%" placeholder="City Name" ng-model="city_name">
+                    <button ng-click="addCity()" class="pull-right btn btn-sm btn-info">Add City</button>
+                </div>
+
+                <div class="form-group select-page-size-wrap ">
+                    <label>Rows on page
+                        <select class="form-control selectpicker show-tick" title="Rows on page" selectpicker
+                                ng-model="pageSize" ng-options="i for i in [5,10,15,20,25]">
+                        </select>
+                    </label>
+                </div>
+                <table class="table" st-table="smartDataTable">
+                    <thead>
+                    <tr class="sortable ">
+                        <th class="table-id" st-sort="id" st-sort-default="Id">S.No</th>
+                        <th st-sort="user_name">City</th>
+                        <th st-sort="customer_id">Venue</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr  ng-repeat="data in cities">
+                        <td>{{$index +1}}</td>
+                        <td>{{data.city_name}}</td>
+                        <td><button ng-click="venues()" class="btn btn-sm btn-info buttonWa">Venues</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+            <div class="horizontal-scroll" ng-if="view=='venues'">
+                <input id="venueAddress" class="form-control col-lg-6" style="width: 50%" placeholder="Venue Name" ng-model="address">
+                <input id="venueLat" type="hidden">
+                <input id="venueLong" type="hidden">
+                <button ng-click="addCity()" class="pull-right btn btn-sm btn-info">Add Venue</button>
+
+                <table class="table" st-table="smartDataTable" ng-if="venuesList.length>0">
+                    <thead>
+                    <tr class="sortable ">
+                        <th class="table-id" st-sort="id" st-sort-default="Id">S.No</th>
+                        <th st-sort="user_name">City</th>
+                        <th st-sort="customer_id">Venue</th>
+                        <th st-sort="customer_id">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr  ng-repeat="data in venuesList">
+                        <td>{{$index +1}}</td>
+                        <td>{{data.city_name}}</td>
+                        <td>{{data.address}}</td>
+                        <td><button ng-click="deleteVenue(data.venue_id)" class="btn btn-sm btn-info buttonWa">Delete</button></td>                    </tr>
+                    </tbody>
+                </table>
+                <h3 style="text-align: center" ng-if="venuesList.length==0">
+                    No Venues Added yet
+                </h3>
+            </div>
+
+        </div>
+    </div>
+</div> -->
+
+
+<md-tabs class="appointmentsDriver" md-selected="data.selectedIndex" md-align-tabs="{{data.bottom ? 'bottom' : 'top'}}">
+    
+    <md-tab id="new_entries">
+        <md-tab-label>New Entries</md-tab-label>
+        <md-tab-body>
+            
+            <md-content laout="column" flex style="overflow-x:hidden" >
+                <md-toolbar class="md-table-toolbar md-default" ng-hide="selected.length || filter.show">
+                    <div class="md-toolbar-tools">
+                        <span>LIST OF PENDING DRIVERS</span>
+                    <div flex></div>
+                    <md-button class="md-icon-button" ng-click="filter.show = true">
+                        <md-icon style="color: #757575;">search</md-icon>
+                    </md-button>
+                    </div>     
+                </md-toolbar>
+
+
+
+                <md-toolbar class="md-table-toolbar md-default" ng-show="filter.show && !selected.length" aria-hidden="false" >
+                    <span class="md-toolbar-tools">
+                        <md-icon style="color: #757575;">search</md-icon>
+                        <form flex="" name="filter.form" >
+                            <input style="border: none; border-bottom: 1px solid;" type="text" ng-model="query.filter" 
+                            ng-model-options="filter.options" placeholder="Search"  >
+                            <!-- <input style="border: none; border-bottom: 1px solid;" type="text" ng-model="query.filter" 
+                            ng-model-options="filter.options" placeholder="Search"  > -->
+                        </form>
+                        <md-button class="md-icon-button" ng-click="removeFilter()">
+                            <md-icon style="color: #757575;">close</md-icon>
+                        </md-button>
+                    </span>
+                </md-toolbar>
+
+
+
+                <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{drivers.count}}" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination"></md-table-pagination>
+                
+                <md-table-container>
+                    <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
+                    <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
+                    <tr md-row>
+                        <th md-column  md-order-by="$index+1" md-desc><span>S No</span></th>
+                        <th md-column md-order-by="first_name" ><span >Driver Name</span></th>
+                        <th md-column md-order-by="email" ><span >Driver Email</span></th>
+                        <th md-column md-order-by="mobile" ><span >Mobile</span></th>
+                        <th md-column md-order-by="state_name" ><span >State</span></th>
+                        <th md-column md-numeric ><span>Actions</span></th>
+                        
+                    </tr>
+                    </thead>
+                    <tbody md-body style="background-color:white">
+                    <tr md-row md-select="data" md-on-select="logItem" md-auto-select="options.autoSelect" ng-disabled="dessert.calories.value > 400" 
+                        ng-repeat="data in drivers.data | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+    
+                        <td md-cell>{{$index +1}}</td>
+                        <td  md-cell ><a ng-style="{'cursor': 'pointer;'}" ng-click="viewDetails(data)"> {{data.first_name}} {{data.last_name}}</a> </td>
+                        <td  md-cell ><a ng-style="{'cursor': 'pointer;'}" ng-click="viewDetails(data)"> {{data.email}}</a></td>
+                        <td  md-cell >{{data.mobile}}</td>
+                        <td  md-cell >{{data.state_name}}</td>
+
+                        <td md-cell><span></span>
+                            <!-- <i class="material-icons" ng-click="" style="font-size:38px;color:#757575">more_horiz</i> -->
+                            <span class="dropdown">
+                                <i class="material-icons dropdown-toggle" style="padding-left:25%;font-size:40px;color: #757575;cursor:pointer" type="button" data-toggle="dropdown">more_horiz
+                                </i>
+                                <ul class="dropdown-menu">
+                                    <li><a ng-click="" >Approve</a></li>
+                                    <li><a ng-click="">Download</a></li>
+                                    <li><a ng-click="">Delete</a></li>
+                                    <li><a ng-click="viewDetails(data)">Details</a></li>
+                                </ul>
+                            </span>
+                        </td>  
+                    </tr>
+                    </tbody>
+                    </table>
+                </md-table-container>
+            </md-content>
+
+        </md-tab-body>
+    </md-tab>
+
+    <md-tab id="verified_drivers">
+        <md-tab-label>Verified Drivers</md-tab-label>
+        <md-tab-body>
+
+
+
+
+        </md-tab-body>
+    </md-tab>
+
+</md-tabs>
+
+
+
+
+
+
+
+
+
+

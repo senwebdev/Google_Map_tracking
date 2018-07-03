@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+    <div ba-panel ba-panel-title="Update Email Template" ba-panel-class="with-scroll">
+      <form method="post" validate-form="" novalidate="" ng-submit="updateEmailTemplate(template)">
+        <!-- START panel-->
+
+        <div ng-show="successMsg" class="alert alert-success text-center">{{successMsg}}</div>
+        <div ng-show="errorMsg" class="alert alert-danger text-center">{{errorMsg}}</div>
+        <div class="panel-body">
+
+          <div class="form-group">
+            <label class="control-label" placeholder="Select-car">Template Type<span
+                    class="astrick">*</span></label>
+            <select class="form-control" ng-model="template_id" ng-change="set(template_id)">
+              <option value="" disabled="disabled" style="display: none;">Select Template Type</option>
+              <option ng-repeat="data in list" ng-value="{{data.email_template_id}}">
+                {{data.email_template_name}}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Email From<span class="astrick">*</span></label>
+            <input type="text" required="required" class="form-control"
+                   ng-model="template.email_from"/>
+          </div>
+          <!--<div class="form-group">-->
+          <!--<label class="control-label">Email Template Name<span class="astrick">*</span></label>-->
+          <!--<input type="text" name="end_date" required="required" class="form-control" data-parsley-type="number"-->
+          <!--ng-model="template.email_template_name"/>-->
+          <!--</div>-->
+          <div class="form-group">
+            <label class="control-label">Email Template Subject <span class="astrick">*</span></label>
+            <input type="text" required="required" class="form-control"
+                   ng-model="template.email_template_subject"/>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Email Template HTML<span class="astrick">*</span></label>
+                        <textarea type="text" required="required" class="form-control msd-elastic"
+                                  elastic ng-model="template.email_template_html" />
+          </div>
+
+        </div>
+        <div class="">
+          <button type="submit" class="btn btn-mixColor">Update Email Template</button>
+        </div>
+        <!--</div>-->
+        <!-- END panel-->
+      </form>
+    </div>
+  </div>
+  <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12" ng-show="template.email_template_html">
+    <div ba-panel ba-panel-title="Update Email Template" ba-panel-class="with-scroll">
+      <span ng-bind-html="template.email_template_html"></span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,104 @@
+<div>
+  <div class="row">
+    <div class="col-md-12">
+      <div ba-panel ba-panel-class="with-scroll horizontal-tabs tabs-panel medium-panel">
+        <div>
+          <uib-tabset>
+            <uib-tab heading="About Us" ng-click="getData(1)">
+
+              <div style="clear:both"></div>
+              <span ng-bind-html="edit.about_us_data"  ng-show="hides_how_about_btn"></span>
+              <!--<div id="edit_about_us" ng-hide="hides_how_about_btn"></div>-->
+                    <textarea class='form-control'  ng-model="edit.about_us_data"  ng-hide="hides_how_about_btn" style="height: 200px; margin-bottom: 20px;">
+                        </textarea>
+
+              <div style="text-align: center;" ng-hide="hides_how_about_btn">
+                <button class="btn btn-danger" type="button" ng-click="submitUpdatedData(1)"  style="width: 85px;">Done</button>
+              </div>
+              <div style="text-align: center;" ng-show="hides_how_about_btn">
+                <button class="btn btn-danger" type="button" ng-click="editAboutUs()" style="width: 85px;" >
+                  <i class="icon-edit"></i> Edit
+                </button>
+              </div>
+            </uib-tab>
+            <uib-tab heading='FAQ'  ng-click="getData(2)">
+
+              <div style="clear:both"></div>
+              <span ng-bind-html="edit.help_data"  ng-show="hide_show_faq_btn"></span>
+              <!--<div id="help" ng-show="hide_show_faq_btn"></div>-->
+                    <textarea class='form-control'  ng-model="edit.help_data"  ng-hide="hide_show_faq_btn" style="height: 200px; margin-bottom: 20px;">
+                        </textarea>
+              <!--<div id="edit_help" ng-hide="hide_show_faq_btn"></div>-->
+              <div style="text-align: center;" ng-hide="hide_show_faq_btn">
+                <button class="btn btn-danger" ng-click="submitUpdatedData(2)" type="button" style="width: 85px;">Done</button>
+              </div>
+              <div style="text-align: center;" ng-show="hide_show_faq_btn">
+                <button class="btn btn-danger" type="button" ng-click="editHelp()" style="width: 85px;" ng-show="hide_show_faq_btn">
+                  <i class="icon-edit"></i> Edit
+                </button>
+              </div>
+            </uib-tab>
+            <uib-tab heading='Privacy Policy'  ng-click="getData(3)">
+
+              <div style="clear:both"></div>
+              <span ng-bind-html="edit.policy_data"  ng-show="hide_show_policy_btn"></span>
+                    <textarea class='form-control'  ng-model="edit.policy_data"  ng-hide="hide_show_policy_btn" style="height: 200px; margin-bottom: 20px;">
+                        </textarea>
+              <div style="text-align: center;" ng-hide="hide_show_policy_btn">
+                <button class="btn btn-danger" ng-click="submitUpdatedData(3)" type="button" style="width: 85px;">Done</button>
+              </div>
+              <div style="text-align: center;" ng-show="hide_show_policy_btn">
+                <button class="btn btn-danger" type="button" ng-click="editPolicy()" style="width: 85px;" ng-show="hide_show_policy_btn">
+                  <i class="icon-edit"></i> Edit
+                </button>
+              </div>
+            </uib-tab>
+            <uib-tab heading='Terms & Conditions'  ng-click="getData(4)">
+
+              <div style="clear:both"></div>
+              <span ng-bind-html="edit.terms_data"  ng-show="hide_show_terms_btn"></span>
+                    <textarea class='form-control'  ng-model="edit.terms_data"  ng-hide="hide_show_terms_btn" style="height: 200px; margin-bottom: 20px;">
+                        </textarea>
+              <div style="text-align: center;" ng-hide="hide_show_terms_btn">
+                <button class="btn btn-danger" ng-click="submitUpdatedData(4)" type="button" style="width: 85px;">Done</button>
+              </div>
+              <div style="text-align: center;" ng-show="hide_show_terms_btn">
+                <button class="btn btn-danger" type="button" ng-click="editTerms()" style="width: 85px;" ng-show="hide_show_terms_btn">
+                  <i class="icon-edit"></i> Edit
+                </button>
+              </div>
+            </uib-tab>
+            <uib-tab heading='Legal'  ng-click="getData(5)">
+
+              <div style="clear:both"></div>
+              <span ng-bind-html="edit.legal"  ng-show="hide_show_legal_btn"></span>
+                    <textarea class='form-control'  ng-model="edit.legal"  ng-hide="hide_show_legal_btn" style="height: 200px; margin-bottom: 20px;">
+                        </textarea>
+              <div style="text-align: center;" ng-hide="hide_show_legal_btn">
+                <button class="btn btn-danger" ng-click="submitUpdatedLegal()" type="button" style="width: 85px;">Done</button>
+              </div>
+              <div style="text-align: center;" ng-show="hide_show_legal_btn">
+                <button class="btn btn-danger" type="button" ng-click="editLegal()" style="width: 85px;" ng-show="hide_show_legal_btn">
+                  <i class="icon-edit"></i> Edit
+                </button>
+              </div>
+            </uib-tab>
+
+          </uib-tabset>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/ng-template" id="display_msg_modalDialog">
+    <div class="ngdialog-message">
+      <h4>{{displaymsg}}</h4>
+      <a type="submit" ng-click="updateDocument()" class="btn btn-primary" style="margin-top:20px;">OK</a>
+      <div style="clear: both;"></div>
+    </div>
+  </script>
+</div>
+<style>
+  .panel-body{
+    height: auto;
+  }
+</style>

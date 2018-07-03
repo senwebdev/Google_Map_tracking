@@ -1,0 +1,592 @@
+<style>
+    
+      .profile{
+        width: 100%;
+        box-shadow: 0 2px 20px 1px rgba(0, 0, 0, .14), 0 1px 20px 0 rgba(0, 0, 0, .12), 0 3px 10px -2px rgba(0, 0, 0, .2);
+        padding: 8rem 0 0;
+        background-color: #fff;
+        position: relative;
+        overflow: hidden;
+        box-sizing: border-box;
+      }
+    
+      .profile:before{
+        content: "";
+        width: 197px;
+        height: 50px;
+    
+        transition: transform .5s cubic-bezier(0.42, 0.04, 0.13, 0.92);
+        border-radius: 50%;
+        background-color: #3078CD;
+    
+        position: absolute;
+        top: -4rem;
+        left: 50%;
+        transform: translateX(-50%) scale(7);
+      }
+    
+      .profile:hover:before{
+        transition: transform .7s cubic-bezier(0.66, 0.09, 0, 1.31);
+      }
+    
+      .profile:hover:before{
+        transform: translateX(-50%) translateY(200%) scale(25);
+      }
+    
+      .profile:hover, .profile:hover .profile__value{
+        color: #fff;
+      }
+    
+      .profile:hover .profile__group, .profile:hover .profile__avatar, .profile:hover .profile__social{
+        border-color: #fff;
+      }
+    
+      .profile:hover .profile__row{
+        background-color: #1E4E85;
+      }
+    
+      .profile__header{
+        text-align: center;
+        position: relative;
+        z-index: 2;
+      }
+    
+      .profile__avatar{
+        border-radius: 50%;
+        width: 14rem;
+        height: 14rem;
+        border: 6px solid #3078CD;
+        transition: border-color .4s ease-out .1s;
+      }
+    
+      .profile:hover .profile__avatar{
+        transition: border-color .4s ease-out .2s;
+      }
+    
+      .profile__name{
+        color: #000;
+        margin-top: 1rem;
+        margin-bottom: 0;
+        font-size: 3.5rem;
+        transition: color .4s ease-out .1s;
+      }
+    
+      .profile__post{
+        display: block;
+        font-size: 1.8rem;
+        transition: color .4s ease-out .1s;
+      }
+    
+      .profile__body{
+        margin-top: 4rem;
+        margin-bottom: 4rem;
+      }
+    
+      .profile__row{
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    
+        background-color: #f0f0f0;
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+    
+        position: relative;
+        z-index: 2;
+        transition: background-color .4s ease-out .1s;
+      }
+    
+      .profile:hover .profile__row{
+        transition: background-color .4s ease-out .2s;
+      }
+    
+      .profile__group{
+        box-sizing: border-box;
+        width: 33.3333333%;
+        margin-top: 4rem;
+        transition: border-color .4s ease-out .1s;
+    
+        border-right: 1px solid #BDBDBD;
+        padding-left: 2%;
+        padding-right: 2%;
+        text-align: center;
+      }
+    
+      .profile:hover .profile__group{
+        transition: border-color .4s ease-out .4s;
+      }
+    
+      .profile__group:nth-child(1), .profile__group:nth-child(2),
+      .profile__group:nth-child(3){
+        margin-top: 0;
+      }
+    
+      .profile__group:nth-child(3n+3){
+        border-right: none;
+      }
+    
+      .profile__param, .profile__value{
+        display: block;
+        transition: color .4s ease-out .1s;
+      }
+    
+      .profile__param{
+        color: #000;
+        text-transform: uppercase;
+        margin-top: .2rem;
+        padding-top: 2rem;
+        padding-right: 2rem;
+      }
+    
+      .profile, .profile__value{
+        color: #000;
+      }
+    
+      .profile__value{
+        font-size: 2.4rem;
+        color: #3078CD;
+        font-weight: 700;
+      }
+    
+      .profile__footer{
+        padding-bottom: 3rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    
+      .cssui-icon{
+        width: var(--cssuiIconSize, 2em);
+        height: var(--cssuiIconSize, 2em);
+        display: inline-block;
+    
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        background-size: contain;
+      }
+    
+      .profile__social{
+        border: 2px solid #3078CD;
+        border-radius: 50%;
+    
+        margin-left: .8rem;
+        margin-right: .8rem;
+        padding: 1rem;
+        font-size: .8rem;
+    
+        position: relative;
+        z-index: 2;
+      }
+    
+      .profile__social:hover{
+        background-color: #3078CD;
+      }
+    
+      .cssui-social{
+        display: inline-flex;
+        position: relative;
+      }
+    
+      .cssui-social__name{
+        position: absolute;
+        left: -9999px;
+      }
+      .profile:hover {
+        color: #fff;
+      }
+      table.md-table .md-row:hover 
+      {
+        -webkit-box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+        -moz-box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+        box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+    }
+    
+      /*
+      * demo styles
+      */
+    
+      @media screen and (min-width: 769px){
+    
+        html{
+          font-size: 62.5%;
+        }
+      }
+    
+      @media screen and (min-width: 641px) and (max-width: 768px){
+    
+        html{
+          font-size: 56%;
+        }
+      }
+    
+      @media screen and (max-width: 640px){
+    
+        html{
+          font-size: 50%;
+        }
+      }
+    
+      body{
+        font-family: 'gothic', sans-serif;
+        font-size: 1.6rem;
+        font-weight: 300;
+        margin: 0;
+        -webkit-overflow-scrolling: touch;
+        background-image: linear-gradient(29deg, #512DA8 50%, #673AB7 50%);
+      }
+    
+      a{
+        color: #fff;
+      }
+    
+      a:hover, a:focus{
+        text-decoration: none;
+      }
+    
+      .page{
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+      }
+    
+      .demo{
+        flex-grow: 2;
+      }
+    
+      .main-container{
+        padding-left: 1rem;
+        padding-right: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    
+      .footer{
+        margin-top: 3rem;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        font-size: 1.4rem;
+        color: #fff;
+      }
+    
+      @media screen and (min-width: 641px){
+    
+        .footer__container{
+          display: flex;
+          justify-content: space-between;
+        }
+    
+        .melnik909{
+          margin-left: 2rem;
+        }
+      }
+    
+      @media screen and (max-width: 640px){
+    
+        .melnik909{
+          display: none;
+        }
+      }
+    .gothicFamily {
+       font-family: 'gothic';
+    }
+      </style>
+    
+      <div class="row"><md-button ng-click="back()" class="btn btn-secondary gothicFamily" style="float:right">BACK</md-button></div>
+      <div class="row">
+    
+      <div >
+    
+        <div class="page" style="padding-top:10px; max-width: 100%;">
+          <div class="demo">
+            <div class="main-container">
+              <article class="profile">
+                <header class="profile__header gothicFamily">
+                  <img ng-src="{{user.user_image}}" class="profile__avatar" alt="avatar photo">
+                  <h3 class="profile__name gothicFamily">{{user.user_name}}</h3>
+                  <span class="profile__post gothicFamily"  style="padding-top: 4px;">{{user.user_mobile}}</span>
+                  <span class="profile__post gothicFamily" style="padding-top: 4px;">{{user.user_email}}</span>
+                </header>
+                <div class="profile__body">
+                  <div class="profile__row gothicFamily">
+                    <div class="profile__group gothicFamily">
+                      <span class="profile__value gothicFamily">Registration Date</span>
+                      <span class="profile__param gothicFamily">{{user.date_registered_formatted}}</span>
+                    </div>
+                    <div class="profile__group gothicFamily">
+                      <span class="profile__value gothicFamily">Last Login</span>
+                      <span class="profile__param gothicFamily">{{user.last_login_formatted}}</span>
+                    </div>
+                    <div class="profile__group gothicFamily">
+                      <span class="profile__value gothicFamily">Referral Code</span>
+                      <span class="profile__param gothicFamily">{{user.referral_code}}</span>
+                    </div>
+                    <div class="profile__group gothicFamily">
+                      <span class="profile__value gothicFamily">Average Rating</span>
+                      <span class="profile__param gothicFamily">{{user.average_rating}}</span>
+                    </div>
+                    <div class="profile__group gothicFamily">
+                      <span class="profile__value gothicFamily">Total Rides</span>
+                      <span class="profile__param gothicFamily">{{totalRides}}</span>
+                    </div>
+                    <div class="profile__group gothicFamily">
+                      <span class="profile__value gothicFamily">Rides Cancelled</span>
+                      <span class="profile__param gothicFamily">{{user.total_cancel}}</span>
+                    </div>
+                  </div>
+                </div>
+    
+    
+              </article>
+            </div>
+          </div>
+    
+        </div>
+    
+    
+            <!--<div class="horizontal-scroll">-->
+              <!--<div class="col-lg-12 col-xs-12 col-md-12 col-sm-12">-->
+                <!--<div class="col-lg-6 col-xs-12 col-md-6 col-sm-6">-->
+                  <!--<div class="col-lg-4 col-xs-12 col-md-4 col-sm-4 text-center" style="margin-bottom:15px">-->
+                    <!--<div fancybox fancybox-image="{{user.user_image}}" class="viewPic" fancybox-template="template.html">-->
+                      <!--<img class="img-circle img-thumbnail" ng-src="{{user.user_image}}">-->
+                    <!--</div>-->
+                    <!--<a href="{{user.user_image}}" ><i class="fa fa-download fa-2x"></i></a>-->
+                  <!--</div>-->
+                  <!--<div class="col-lg-8 col-xs-12 col-md-8 col-sm-8" style="margin-bottom:15px">-->
+                    <!--<label>Name</label>-->
+                    <!--<input ng-model="user.user_name" class="form-control" style="margin-bottom:15px">-->
+                    <!--<label>Contact</label>-->
+                    <!--<input ng-model="user.user_mobile" class="form-control" style="margin-bottom:15px">-->
+                    <!--<label>Email</label>-->
+                    <!--<input ng-model="user.user_email" class="form-control">-->
+                  <!--</div>-->
+                  <!--<div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">-->
+                    <!--<label>Total Rides</label>-->
+                    <!--<input ng-model="totalRides" class="form-control">-->
+                  <!--</div>-->
+                  <!--<div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">-->
+                    <!--<label>Rides Cancelled</label>-->
+                    <!--<input ng-model="user.total_cancel" class="form-control">-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-lg-6 col-xs-12 col-md-6 col-sm-6">-->
+                  <!--<div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">-->
+                    <!--<label>Registration Date</label>-->
+                    <!--<input ng-model="user.date_registered_formatted" class="form-control">-->
+                  <!--</div>-->
+                  <!--<div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">-->
+                    <!--<label>Last Login</label>-->
+                    <!--<input ng-model="user.last_login_formatted" class="form-control">-->
+                  <!--</div>-->
+                  <!--<div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">-->
+                    <!--<label>Last Logout</label>-->
+                    <!--<input ng-model="user.last_logout_formatted" class="form-control">-->
+                  <!--</div>-->
+                  <!--<div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">-->
+                    <!--<label>Referral Code</label>-->
+                    <!--<input ng-model="user.referral_code" class="form-control">-->
+                  <!--</div>-->
+                  <!--<div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">-->
+                    <!--<label>Average Rating</label>-->
+                    <!--<input ng-model="user.average_rating" class="form-control">-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<ul uib-pagination ng-if="totalItems!=0" total-items="totalItems" ng-change="pageChanged(currentPage)" items-per-page="itemsPerPage"-->
+            <!--ng-model="currentPage" max-size="maxSize" rotate="true"  class="pagination-sm pull-right"-->
+            <!--style="margin-bottom: 10px" boundary-links="true"></ul> -->
+        <!-- <div style="text-align:center" ba-panel ba-panel-title="No Rides" ba-panel-class="with-scroll" ng-if="totalItems==0">
+            <img src="assets/img/taxi/no_ride.svg"/>
+        </div> -->
+    
+        <div class="row">
+          <div class="col-md-12">
+            <md-content laout="column" flex >
+              <md-card>
+    
+                <md-toolbar class="md-table-toolbar md-default gothicFamily" ng-hide="selected.length || filter.show">
+                  <div class="md-toolbar-tools gothicFamily">
+                    <span>LIST OF ALL RIDES</span>
+                    <div flex></div>
+                    <md-button class="md-icon-button" ng-click="filter.show = true">
+                      <md-icon style="color: #757575;">search</md-icon>
+                    </md-button>
+    
+                      <!-- <md-button id="addPromo" class="btn btn-secondary" ui-sref="addPromo" ng-style="GENERICS.promoBtnX">ADD PROMO CODE</md-button> -->
+                  </div>
+                </md-toolbar>
+    
+                <md-toolbar class="md-table-toolbar md-default gothicFamily" ng-show="filter.show && !selected.length" aria-hidden="false" >
+                  <div class="md-toolbar-tools">
+                    <md-icon style="color: #757575;">search</md-icon>
+                    <form flex="" name="filter.form" >
+                      <input style="border: none; border-bottom: 1px solid;" type="text" ng-model="query.filter" ng-model-options="filter.options" placeholder="search"  >
+                    </form>
+                    <md-button class="md-icon-button" ng-click="removeFilter()">
+                      <md-icon style="color: #757575;">close</md-icon>
+                    </md-button>
+                  </div>
+                </md-toolbar>
+    
+                <md-toolbar class="md-table-toolbar alternate gothicFamily" ng-show="options.rowSelection && selected.length">
+                  <div class="md-toolbar-tools">
+                    <span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
+                  </div>
+                </md-toolbar>
+                <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{drivers.count}}" class="gothicFamily" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks" md-on-paginate="getPassengerDetails" md-page-select></md-table-pagination> 
+                <md-table-container>
+                  <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise" class="gothicFamily">
+                    <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
+                    <tr class="gothicFamily" md-row>
+                        <th style="text-align: center;" md-column md-order-by="driver_id"><span>Driver Id</span></th>
+                      <th style="text-align: center;" md-column  md-order-by="user_id" md-desc><span>Session ID</span></th>
+                      <th md-column md-order-by="user_name"><span class="margin25">Driver Name</span></th>
+                      <th md-column md-order-by="cashback"><span class="margin25">Cashback</span></th>
+                      <th md-column md-order-by="commission"><span class="margin25">Corporate Commission</span></th>
+                      <th md-column md-numeric md-order-by="car_name"><span>Car Details</span></th>
+                      <th md-column md-numeric md-order-by="accept_date"><span>Accept Time</span></th>
+    
+                      <th md-column md-numeric md-order-by="pickup_location_address">Pickup Location</th>
+                      <th md-column md-numeric md-order-by="start_time"><span>Pickup Time</span></th>
+                      <th md-column md-numeric md-order-by="manual_destination_address" ><span class="margin25">Dropoff Location</span></th>
+    
+                      <!-- <th md-column md-numeric md-order-by="payment_date"><span>Payment Time</span></th> -->
+    
+                      <th md-column md-numeric md-order-by="total_with_tax"><span class="margin25">Fare Structure</span></th>
+                      <th md-column md-numeric md-order-by="is_payment_successful"><span>Payment status</span></th>
+                      <th md-column md-numeric md-order-by="ride_status_name" ><span>Ride status</span></th>
+                    </tr>
+                    </thead> 
+                    <tbody md-body>
+                    <tr class="gothicFamily" md-row md-select="driver" md-on-select="logItem" md-auto-select="options.autoSelect"  ng-repeat="driver in userRideList | filter: filter.search | limitTo: query.limit : (query.page -1) * query.limit | orderBy: query.order">
+                        <td style="text-align: center;" md-cell>{{driver.driver_id}}</td>
+                      <td style="text-align: center;" md-cell>{{driver.session_id}}</td>
+                         
+                      <td class="margin25" md-cell >{{driver.driver_name}} </td>
+                      <td style="text-align: center;"  class="margin25" md-cell >{{driver.cashback_customer}} </td>
+                      <td style="text-align: center;"  class="margin25" md-cell >{{driver.commission_corporate}} </td>
+                      <td md-cell  style="padding-right:10px;     padding-left: 23px;    text-align: left;">
+                        <b>Type</b> -{{driver.car_name}} <br>
+                        <b> Car No. - {{driver.car_no}}</b>
+                      </td>
+                      <td style="text-align: center;" md-cell>{{driver.accept_time | date:'MMM dd yyyy, hh:mm a'}}</td>
+    
+                      <td md-cell  style="text-align: center;padding-right:9px;">{{driver.pickup_location_address}}</td>
+                      <td md-cell style="text-align: center;">{{driver.start_time | date:'MMM dd yyyy, hh:mm a'}}</td>
+                      <td md-cell style="text-align: center;padding-right:9px;">{{driver.manual_destination_address}}</td>
+    
+                      <!-- <td style="text-align: center;" md-cell>
+                        {{driver.payment_date | date:'MMM dd yyyy, hh:mm a'}}
+                      </td> -->
+    
+                      <td md-cell style="padding-right:10px;  padding-left:30px;   text-align: left;">
+                        <br>
+                        <b>Total with Tax - </b>{{driver.total_with_tax}} <br>
+                        <b>Calculated - </b>{{driver.fare_calculated}} <br>
+                        <b>Fare fare_factor - </b>{{driver.fare_factor}} <br>
+                        <b>Base - </b>{{driver.fare_fixed}}<br>
+                        <b>Per Km - </b>{{driver.fare_per_km}}<br>
+                        <b>Per min - </b>{{driver.fare_per_min}}<br>
+                        <b>Sales Tax - </b>{{driver.sales_tax}}<br>
+                        <b>Time Fare - </b>{{driver.time_fare}}<br>
+                        <b>Distance Fare - </b>{{driver.distance_fare}}<br>
+                        <b>Discount - </b>{{driver.discount}}<br>
+                        <br>
+                      </td>
+                      
+                      <td style="text-align: center;" md-cell>
+                        <span ng-if="driver.is_payment_successful==0">Unsuccessful</span>  
+                        <span ng-if="driver.is_payment_successful==1">Successful</span>
+                      </td>
+                      <td md-cell style="text-align: center;">
+    
+                        <span ng-if="driver.ride_status==0">Assigning</span>
+                        <span ng-if="driver.ride_status==1">Accepted</span>
+                        <span ng-if="driver.ride_status==2">Arrived</span>
+                        <span ng-if="driver.ride_status==3">Started</span>
+                        <span ng-if="driver.ride_status==4">Completed</span>
+                        <span ng-if="driver.ride_status==5">Cancelled By Driver</span>
+                        <span ng-if="driver.ride_status==6">Ride Cancelled By User</span>
+                        <span ng-if="driver.ride_status==7">Request Cancelled By User</span>
+                        
+                      </td>
+    
+                        <td md-cell>{{driver.last_logout}}</td>
+                          <td md-cell>
+                                  <div ng-if="driver.is_available === 1" class="fa fa-circle online">
+                                  </div>
+                                  <div ng-if="driver.is_available === 0" class="fa fa-circle offline"></div>
+                            </td>
+    
+                            <!-- <td md-cell><span>
+                                <md-icon style="color: #757575;"  ng-click="driverDetails(driver.driver_id)" >info outline</md-icon>
+                                <md-icon style="color: #ff0000;" ng-show="driver.is_blocked" ng-click="blockunblockdriver_popup(0,driver.driver_id)">lock</md-icon>
+                                <md-icon style="color: #27c24c;" ng-hide="driver.is_blocked" ng-click="blockunblockdriver_popup(1,driver.driver_id)">lock_open</md-icon>
+                                <md-icon style="color: #757575;" ng-click="editDriver(driver)">edit</md-icon></span></td> -->
+                    </tr>
+                    </tbody>
+                  </table>
+                </md-table-container>
+                <!-- <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{drivers.count}}" class="gothicFamily" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks" md-on-paginate="getPassengerDetails" md-page-select></md-table-pagination>  -->
+              </md-card>
+            </md-content>
+          </div>
+    
+        </div> 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        <!--<div style="padding-top: 50px; " ba-panel ba-panel-title="List of All Rides" ba-panel-class="with-scroll" ng-if="totalItems!=0">-->
+            <!--<div class="horizontal-scroll">-->
+              <!--<table id="datatableUserRides" class="table table-striped table-hover" ng-class="{'whirl duo' : showloader }" style="width:100%">-->
+                  <!--<thead>-->
+                  <!--<tr>-->
+                      <!--<th class="datetimewidth">S.No.</th>-->
+                      <!--<th class="datetimewidth">Session ID</th>-->
+                      <!--<th class="datetimewidth">Date</th>-->
+                      <!--<th style="width:240px!important">Driver Details</th>-->
+                      <!--<th style="width:240px!important">Car Details</th>-->
+                      <!--<th class="datetimewidth">Pick Up Location</th>-->
+                      <!--<th class="datetimewidth">Pick Up Time</th>-->
+                      <!--<th class="datetimewidth">Drop off Location</th>-->
+                      <!--<th class="datetimewidth">Drop off Time</th>-->
+                      <!--<th class="datetimewidth">Driver Rating</th>-->
+                      <!--<th class="datetimewidth">User Rating</th>-->
+                      <!--<th class="datetimewidth">Fare Structure</th>-->
+                      <!--<th class="datetimewidth">Payment Status</th>-->

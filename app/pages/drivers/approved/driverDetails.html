@@ -1,0 +1,719 @@
+<style>
+    /*
+  * profile
+  */
+
+    .profile{
+        width: 100%;
+        box-shadow: 0 2px 20px 1px rgba(0, 0, 0, .14), 0 1px 20px 0 rgba(0, 0, 0, .12), 0 3px 10px -2px rgba(0, 0, 0, .2);
+        padding: 8rem 0 0;
+        background-color: #fff;
+        position: relative;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+
+    .profile:before{
+        content: "";
+        width: 197px;
+        height: 50px;
+
+        transition: transform .5s cubic-bezier(0.42, 0.04, 0.13, 0.92);
+        border-radius: 50%;
+        background-color: #3078CD;
+
+        position: absolute;
+        top: -4rem;
+        left: 50%;
+        transform: translateX(-50%) scale(7);
+    }
+
+    .profile:hover:before{
+        transition: transform .7s cubic-bezier(0.66, 0.09, 0, 1.31);
+    }
+
+    .profile:hover:before{
+        transform: translateX(-50%) translateY(200%) scale(25);
+    }
+
+    .profile:hover, .profile:hover .profile__value{
+        color: #fff;
+    }
+
+    .profile:hover .profile__group, .profile:hover .profile__avatar, .profile:hover .profile__social{
+        border-color: #fff;
+    }
+
+    .profile:hover .profile__row{
+        background-color: #1E4E85;
+    }
+
+    .profile__header{
+        text-align: center;
+        position: relative;
+        z-index: 2;
+    }
+
+    .profile__avatar{
+        border-radius: 50%;
+        width: 14rem;
+        height: 14rem;
+        border: 6px solid #3078CD;
+        transition: border-color .4s ease-out .1s;
+    }
+
+    .profile:hover .profile__avatar{
+        transition: border-color .4s ease-out .2s;
+    }
+
+    .profile__name{
+        color: #000;
+        margin-top: 1rem;
+        margin-bottom: 0;
+        font-size: 3.5rem;
+        transition: color .4s ease-out .1s;
+    }
+
+    .profile__post{
+        display: block;
+        font-size: 1.8rem;
+        transition: color .4s ease-out .1s;
+    }
+
+    .profile__body{
+        margin-top: 4rem;
+        margin-bottom: 4rem;
+    }
+
+    .profile__row{
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+
+        background-color: #f0f0f0;
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+
+        position: relative;
+        z-index: 2;
+        transition: background-color .4s ease-out .1s;
+    }
+    .margin25{
+        padding-left: 25px;
+    }
+    .profile:hover .profile__row{
+        transition: background-color .4s ease-out .2s;
+    }
+
+    .profile__group{
+        box-sizing: border-box;
+        width: 33.3333333%;
+        margin-top: 4rem;
+        transition: border-color .4s ease-out .1s;
+
+        border-right: 1px solid #BDBDBD;
+        padding-left: 2%;
+        padding-right: 2%;
+        text-align: center;
+    }
+
+    .profile:hover .profile__group{
+        transition: border-color .4s ease-out .4s;
+    }
+
+    .profile__group:nth-child(1), .profile__group:nth-child(2),
+    .profile__group:nth-child(3){
+        margin-top: 0;
+    }
+
+    .profile__group:nth-child(3n+3){
+        border-right: none;
+    }
+
+    .profile__param, .profile__value{
+        display: block;
+        transition: color .4s ease-out .1s;
+    }
+
+    .profile__param{
+        color: #000;
+        text-transform: uppercase;
+        margin-top: .2rem;
+        padding-top: 2rem;
+        padding-right: 2rem;
+    }
+
+    .profile, .profile__value{
+        color: #000;
+    }
+
+    .profile__value{
+        font-size: 2.4rem;
+        color: #3078CD;
+        font-weight: 700;
+    }
+
+    .profile__footer{
+        padding-bottom: 3rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .cssui-icon{
+        width: var(--cssuiIconSize, 2em);
+        height: var(--cssuiIconSize, 2em);
+        display: inline-block;
+
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        background-size: contain;
+    }
+
+    .profile__social{
+        border: 2px solid #3078CD;
+        border-radius: 50%;
+
+        margin-left: .8rem;
+        margin-right: .8rem;
+        padding: 1rem;
+        font-size: .8rem;
+
+        position: relative;
+        z-index: 2;
+    }
+
+    .profile__social:hover{
+        background-color: #3078CD;
+    }
+
+    .cssui-social{
+        display: inline-flex;
+        position: relative;
+    }
+
+    .cssui-social__name{
+        position: absolute;
+        left: -9999px;
+    }
+
+
+    .profile:hover {
+        color: #fff;
+    }
+    table.md-table .md-row:hover 
+  {
+    -webkit-box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+    -moz-box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+    box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+}
+
+    /*
+    * demo styles
+    */
+
+    @media screen and (min-width: 769px){
+
+        html{
+            font-size: 62.5%;
+        }
+    }
+
+    @media screen and (min-width: 641px) and (max-width: 768px){
+
+        html{
+            font-size: 56%;
+        }
+    }
+
+    @media screen and (max-width: 640px){
+
+        html{
+            font-size: 50%;
+        }
+    }
+
+    body{
+        font-family: "gothic", sans-serif;
+        font-size: 1.6rem;
+        font-weight: 300;
+        margin: 0;
+        -webkit-overflow-scrolling: touch;
+        background-image: linear-gradient(29deg, #512DA8 50%, #673AB7 50%);
+    }
+
+    a{
+        color: #fff;
+    }
+
+    a:hover, a:focus{
+        text-decoration: none;
+    }
+
+    .page{
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    .demo{
+        flex-grow: 2;
+        margin-bottom:6%; 
+    }
+
+    .main-container{
+        padding-left: 1rem;
+        padding-right: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .footer{
+        margin-top: 3rem;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        font-size: 1.4rem;
+        color: #fff;
+    }
+
+    @media screen and (min-width: 641px){
+
+        .footer__container{
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .melnik909{
+            margin-left: 2rem;
+        }
+    }
+
+    @media screen and (max-width: 640px){
+
+        .melnik909{
+            display: none;
+        }
+    }
+
+.gothicFamily {
+    font-family: 'gothic';
+}
+</style>
+
+<div class="row"><md-button ng-click="back()" class="btn btn-secondary gothicFamily" style="float:right">BACK</md-button></div>
+<div class="row gothicFamily">
+
+    <div >
+
+        <div class="page gothicFamily" style="padding-top:10px; max-width: 100%;">
+            <div class="demo">
+                <div class="main-container">
+                    <article class="profile gothicFamily">
+                        <header class="profile__header gothicFamily">
+                            <img ng-src="{{driver.driver_image}}" class="profile__avatar" alt="avatar of Stas Melnikov">
+                            <h3 class="profile__name">{{driver.user_name}}</h3>
+                            <span class="profile__post"  style="padding-top: 4px;">{{driver.user_mobile}}</span>
+                            <span class="profile__post" style="padding-top: 4px;">{{driver.user_email}}</span>
+                        </header>
+                        <div class="profile__body gothicFamily">
+                            <div class="profile__row">
+                                <div class="profile__group">
+                                    <span class="profile__value">Registration Date</span>
+                                    <span class="profile__param">{{driver.date_registered_formatted}}</span>
+                                </div>
+                                <div class="profile__group">
+                                    <span class="profile__value">Last Login</span>
+                                    <span class="profile__param">{{driver.last_login_formatted}}</span>
+                                </div>
+                                <div class="profile__group">
+                                    <span class="profile__value">Referral Code</span>
+                                    <span class="profile__param">{{driver.referral_code}}</span>
+                                </div>
+                                <div class="profile__group">
+                                    <span class="profile__value">Average Rating</span>
+                                    <span class="profile__param">{{driver.average_rating}}</span>
+                                </div>
+                                <div class="profile__group">
+                                    <span class="profile__value">Total Rides</span>
+                                    <span class="profile__param">{{totalRides}}</span>
+                                </div>
+                                <div class="profile__group">
+                                    <span class="profile__value">Rides Cancelled</span>
+                                    <span class="profile__param">{{driver.total_cancel}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </article>
+                </div>
+            </div>
+
+        <!--<div ba-panel ba-panel-title="Driver Details" ba-panel-class="with-scroll" style="padding-top:50px">-->
+        <!--<div class="horizontal-scroll">-->
+          <!--<div class="col-lg-12 col-xs-12 col-md-12 col-sm-12">-->
+            <!--<div class="col-lg-6 col-xs-12 col-md-6 col-sm-6">-->
+              <!--<div class="col-lg-4 col-xs-12 col-md-4 col-sm-4 text-center" style="margin-bottom:15px">-->
+                <!--<div fancybox fancybox-image="{{driver.driver_image}}" class="viewPic" fancybox-template="template.html">-->
+                  <!--<img class="img-circle img-thumbnail" ng-src="{{driver.driver_image}}">-->
+                <!--</div>-->
+                <!--<a href="{{driver.driver_image}}" download="{{driver.driver_image}}"><i class="fa fa-download fa-2x"></i></a>-->
+              <!--</div>-->
+              <!--<div class="col-lg-8 col-xs-12 col-md-8 col-sm-8" style="margin-bottom:15px">-->
+                <!--<label>Name</label>-->
+                <!--<input ng-model="driver.driver_name" class="form-control" style="margin-bottom:15px">-->
+                <!--<label>Contact</label>-->
+                <!--<input ng-model="driver.driver_mobile" class="form-control" style="margin-bottom:15px">-->
+                <!--<label>Email</label>-->
+                <!--<input ng-model="driver.driver_email" class="form-control">-->
+              <!--</div>-->
+              <!--<div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">-->
+                <!--<label>Total Rides</label>-->
+                <!--<input ng-model="totalRides" class="form-control">-->
+              <!--</div>-->
+              <!--<div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">-->
+                <!--<label>Rides Cancelled</label>-->
+                <!--<input ng-model="driver.total_cancel" class="form-control">-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col-lg-6 col-xs-12 col-md-6 col-sm-6">-->
+              <!--<div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">-->
+                <!--<label>Registration Date</label>-->
+                <!--<input ng-model="driver.date_registered_formatted" class="form-control">-->
+              <!--</div>-->
+              <!--<div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">-->
+                <!--<label>Last Login</label>-->
+                <!--<input ng-model="driver.last_login_formatted" class="form-control">-->
+              <!--</div>-->
+              <!--<div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">-->
+                <!--<label>Last Logout</label>-->
+                <!--<input ng-model="driver.last_logout_formatted" class="form-control">-->
+              <!--</div>-->
+              <!--<div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">-->
+                <!--<label>Referral Code</label>-->
+                <!--<input ng-model="driver.referral_code" class="form-control">-->
+              <!--</div>-->
+              <!--<div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">-->
+                <!--<label>Average Rating</label>-->
+                <!--<input ng-model="driver.average_rating" class="form-control">-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-top:20px;margin-bottom:20px;text-align:center">-->
+              <!--<a style="background: #c0c0c0;color: #505050;max-width: 190px;margin: 15px;"-->
+              <!--class="btn btn-sm btn-mixColor" ng-click="viewDocs()">View Documents</a>-->
+               <!--&lt;!&ndash; ng-if="docLength>0" &ndash;&gt;-->
+              <!--&lt;!&ndash; <a style="background: #c0c0c0;color: #505050;max-width: 190px;margin: 15px"-->
+              <!--class="btn btn-sm btn-mixColor">Add Documents</a> &ndash;&gt;-->
+          <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--    <ul uib-pagination ng-if="totalItems!=0" total-items="totalItems" ng-change="pageChanged(currentPage)" items-per-page="itemsPerPage"
+        ng-model="currentPage" max-size="maxSize" rotate="true"  class="pagination-sm pull-right"
+        style="margin-bottom: 10px" boundary-links="true"></ul>-->
+    <!-- <div style="text-align:center" ba-panel ba-panel-title="No Rides" ba-panel-class="with-scroll" ng-if="totalItems==0">
+        <img src="assets/img/taxi/no_ride.svg"/>
+    </div> -->
+
+
+<div class="row">
+    <div class="col-md-12">
+        <md-content laout="column" flex >
+            <md-card>
+
+                <md-toolbar class="md-table-toolbar md-default" ng-hide="selected.length || filter.show">
+                    <div class="md-toolbar-tools">
+                        <span>LIST OF ALL RIDES</span>
+                        <div flex></div>
+                        <md-button class="md-icon-button" ng-click="filter.show = true">
+                            <md-icon style="color: #757575;">search</md-icon>
+                        </md-button>
+
+                         <!-- <md-button id="addPromo" class="btn btn-secondary" ui-sref="addPromo" ng-style="GENERICS.promoBtn">ADD PROMO CODE</md-button> -->
+                    </div>
+                </md-toolbar>
+
+                <md-toolbar class="md-table-toolbar md-default gothicFamily" ng-show="filter.show && !selected.length" aria-hidden="false" >
+                  <div class="md-toolbar-tools" ng-click="showMyFilter()">
+                    <md-icon id="searchIcon" ng-click="showMyFilter()" style="color: #757575;">search</md-icon>
+                    <form flex="" name="filter.form" >
+                      <input id="searchInput" style="border: none; border-bottom: 1px solid;" type="text" ng-model="query.filter" ng-model-options="filter.options" placeholder="search"  ng-disabled="false">
+                    </form>
+                    <md-button class="md-icon-button" ng-click="removeFilter()">
+                      <md-icon style="color: #757575;">close</md-icon>
+                    </md-button>
+                  </div>
+                </md-toolbar>
+
+                <md-toolbar class="md-table-toolbar alternate gothicFamily"
+                    ng-show="options.rowSelection && selected.length">
+                  <div class="md-toolbar-tools">
+                    <span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
+                  </div>
+                </md-toolbar>
+
+                <md-table-container>
+                    <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
+                        <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
+                        <tr md-row>
+
+                           <th class="gothicFamily" style="text-align: center;" md-column md-order-by="driver_id"><span>Driver Id</span></th>
+                            <th class="gothicFamily" style="text-align: center;" md-column  md-order-by="user_id" md-desc><span>Session ID</span></th>
+                           <th class="gothicFamily" style="text-align: center;" md-column md-order-by="user_name"><span class="margin25">Passenger Name</span></th>                             
+                            <th class="gothicFamily" style="text-align: center;" md-column md-numeric md-order-by="car_name"><span>Car Details</span></th>
+                            <th class="gothicFamily" style="text-align: center;" md-column md-numeric md-order-by="accept_date"><span>Date</span></th>
+                            
+                            <th class="gothicFamily" style="text-align: center;" md-column md-numeric md-order-by="pickup_location_address" >Pickup Location</th> 
+                            <th class="gothicFamily" style="text-align: center;" md-column md-numeric md-order-by="start_time"><span>Pickup Time</span></th>
+                            <th class="gothicFamily" style="text-align: center;" md-column md-numeric md-order-by="manual_destination_address" ><span class="margin25">Dropoff Location</span></th> 
+
+                            <th class="gothicFamily" style="text-align: center;" md-column md-numeric md-order-by="payment_date"><span>Payment Time</span></th>
+                            <th class="gothicFamily" style="text-align: center;" md-column md-numeric md-order-by="driver_rating"><span>Driver Rating</span></th>
+                            <th class="gothicFamily" style="text-align: center;" md-column md-numeric md-order-by="user_rating"><span>User Rating</span></th>
+
+                            <th class="gothicFamily" style="text-align: center;" md-column md-numeric md-order-by="total_with_tax" ><span class="margin25">Fare Structure</span></th>
+                            <th class="gothicFamily" style="text-align: center;" md-column md-numeric md-order-by="is_payment_successful"><span>Payment status</span></th>
+                            <th class="gothicFamily" style="text-align: center;" md-column md-numeric md-order-by="ride_status_name" ><span>Ride status</span></th>    
+
+                        </tr>
+                        </thead>
+                        <tbody md-body>
+                        <tr md-row md-select="driver" md-on-select="logItem" md-auto-select="options.autoSelect"  ng-repeat="driver in drivers.data | filter: filter.search">
+                           <td style="text-align: center;" md-cell>{{driver.driver_id}}</td>
+                            <td style="text-align: center;" md-cell>{{driver.session_id}}</td>   
+                            
+                         <td style="text-align: center;" class="margin25" md-cell >{{driver.user_name}} </td>                            
+                            <td style="text-align: center;" md-cell><b>Type</b> - {{driver.car_name}}</td>
+                            <td style="text-align: center;" md-cell>{{driver.accept_time | date:'MMM dd yyyy, hh:mm a'}}</td>
+
+                            <td style="text-align: center;" md-cell>{{driver.pickup_location_address}}</td>
+                            <td style="text-align: center;" md-cell>{{driver.start_time | date:'MMM dd yyyy, hh:mm a'}}</td>
+                            <td style="text-align: center;" md-cell>{{driver.manual_destination_address}}</td>
+
+                            <td style="text-align: center;" md-cell>{{driver.payment_date | date:'MMM dd yyyy, hh:mm a'}}</td>
+                            <td style="text-align: center;" md-cell>{{driver.driver_rating}}</td>
+                            <td style="text-align: center;" md-cell>{{driver.user_rating}}</td>
+
+                            <td  md-cell style="text-align: center;padding-right:10px;padding-top:0.5%;padding-bottom:0.5%">
+                                <b>Total with Tax - </b>{{driver.total_with_tax}} <br>
+                                <b>Calculated - </b>{{driver.fare_calculated}} <br>
+                                <b>Fare fare_factor - </b>{{driver.fare_factor}} <br>
+                                <b>Base - </b>{{driver.fare_fixed}}<br>
+                                <b>Per Km - </b>{{driver.fare_per_km}}<br>
+                                <b>Per min - </b>{{driver.fare_per_min}}<br>
+                                <b>Sales Tax - </b>{{driver.sales_tax}}<br>
+                                <b>Time Fare - </b>{{driver.time_fare}}<br>
+                                <b>Distance Fare - </b>{{driver.distance_fare}}<br>
+                                <b>Discount - </b>{{driver.discount}}<br>
+                            </td>
+                            <td style="text-align: center;" md-cell><span ng-if="driver.is_payment_successful==0">Unsuccessful</span>  <span ng-if="driver.is_payment_successful==1">Successful</span></td>                            
+                            <td style="text-align: center;" md-cell> 
+                                  <span ng-if="driver.ride_status==0">Assigning</span> 
+                                  <span ng-if="driver.ride_status==1">Accepted</span> 
+                                  <span ng-if="driver.ride_status==2">Arrived</span> 
+                                  <span ng-if="driver.ride_status==3">Started</span> 
+                                  <span ng-if="driver.ride_status==4">Completed</span> 
+                                  <span ng-if="driver.ride_status==5">Cancelled By Driver</span> 
+                                  <span ng-if="driver.ride_status==6">Ride Cancelled By User</span> 
+                                  <span ng-if="driver.ride_status==7">Request Cancelled By User</span> 
+                            </td>
+
+                           <td style="text-align: center;" md-cell>{{driver.last_logout}}</td>
+<!--                            <td md-cell>
+                                <div ng-if="driver.is_available === 1" class="fa fa-circle online">
+                                </div>
+                                <div ng-if="driver.is_available === 0" class="fa fa-circle offline"></div>
+                            </td>
+
+                            <td md-cell><span> 
+                                <md-icon style="color: #757575;"  ng-click="driverDetails(driver.driver_id)" >info outline</md-icon> 
+                                <md-icon style="color: #ff0000;" ng-show="driver.is_blocked" ng-click="blockunblockdriver_popup(0,driver.driver_id)">lock</md-icon>
+                                <md-icon style="color: #27c24c;" ng-hide="driver.is_blocked" ng-click="blockunblockdriver_popup(1,driver.driver_id)">lock_open</md-icon>
+                                <md-icon style="color: #757575;" ng-click="editDriver(driver)">edit</md-icon></span></td>-->
+                        </tr> 
+                        </tbody>
+                    </table>
+                </md-table-container>
+                <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{drivers.count}}" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks" md-on-paginate="initTable"></md-table-pagination>
+            </md-card>
+        </md-content>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+    <!--<div style="padding-top: 50px; " ba-panel ba-panel-title="List of All Rides" ba-panel-class="with-scroll" ng-if="totalItems!=0">
+        <div class="horizontal-scroll">
+          <table id="datatabledriverRides" class="table table-striped table-hover" style="width:100%">
+              <thead>
+              <tr>
+                  <th class="datetimewidth">S.No.</th>
+                  <th class="datetimewidth">Session ID</th>
+                  <th class="datetimewidth">Date</th>
+                  <th style="datetimewidth">Passenger Details</th>
+                  <th style="datetimewidth">Car Details</th>
+                  <th class="datetimewidth">Pick Up Location</th>
+                  <th class="datetimewidth">Pick Up Time</th>
+                  <th class="datetimewidth">Drop off Location</th>
+                  <th class="datetimewidth">Drop off Time</th>
+                  <th class="datetimewidth">Driver Rating</th>
+                  <th class="datetimewidth">User Rating</th>
+                  <th class="fareDetailsCell">Fare Structure</th>
+                  <th class="datetimewidth">Payment Status</th>
+                  <th class="datetimewidth">Ride Status</th>
+                  <!-- <th class="datetimewidth">Action</th> -->
+              <!--</tr>-->
+              <!--</thead>
+              <tbody>
+                <tr ng-repeat="data in driverRideList">
+                  <td class="datetimewidth">{{$index+1}}</td>
+                  <td class="datetimewidth">{{data.session_id}}</td>
+                  <td class="datetimewidth">{{data.accept_time|date:'MMM dd yyyy, hh:mm a'}}</td>
+                  <td class="datetimewidth" ng-if="data.user_name!=null">
+                      <b>Name - </b>
+                      {{data.user_name}}
+                      <br>-->
+                      <!--<b ng-if="!data.user_mobile&&data.user_mobile!=null">Contact - </b>
+                      {{data.user_mobile}}<br>
+                      <!-- <img class="img-circle img-thumbnail" style="width:100px;height:100px;margin:auto" ng-src="{{data.driver_image}}"> -->
+                  <!--</td>
+                  <td class="datetimewidth" ng-if="data.user_name==null">N/A</td>
+                  <td class="datetimewidth">
+                      <b>Type - </b>-->
+                      <!--{{data.car_name}}
+                      <br>-->
+                      <!--<b ng-if="!data.car_no&&data.car_no!=null">Number - </b>-->
+                      <!--{{data.car_no}}<br>-->
+                      <!-- <img class="img-circle img-thumbnail" style="width:100px;height:100px;margin:auto" ng-src="{{data.car_image}}"> -->
+                  <!--</td>
+                  <td class="datetimewidth">{{data.pickup_location_address}}</td>
+                  <td class="datetimewidth" ng-if="data.start_time!=null">{{data.start_time|date:'MMM dd yyyy, hh:mm a'}}</td>
+                  <td class="datetimewidth" ng-if="data.start_time==null">N/A</td>
+                  <td class="datetimewidth">{{data.manual_destination_address}}</td>
+                  <td class="datetimewidth" ng-if="data.drop_time!=null">{{data.start_time|date:'MMM dd yyyy, hh:mm a'}}</td>
+                  <td class="datetimewidth" ng-if="data.drop_time==null">N/A</td>
+                  <td class="datetimewidth" ng-if="data.driver_rating!=-1">{{data.driver_rating}}</td>
+                  <td class="datetimewidth" ng-if="data.driver_rating==-1">N/A</td>
+                  <td class="datetimewidth" ng-if="data.user_rating==-1">N/A</td>
+                  <td class="datetimewidth" ng-if="data.user_rating!=-1">{{data.user_rating}}</td>
+                  <td class="fareDetailsCell">
+
+                    <b>Total with Tax - </b>{{data.total_with_tax}} <br>
+                    <b>Calculated - </b>{{data.fare_calculated}} <br>
+                    <b>Fare fare_factor - </b>{{data.fare_factor}} <br>
+                    <b>Base - </b>{{data.fare_fixed}}<br>
+                    <b>Per Km - </b>{{data.fare_per_km}}<br>
+                    <b>Per min - </b>{{data.fare_per_min}}<br>
+                    <b>Sales Tax - </b>{{data.sales_tax}}<br>
+                    <b>Time Fare - </b>{{data.time_fare}}<br>
+                    <b>Distance Fare - </b>{{data.distance_fare}}<br>
+                    <b>Discount - </b>{{data.discount}}<br>
+                    <b>Black Car Fund - </b>{{data.black_car_fund}}<br>
+
+                  </td>
+                  <td class="datetimewidth" ng-if="data.is_payment_successful==0">Unsuccessful</td>
+                  <td class="datetimewidth" ng-if="data.is_payment_successful==1">Successful</td>
+                  <td class="datetimewidth">{{data.ride_status_name}}</td>
+                </tr>-->
+
+              <!--</tbody>
+          </table>
+        </div>-->
+    <!--</div>-->
+
+
+
+
+
+
+  </div>
+</div>
+
+
+  <!-- ***************************************************************************
+  *********** Modal for confirm whether passenger is to be delete or not *********
+  ********************************************************************************-->
+  <script type="text/ng-template" id="display_msg_modalDialog">
+    <div class="ngdialog-message">
+      <h4>{{displaymsg}}</h4>
+      <a type="submit" ng-click="refreshPage()" class="btn btn-mixColor" style="margin-top:20px;float:right;">OK</a>
+      <div style="clear: both;"></div>
+    </div>
+  </script>
+
+  <!-- ***************************************************************************
+  *********** Modal for confirm whether passenger is to be delete or not *********
+  ********************************************************************************-->
+  <script type="text/ng-template" id="delete_passenger_modalDialog">
+    <div class="ngdialog-message">
+      <h4>Are you sure you want to delete  this passenger?</h4>
+      <div style="margin-top: 20px;text-align: right;" >
+        <form method="post" validate-form="" novalidate="">
+          <button type="submit" ng-click="delete_passenger(delete_passenger_id)" class="btn btn-mixColor" >Yes</button>
+          <button type="button" ng-click="closeThisDialog(0)" class="btn btn-mixColor" style='margin-left:20px;'>No</button>
+        </form>
+      </div>
+    </div>
+  </script>
+
+  <!-- ***************************************************************************
+  ******************* Modal for block unblock driver ************************************
+  ********************************************************************************-->
+  <script type="text/ng-template" id="block_unblock_passenger_modalDialog">
+    <div class="ngdialog-message">
+      <h4>{{blockunblockmsg}}</h4>
+      <div >
+        <form method="post" validate-form="" novalidate="" style="text-align: right;margin-top: 20px;">
+          <button type="submit" ng-click="do_block_unblock_passenger(is_blocked,blockunblockid)" class="btn btn-mixColor" >Yes</button>
+          <button type="button" ng-click="closeThisDialog(0)" class="btn btn-mixColor" style='margin-left:20px;'>No</button>
+        </form>
+      </div>
+    </div>
+  </script>
+  <!-- ***************************************************************************
+  ******************* Modal for change pass of customer  ***************************
+  ********************************************************************************-->
+  <script type="text/ng-template" id="password_dialog">
+    <div class="ngdialog-message">
+      <h3>Change Password</h3>
+
+      <div class="">
+        <form method="post" name="myForm"   ng-submit="myForm.$submitted&&changeDriverPass(driver)">
+          <div ng-show="driverpass.successMsg" class="alert alert-success text-center">{{driverpass.successMsg}}</div>
+          <div ng-show="driverpass.errorMsg" class="alert alert-danger text-center">{{driverpass.errorMsg}}</div>
+          <div class="">
+            <div class="form-group">
+              Password <span class="astrick">*</span>
+              <input type="password" placeholder="Enter password" class="form-control"
+                     ng-model="driver.password" required="required" data-parsley-minlength="6" id="driver_password" autocomplete="off" />
+            </div>
+            <div class="form-group">
+              Confirm Password <span class="astrick">*</span>
+              <input type="password" placeholder="Confirm password" class="form-control"
+                     ng-model="driver.confirmpassword"  data-parsley-equalto ="#driver_password" required="required" />
+            </div>
+          </div>
+          <div class="btn-align">
+            <button type="submit" class="btn btn-mixColor" >Submit</button>
+            <button type="button" ng-click="closeThisDialog(0)" class="btn btn-mixColor">Cancel</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+  </script>
+
+</div>
+
+
+</div>

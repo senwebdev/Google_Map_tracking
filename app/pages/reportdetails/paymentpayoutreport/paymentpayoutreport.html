@@ -1,0 +1,158 @@
+<style>
+    md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-icon {
+        background-color: rgb(48, 120, 205);
+    }
+body:before
+{
+    background-color: white!important;
+}
+p
+{
+    margin: 0px;
+    margin-left: 4%;
+    font-size: 12px;
+}
+.marl
+{
+    margin-left:12%;
+}
+body:before {
+    background-color: white!important;
+}
+table.md-table:not(.md-row-select) td.md-cell:nth-child(n+2):nth-last-child(n+2), table.md-table:not(.md-row-select) th.md-column:nth-child(n+2):nth-last-child(n+2) {
+    padding: 0 15px 0 20px;
+}
+table.md-table td.md-cell:last-child, table.md-table th.md-column:last-child {
+    padding: 0 10px;
+}
+table.md-table:not(.md-row-select) td.md-cell:first-child, table.md-table:not(.md-row-select) th.md-column:first-child {
+    padding: 0 10px;
+}
+.gothicFamily tbody tr td {
+    border-right: 1px solid #979797 !important;
+    border-left: 1px solid #979797 !important;
+}
+table.md-table tr:nth-child(even) {
+    border-bottom: none;
+    border-top: none;
+}
+</style>
+<div class="row">
+    <md-button ng-click="back()" class="btn btn-secondary gothicFamily" style="float:right">BACK</md-button>
+</div>
+
+<div class="row gothicFamily">
+    
+    <md-content class="gothicFamily" laout="column" flex style="overflow-x:hidden" ng-class="{'whirl' : isLoading }">
+        <md-toolbar class="md-table-toolbar md-default" ng-hide="selected.length || filter.show">
+            <div class="md-toolbar-tools gothicFamily">
+                <span>PAYMENT PAYOUT REPORT</span>
+                <div flex></div>
+            </div>
+        </md-toolbar>
+        
+        <md-toolbar class="md-table-toolbar alternate gothicFamily" ng-show="options.rowSelection && selected.length">
+            <div class="md-toolbar-tools">
+                <span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
+            </div>
+        </md-toolbar>
+        
+        <button class="btn btn-secondary gothicFamily md-button md-ink-ripple" ng-click="exportTableToCSV('download.csv', '#paymentpayout tr')">Export CSV</button>
+        
+        <md-table-pagination md-limit="viewby" md-limit-options="limitOptions"
+            md-page="currentPage"
+            md-total="{{totalItems}}"
+            md-page-select="options.pageSelect"
+            md-boundary-links="true"
+            md-on-paginate="pageChanged">
+        </md-table-pagination>
+        
+        <md-table-container class="gothicFamily">
+            
+            <table id="paymentpayout" class="gothicFamily" md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
+                <thead class="gothicFamily" ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
+                    <tr md-row>
+                        
+                            <th class="gothicFamily" style="text-align: center;" md-column md-order-by="session_id" md-desc><span>Trip No</span></th>
+                            <th class="gothicFamily" style="text-align: center;" md-column md-order-by=""><span>Ride Fare</span></th>
+                            <!-- <th class="gothicFamily" style="text-align: center;" md-column md-order-by="customer_name"><span>Name</span></th> -->
+                            <th class="gothicFamily" style="text-align: center;" md-column md-order-by="booked_by"><span>Base Fare</span></th>
+                            <th class="gothicFamily" style="text-align: center;" md-column md-order-by=""><span>Distance Fare</span></th>
+                        
+                            <th class="gothicFamily" style="text-align: center;" md-column md-order-by="start_time"><span>TimeFare</span></th>
+                            <th class="gothicFamily" style="text-align: center;" md-column md-order-by="drop_time"><span>Credit card Processing fee</span></th>
+                            <th class="gothicFamily" style="text-align: center;" md-column md-order-by="driver_name"><span>Tax</span></th>
+                            <th class="gothicFamily" style="text-align: center;" md-column md-order-by="tlc_num"><span> Black Car Fund</span></th>
+                            <th class="gothicFamily" style="text-align: center;" md-column md-order-by="dmv_num"><span>Net Ride Cost </span></th>
+                            <th class="gothicFamily" style="text-align: center;" md-column md-order-by="car_no"><span>Net Ride Cost </span></th>
+                            <th class="gothicFamily" style="text-align: center;" md-column md-order-by=""><span>Master Merchant pay</span></th>
+                            
+                            <th class="gothicFamily" style="text-align: center;" md-column md-order-by="car_name"><span>Sub Merchant pay</span></th>
+                             <!--<th class="gothicFamily" style="text-align: center;" md-column md-order-by="ride_status"><span>Status</span></th>
+                           <th class="gothicFamily" style="text-align: center;" md-column md-order-by="payment_method"><span>Payment Method</span></th>
+                            <th class="gothicFamily" style="text-align: center;" md-column md-order-by="total_with_tax"><span>Total Fare</span></th>
+                            <th class="gothicFamily" style="text-align: center;" md-column md-order-by="pay_to_driver"><span>Sub Merchant Payout</span></th>
+                            <th class="gothicFamily" style="text-align: center;" md-column md-order-by="pay_partner"><span>Master Mechant Payout</span></th>
+                            
+                            <th class="gothicFamily" style="text-align: center;" md-column md-order-by="pay_tc"><span>Pay TC</span></th>
+                            <th class="gothicFamily" style="text-align: center;" md-column md-order-by="cashback_customer"><span>Client cashback</span></th>
+                            <th class="gothicFamily" style="text-align: center;" md-column md-order-by="receipt_no"><span>Receipt no.</span></th>-->
+                    
+                        </tr>
+                    </thead>
+
+                     <tbody class="gothicFamily" md-body style="background-color:white;">
+                        <tr class="gothicFamily" ng-if="totalItems" md-row md-select="driver" md-on-select="logItem"
+                            md-auto-select="options.autoSelect"  ng-repeat="row in data | filter: filter.search | orderBy: query.order">
+                            
+                            <td class="gothicFamily" style="text-align: center;" md-cell><span>{{row.session_id}}</span></td>
+                            <td class="gothicFamily" style="text-align: center; min-width: 200px;" md-cell>
+                                <span>
+                                    {{row.start_time | date: 'yyyy-MM-dd HH:mm:ss'}}<br>
+                                    {{row.drop_time | date: 'yyyy-MM-dd HH:mm:ss'}}
+                                </span>
+                            </td>
+                            <td class="gothicFamily"  style="min-width: 250px;text-transform: capitalize;" md-cell>
+                                <span ng-if="row.corporate_request">
+                                    <strong>Corporate: </strong>{{row.user_name}}<br>
+                                    <strong>Customer: </strong>{{row.customer_name}}<br>
+                                    <strong>Cutomer no. </strong>{{row.customer_number}}
+                                </span>
+                                <span ng-if="!row.corporate_request">{{row.user_name}}
+                                    {{row.user_mobile}}
+                                </span>
+                            </td>
+                            <td class="gothicFamily" style="text-align: center;text-transform: capitalize;" md-cell><span >Qudos Fleet NYC1 LLC {{row.vehicle_owner_name}}</span></td>
+                            <!-- <td class="gothicFamily" style="text-align: center;text-transform: capitalize;" md-cell><span>{{row.customer_name}}</span></td> -->
+                            
+                            
+                            <td class="gothicFamily" style="text-transform: capitalize; min-width: 200px; padding-top: 10px; padding-bottom: 10px;" md-cell>
+                                <span>{{row.pickup_location_address}}</span>
+                            </td>
+                            <td class="gothicFamily" style="text-transform: capitalize; min-width: 200px; padding-top: 10px; padding-bottom: 10px;" md-cell>
+                                <span>{{row.manual_destination_address}}</span>
+                            </td>
+                            <td class="gothicFamily" style="text-align:center;text-transform: capitalize;min-width: 200px;" md-cell>
+                                <span>{{row.driver_name}}</span>
+                            </td><td class="gothicFamily" style="text-align:center;" md-cell><span>TLC</span></td>
+                            <td class="gothicFamily" style="text-align:center;" md-cell><span>Driving licence</span></td>
+                            <td class="gothicFamily" style="text-align:center;text-transform: capitalize;" md-cell><span>Licence plate</span></td>
+                            <td class="gothicFamily" style="text-align:center;text-transform: capitalize;" md-cell><span>PC</span></td>
+                            <!-- <td class="gothicFamily" style="text-align:center;" md-cell><span>Online (Card)</span></td>
+                            <td class="gothicFamily" style="text-align:center;text-transform: capitalize;" md-cell><span>{{row.car_name}}</span></td> -->
+                              <!--<td class="gothicFamily" style="text-align:center;" md-cell><span>{{row.total_with_tax}}</span></td>
+                            <td class="gothicFamily" style="text-align:center;" md-cell><span>{{row.pay_to_driver}}</span></td>
+                            <td class="gothicFamily" style="text-align:center;" md-cell><span>Pay Partner</span></td>
+                            <td class="gothicFamily" style="text-align:center;" md-cell><span>Pay TC</span></td>
+                            <td class="gothicFamily" style="text-align:center;" md-cell><span>{{row.cashback_customer}}</span></td>-->
+                            <!-- <td class="gothicFamily" style="text-align:center;" md-cell><span>{{row.session_id}}</span></td> -->
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+            
+    </md-content>
+    
+</div>
+

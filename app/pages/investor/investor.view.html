@@ -1,0 +1,172 @@
+<style>
+  .panel-body
+  {
+    background-color:white;
+  }
+  body a
+  {
+    color:black;
+  }
+  .table-hover>tbody>tr:hover {
+    
+    -webkit-box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+    -moz-box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+    box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+}
+.table-hover>tbody>tr:hover {
+    background-color: white;
+}
+
+.pagination>li>a, .pagination>li>span {
+  color: #666;
+}
+md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-icon {
+    background-color: rgb(48, 120, 205);
+  }
+  .margin25{
+    padding-left: 25px;
+  }
+  table.md-table.md-row-select td.md-cell:nth-child(n+3):nth-last-child(n+2), table.md-table.md-row-select th.md-column:nth-child(n+3):nth-last-child(n+2) {
+    padding: 0 56px 0 0;
+    padding-left: 25px;
+  }
+  table.md-table .md-row:hover 
+  {
+    -webkit-box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+    -moz-box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+    box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+}
+
+body:before
+{
+    background-color: white!important;
+   
+}
+p
+{
+  margin: 0px;
+  margin-left: 4%;
+  font-size: 12px;
+}
+.marl
+{
+  margin-left:12%;
+}
+.al-content
+{
+  padding: 0px 20px 0px 30px;
+}
+</style>
+<div class="row" ng-if="subscriberList.length>0">
+    <div class="col-md-12">
+            <h3 style="color: white">
+                    Total : {{totalItems}}
+                <!--Today : {{ridesToday}}-->
+            </h3>
+    </div>
+</div>
+<div class="row">
+          <md-content laout="column" flex style="overflow-x:hidden" ng-class="{'whirl' : isLoading }">
+              <md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
+                  <div class="md-toolbar-tools">
+                      <span class="gothicFamily">LIST OF ALL INVESTORS</span>
+                    <div flex></div>
+                    <md-button class="md-icon-button" ng-click="filter.show = true">
+                      <md-icon style="color: #757575;">search</md-icon>
+                    </md-button>
+                  </div>
+                </md-toolbar>
+                <md-toolbar class="md-table-toolbar md-default" ng-show="filter.show" aria-hidden="false" >
+                  <span class="md-toolbar-tools">
+                    <md-icon style="color: #757575;">search</md-icon>
+                    <form flex="" name="filter.form" >
+                      <input style="border: none; border-bottom: 1px solid;" type="text" ng-model="filter.search" 
+                       placeholder="Search">
+                    </form>
+                    <md-button class="md-icon-button" ng-click="removeFilter()">
+                      <md-icon style="color: #757575;">close</md-icon>
+                    </md-button>
+                  </span>
+                </md-toolbar>
+                <md-table-pagination ng-if="!isLoading" md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{totalItems}}" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks" md-on-paginate="investors" md-page-select></md-table-pagination> 
+              <md-table-container>
+                <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" md-progress="promise">
+                  <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
+                      <tr md-row>
+                          <th style="text-align: center;" md-column md-order-by="investor_id"   md-desc class="serialWidth gothicFamily">Investor Id</th>
+                          <th style="text-align: center;" md-column md-order-by="investor_name" md-desc class="datetimewidth gothicFamily">Name</th>
+                          <th style="text-align: center;" md-column md-order-by="investor_email" md-desc class="datetimewidth gothicFamily">Email</th>
+                          <th style="text-align: center;" md-column md-order-by="is_shareholder" md-desc class="datetimewidth gothicFamily">Shareholder</th>
+                          <th style="text-align: center;" md-column md-order-by="login_left"  md-desc class="datetimewidth gothicFamily">Logins Left</th>
+                          <th>Action</th>
+                      </tr>
+                  </thead>
+                  <tbody md-body style="background-color:white">
+                  <tr class="gothicFamily" md-row md-select="data" md-on-select="logItem" md-auto-select="options.autoSelect" ng-disabled="dessert.calories.value > 400"
+                      ng-repeat="data in investorsList | filter: filter.search | orderBy: query.order">
+                      <td style="text-align: center;" md-cell class="serialWidth gothicFamily">{{data.investor_id}}</td>
+                      <td style="text-align: center;" md-cell class="datetimewidth gothicFamily">{{data.investor_name}}</td>
+                      <td  style="text-align: center;" md-cell class="datetimewidth gothicFamily">{{data.investor_email}}</td>
+                      <td  style="text-align: center;" md-cell class="datetimewidth gothicFamily" ng-if="data.is_shareholder==1">Yes</td>
+                      <td  style="text-align: center;" md-cell class="datetimewidth gothicFamily" ng-if="data.is_shareholder!=1">No</td>
+                      <td  style="text-align: center;" md-cell class="datetimewidth gothicFamily">{{data.login_left}}</td>
+                      <td  style="text-align: center;" md-cell class="datetimewidth gothicFamily">
+                        <a class="btn btn-sm btn-default1" title="block" ng-click="addEditInvestorDialog('save',data)">
+                          Edit
+                        </a>
+                      </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </md-table-container>
+              <!-- <md-table-pagination ng-if="!isLoading" md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{totalItems}}" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks" md-on-paginate="investors" md-page-select></md-table-pagination>  -->
+          </md-content>
+    
+  <script type="text/ng-template" id="modalInvestor">
+    <div class="ngdialog-message gothicFamily">
+      <h3>Add Investor</h3>
+      <div class="gothicFamily">
+        <form name ="investorForm" method="post" validate-form="" novalidate="" id="add-investor" ng-submit="investorForm.$submitted&&submitData(investorData)">
+          <div class="">
+            <div class="form-group gothicFamily">
+              Email <span class="astrick">*</span>
+              <input type="email" name="admin_email" class="form-control"  required ng-model="investorData.investor_email"
+                     placeholder='Enter email of investor' data-parsley-type="email"/>
+            </div>
+            <div class="form-group gothicFamily">
+              Name <span class="astrick">*</span>
+              <input type="text" name="user_name" class="form-control"  required ng-model="investorData.investor_name"
+                     placeholder="Enter the investor's name" />
+            </div>
+            <div class="form-group gothicFamily">
+              Number of Logins Permitted <span class="astrick">*</span>
+              <input type="number" min="0" max="127" name="user_name" class="form-control"  required ng-model="investorData.login_left"
+                     placeholder='Number of Logins Permitted' />
+            </div>
+            <div class="form-group gothicFamily">
+              Is the investor a shareholder ? <span class="astrick">*</span>
+              <!-- <input type="number" min="0" max="127" name="user_name" class="form-control"  required="required"  ng-model="investorData.password"
+                    placeholder='Number of Logins Permitted' /> -->
+              <input gothicFamily type="radio" name="shareholder" value="1" ng-value="1" ng-model="investorData.is_shareholder" required> Yes &nbsp;&nbsp;
+              <input gothicFamily type="radio" name="shareholder" value="0" ng-value="0" ng-model="investorData.is_shareholder" required> No<br>
+            </div>
+            <div class="form-group gothicFamily" ng-if="mode=='add'">
+              Password <span class="astrick">*</span>
+              <input type="text" name="user_name" class="form-control"  required ng-model="investorData.password"
+                     placeholder='Set Password' />
+            </div>
+          </div>
+          <div class="btn-align">
+            <button type="submit" class="btn btn-secondary gothicFamily" style="text-transform:capitalize">{{mode}}</button>
+            <button type="button" ng-click="closeThisDialog(0)" class="btn btn-secondary gothicFamily">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </script>
+</div>
+<style>
+.dataTables_paginate{
+  display:block;
+}
+</style>

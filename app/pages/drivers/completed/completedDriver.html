@@ -1,0 +1,121 @@
+<style>
+    md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-icon {
+        background-color: rgb(48, 120, 205);
+    }
+    .margin25{
+        padding-left: 25px;
+    }
+    table.md-table.md-row-select td.md-cell:nth-child(n+3):nth-last-child(n+2), table.md-table.md-row-select th.md-column:nth-child(n+3):nth-last-child(n+2) {
+        padding: 0 56px 0 0;
+        padding-left: 25px;
+    }
+.md-row:hover {
+    box-shadow: -1px 2px 32px 9px rgba(209,209,209,1)
+}
+.completed_rides span.cust_pad {
+    display: inline-block;
+    padding: 5px;
+}
+</style>
+
+<div class="row  completed_rides">
+    <div class="col-md-12">
+        <md-content laout="column" flex >
+            <md-card>
+
+                <md-toolbar class="md-table-toolbar md-default " ng-hide="selected.length || filter.show">
+                    <div class="md-toolbar-tools">
+                        <span>Completed Rides</span>
+                        <div flex></div>
+                    </div>
+                </md-toolbar>
+
+                <md-toolbar class="md-table-toolbar md-default " >
+                    <div class="md-toolbar-tools">
+                        <md-icon style="color: #757575;">search</md-icon>
+                        <form flex="" name="filter.form" >
+                            <input style="border: none; border-bottom: 1px solid;" type="text" ng-model="query.filter" ng-model-options="filter.options" placeholder="search"  >
+                            
+                        </form>
+                        <md-button class="md-icon-button" ng-click="removeFilter()">
+                            <md-icon style="color: #757575;">close</md-icon>
+                        </md-button>
+                    </div>
+                </md-toolbar>
+
+                <md-toolbar class="md-table-toolbar alternate " ng-show="options.rowSelection && selected.length">
+                    <div class="md-toolbar-tools">
+                        <span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
+                    </div>
+                </md-toolbar>
+                <md-table-pagination class="" md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{completedRide}}" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks" md-on-paginate="get_rides_by_type"></md-table-pagination>
+                <md-table-container class="" ng-class="{'whirl' : isLoading }">
+                    <table class="" md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
+                        <thead class="" ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
+                        <tr md-row>
+                           <!-- <th md-column md-order-by="driver_id"><span>S.No</span></th>-->
+                            <th style="" md-column  md-order-by="driver_id" md-desc><span>Driver ID</span></th>
+                            <th style="" md-column md-numeric  ><span>Profile Pic</span></th>
+                            <th style="padding:0px;" md-column md-order-by="driver_name" ><span class="">Driver Details</span></th>
+                            
+                            <th style="" md-column md-numeric md-order-by="total_rides"><span>Car Type</span></th>
+                            <th style="" md-column md-numeric md-order-by="total_rides"><span>Accept Time</span></th>
+                            <th style="" md-column md-numeric md-order-by="total_rating_user"><span>Drop Time</span></th>
+                            <th style="" md-column md-numeric md-order-by="total_rating_user"><span>Discount Rating</span></th>
+                            <th style="" md-column md-numeric ><span>User Rating</span></th>
+                            <!--<th style="" md-column md-numeric ><span>Last Logout</span></th>-->
+                            <th style="" md-column md-numeric ><span>Passenger name</span></th>
+                           <!--  <th style="" md-column md-numeric ><span>Actions</span></th> -->
+
+                            <!--<th md-column md-numeric md-order-by="description" md-desc><span>Comments</span></th>-->
+                        </tr>
+                        </thead>
+                        <tbody class="" md-body>
+                            <tr class="" md-row md-select="driver" md-on-select="logItem" md-auto-select="options.autoSelect" ng-repeat="driver in completedRideZ | filter: filter.search | orderBy: query.order">
+                                <td style="" md-cell>{{driver.driver_id}}</td>
+                                <td style="" md-cell style="padding-right: 10px;">
+                                    <img class="img-circle img-thumbnail" height="60px" width="60px" 
+                                    ng-src="{{driver.driver_image}}">
+                                </td>
+
+                                <td  class="margin25" md-cell>
+                                    <span class="cust_pad">
+                                        <b>Name</b> -{{driver.driver_name}}<br>
+                                        <b>Email</b> - {{driver.driver_email}}<br>
+                                        <b>Contact</b> - {{driver.driver_mobile}}
+                                    </span>
+                                    
+                                </td>
+                            
+                                <td style="text-align: center;padding-left: 22px;padding-right: 36px;" md-cell>{{driver.car_name}}</td>
+                                <td style="text-align: center;padding-left: 22px;padding-right: 36px;" md-cell>{{driver.accept_time | date}}</td>
+                                <td style="text-align: center;padding-left: 22px;padding-right: 36px;" md-cell>{{driver.drop_time | date}}</td>
+                                <td style="text-align: center;" md-cell>{{driver.discount}}</td>
+
+                                <td style="text-align: center;" md-cell>{{driver.user_rating}}</td>
+                               <!-- <td style="" md-cell>{{driver.last_logout}}</td>-->
+                                <!-- <td style="" md-cell>
+                                    <div ng-if="driver.is_available === 1" class="fa fa-circle online">
+                                    </div>
+                                    <div ng-if="driver.is_available === 0" class="fa fa-circle offline"></div>
+                                </td> -->
+
+                                <td style="text-align: center;" md-cell>{{driver.user_name}}</td>
+
+                                    <!-- <td style="" md-cell><span> 
+                                        <md-icon style="color: #757575;"  ng-click="driverDetails(driver.driver_id)" >info outline</md-icon>
+                                        <md-icon style="color: #ff0000;" ng-show="driver.is_blocked" ng-click="blockunblockdriver_popup(0,driver.driver_id)">lock</md-icon>
+                                        <md-icon style="color: #27c24c;" ng-hide="driver.is_blocked" ng-click="blockunblockdriver_popup(1,driver.driver_id)">lock_open</md-icon>
+                                        <md-icon style="color: #757575;" ng-click="editDriver(driver)">edit</md-icon></span>
+                                    </td> -->
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </md-table-container>
+                <!-- <md-table-pagination class="" md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{completedRide}}" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks" md-on-paginate="get_rides_by_type"></md-table-pagination> -->
+            </md-card>
+        </md-content>
+    </div>
+</div>

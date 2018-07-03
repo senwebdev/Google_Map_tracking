@@ -1,0 +1,259 @@
+<div class="row">
+  <div class="col-md-12">
+    <div style="padding-top: 50px" ba-panel ba-panel-title="User/Driver Alerts" ba-panel-class="with-scroll">
+        <div class="horizontal-scroll">
+          <form name="AlertForm" ng-submit="AlertForm.$submitted&&sendAlert()" class="col-lg-12">
+          <div class="panel panel-default col-lg-12">
+            <div ng-show="driverpass.errorMsg" class="alert alert-danger text-center">{{driverpass.errorMsg}}</div>
+
+            <div class="col-lg-12">
+              <div class="row">
+                <label class="AlertLabel">Alerts to be sent to : </label>
+
+                <div class="col-md-4">
+                  <label class="control-label" style="font-size:15px;">For All Drivers</label>
+                  <input style="margin-left:15px;" type="radio" name="radioCheck" value="2" ng-model="allCheck" ng-click="allType(allCheck)" required>
+                </div>
+                <div class="col-md-4">
+                  <label class="control-label" style="font-size:15px;">For All Users</label>
+                  <input style="margin-left:15px;" type="radio" name="radioCheck" value="1" ng-model="allCheck" ng-click="allType(allCheck)" required>
+                </div>
+                <div class="col-md-4">
+                  <label class="control-label" style="font-size:15px;">For Specific Users</label>
+                  <input style="margin-left:15px;" type="radio" name="radioCheck" value="0" ng-model="allCheck" ng-click="allType(allCheck)" required>
+                </div>
+              </div>
+
+              <div class="row" ng-if="allCheck=='0'" style="margin-bottom: 25px">
+                <label class="AlertLabel">Choose the following : </label>
+                <div class="col-md-6">
+                  <label class="control-label" style="font-size:15px;">Specific Drivers</label>
+                  <input style="margin-left:15px;" type="radio" name="radioCheck2" value="2" ng-model="allCheckUserDriver" ng-click="driverUser(allCheckUserDriver)" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="control-label" style="font-size:15px;">Specific Users</label>
+                  <input style="margin-left:15px;" type="radio" name="radioCheck2" value="1" ng-model="allCheckUserDriver" ng-click="driverUser(allCheckUserDriver)" required>
+                </div>
+
+              </div>
+              <div class="row" ng-if="allCheckUserDriver=='1'&&allCheck=='0'" class="specificUsers">
+                <h5 style="margin:0 0 0 11px;font-size: 15px;">Selected Users : </h5>
+                <div class="col-md-7 selectedList">
+                  <p style="font-size: 16px;" ng-if="string==''">Choose users from the dropdown</p>
+                  <p style="font-size: 16px;">{{string}}</p>
+                </div>
+                <div class = "col-md-4  dropdown">
+                  <button class="btn btn-default dropdown-toggle btn-block" type="button"
+                          data-toggle="dropdown"><!--<p style="float:left;">User List</p>-->
+                    <i class="fa fa-caret-down pull-right"></i></button>
+                  <ul class="dropdown-menu qual">
+                    <li ng-repeat="data in alert.UserList">
+                      <div class="checkbox checkStyle">
+                        <label style="color:#666">
+                          <input type="checkbox" value="" ng-click="userList(data.user_name,$index,data.user_id)">{{data.user_name}} - {{data.user_email}}
+                        </label>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="row" ng-if="allCheckUserDriver=='2'&&allCheck=='0'" class="specificUsers">
+                <h5 style="margin:0 0 0 11px;font-size: 15px;">Selected Drivers : </h5>
+                <div class="col-md-7 selectedList">
+
+                  <p style="font-size: 16px;" ng-if="string==''">Choose drivers from the dropdown</p>
+                  <p style="font-size: 16px;">{{string}}</p>
+                </div>
+                <div class = "col-md-4  dropdown">
+                  <button class="btn btn-default dropdown-toggle btn-block" type="button"
+                          data-toggle="dropdown"><!--<p style="float:left;">User List</p>-->
+                    <i class="fa fa-caret-down pull-right"></i></button>
+                  <ul class="dropdown-menu qual">
+                    <li ng-repeat="data in alert.DriverList">
+                      <div class="checkbox checkStyle">
+                        <label style="color:#666">
+                          <input type="checkbox" value="" ng-click="driverList(data.driver_name,$index,data.driver_id)">{{data.driver_name}} - {{data.driver_mobile}}
+                        </label>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="row">
+                <label class="AlertLabel">Alert Subject</label>
+                <input class="form-control" placeholder="Subject" ng-model="alert.subject"  required>
+              </div>
+              <div class="row">
+                <label class="AlertLabel">Alert Message</label>
+                <textarea class="form-control" placeholder="Message to be sent" ng-model="alert.alert_message"  required></textarea>
+              </div>
+              <div class="row">
+                <label class="AlertLabel">Send a Push also : </label>
+                <div class="col-md-6">
+                  <label class="control-label" style="font-size:15px;">Yes</label>
+                  <input style="margin-left:15px;" type="radio" name="radioPush" value="1" ng-model="alert.send_push" ng-click="sendPush(alert.send_push)" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="control-label" style="font-size:15px;">No</label>
+                  <input style="margin-left:15px;" type="radio" name="radioPush" value="0" ng-model="alert.send_push" ng-click="sendPush(alert.send_push)" required>
+                </div>
+              </div>
+              <div class="row" ng-if="alert.send_push=='1'">
+                <label class="AlertLabel">Push Message</label>
+                <textarea class="form-control" placeholder="Push Message to be sent" ng-model="alert.push_message" required></textarea>
+              </div>
+              <div class="row">
+                <div class="col-md-12 text-center" style="padding: 25px auto 0;">
+                  <button type="submit" class="btn btn-primary btn-lg " data-dismiss="modal" style="padding: 0 7px;margin: 15px 0 0 0;color:white">Send</button>
+                </div>
+              </div>
+            </div>
+          </div>
+            </form>
+        </div>
+        </div>
+    </div>
+  </div>
+
+  <!-- <script type="text/ng-template" id="driver_alert">
+    <div class="ngdialog-message">
+      <h3>Send Driver Alert</h3>
+      <form name="AlertForm" ng-submit="AlertForm.$submitted&&sendAlert()">
+      <div class="panel panel-default">
+        <div ng-show="driverpass.errorMsg" class="alert alert-danger text-center">{{driverpass.errorMsg}}</div>
+
+        <div class="modal-body">
+          <div class="row">
+            <label class="AlertLabel">Alerts to be sent to : </label>
+
+            <div class="col-md-4">
+              <label class="control-label" style="font-size:15px;">For All Drivers</label>
+              <input style="margin-left:15px;" type="radio" name="radioCheck" value="2" ng-model="allCheck" ng-click="allType(allCheck)" required>
+            </div>
+            <div class="col-md-4">
+              <label class="control-label" style="font-size:15px;">For All Users</label>
+              <input style="margin-left:15px;" type="radio" name="radioCheck" value="1" ng-model="allCheck" ng-click="allType(allCheck)" required>
+            </div>
+            <div class="col-md-4">
+              <label class="control-label" style="font-size:15px;">For Specific Users</label>
+              <input style="margin-left:15px;" type="radio" name="radioCheck" value="0" ng-model="allCheck" ng-click="allType(allCheck)" required>
+            </div>
+          </div>
+
+          <div class="row" ng-if="allCheck=='0'" style="margin-bottom: 25px">
+            <label class="AlertLabel">Choose the following : </label>
+            <div class="col-md-6">
+              <label class="control-label" style="font-size:15px;">Specific Drivers</label>
+              <input style="margin-left:15px;" type="radio" name="radioCheck2" value="2" ng-model="allCheckUserDriver" ng-click="driverUser(allCheckUserDriver)" required>
+            </div>
+            <div class="col-md-6">
+              <label class="control-label" style="font-size:15px;">Specific Users</label>
+              <input style="margin-left:15px;" type="radio" name="radioCheck2" value="1" ng-model="allCheckUserDriver" ng-click="driverUser(allCheckUserDriver)" required>
+            </div>
+
+          </div>
+          <div class="row" ng-if="allCheckUserDriver=='1'&&allCheck=='0'" class="specificUsers">
+            <h5 style="margin:0 0 0 11px;font-size: 15px;">Selected Users : </h5>
+            <div class="col-md-7 selectedList">
+              <p style="font-size: 16px;" ng-if="string==''">Choose users from the dropdown</p>
+              <p style="font-size: 16px;">{{string}}</p>
+            </div>
+            <div class = "col-md-4  dropdown">
+              <button class="btn btn-default dropdown-toggle btn-block" type="button"
+                      data-toggle="dropdown">
+                      <p style="float:left;">User List</p>
+                <i class="fa fa-caret-down pull-right"></i></button>
+              <ul class="dropdown-menu qual">
+                <li ng-repeat="data in alert.UserList">
+                  <div class="checkbox checkStyle">
+                    <label>
+                      <input type="checkbox" value="" ng-click="userList(data.user_name,$index,data.customer_id)">{{data.user_name}}
+                    </label>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="row" ng-if="allCheckUserDriver=='2'&&allCheck=='0'" class="specificUsers">
+            <h5 style="margin:0 0 0 11px;font-size: 15px;">Selected Drivers : </h5>
+            <div class="col-md-7 selectedList">
+
+              <p style="font-size: 16px;" ng-if="string==''">Choose drivers from the dropdown</p>
+              <p style="font-size: 16px;">{{string}}</p>
+            </div>
+            <div class = "col-md-4  dropdown">
+              <button class="btn btn-default dropdown-toggle btn-block" type="button"
+                      data-toggle="dropdown">
+                      <p style="float:left;">User List</p>
+                <i class="fa fa-caret-down pull-right"></i></button>
+              <ul class="dropdown-menu qual">
+                <li ng-repeat="data in alert.DriverList">
+                  <div class="checkbox checkStyle">
+                    <label>
+                      <input type="checkbox" value="" ng-click="driverList(data.user_name,$index,data.driver_id)">{{data.user_name}}
+                    </label>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="row">
+            <label class="AlertLabel">Alert Subject</label>
+            <input class="form-control" placeholder="Subject" ng-model="alert.subject"  required>
+          </div>
+          <div class="row">
+            <label class="AlertLabel">Alert Message</label>
+            <textarea class="form-control" placeholder="Message to be sent" ng-model="alert.alert_message"  required></textarea>
+          </div>
+          <div class="row">
+            <label class="AlertLabel">Send a Push also : </label>
+            <div class="col-md-6">
+              <label class="control-label" style="font-size:15px;">Yes</label>
+              <input style="margin-left:15px;" type="radio" name="radioPush" value="1" ng-model="alert.send_push" ng-click="sendPush(alert.send_push)" required>
+            </div>
+            <div class="col-md-6">
+              <label class="control-label" style="font-size:15px;">No</label>
+              <input style="margin-left:15px;" type="radio" name="radioPush" value="0" ng-model="alert.send_push" ng-click="sendPush(alert.send_push)" required>
+            </div>
+          </div>
+          <div class="row" ng-if="alert.send_push=='1'">
+            <label class="AlertLabel">Push Message</label>
+            <textarea class="form-control" placeholder="Push Message to be sent" ng-model="alert.push_message" required></textarea>
+          </div>
+          <div class="row">
+            <div class="col-md-12 text-center" style="padding: 25px auto 0;">
+              <button type="submit" class="btn btn-primary btn-lg " data-dismiss="modal" style="padding: 0 7px;margin: 15px 0 0 0">Assign</button>
+            </div>
+          </div>
+        </div>
+      </div>
+        </form>
+    </div>
+    </div>
+  </script> -->
+
+  <script type="text/ng-template" id="display_msg_modalDialog">
+    <div class="ngdialog-message">
+      <h4>{{displaymsg}}</h4>
+      <a type="submit" ng-click="refreshPage()" class="btn btn-mixColor" style="margin-top:20px;float:right;">OK</a>
+      <div style="clear: both;"></div>
+    </div>
+  </script>
+  <script>
+    $('.qual').on('click',function(){
+      // $(this).find('input').trigger('click');
+      $('.dropdown').addClass('open');
+    })
+  </script>
+</div>
+<style>
+  .ngdialog.ngdialog-theme-default .ngdialog-content{width: 50%}
+  .qual{
+    padding: 10px;
+    max-height: 180px;
+    overflow: scroll;
+    width: 94%;
+    right: 1%;
+    left: auto;
+  }
+</style>

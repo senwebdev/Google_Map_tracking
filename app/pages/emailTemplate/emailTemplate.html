@@ -1,0 +1,57 @@
+<div class="row" ng-if="templatesList.length>0">
+  <div class="col-md-6">
+    <h3 style="color: white">
+      Total Templates : {{templatesList.length}}
+    </h3>
+  </div>
+  <div class="col-md-6">
+    <button ng-click="AddTemplate()" class="btn btn-mixColor pull-right head_button">Add Template</button>
+  </div>
+</div>
+<div class="row">
+  <!-- <ul uib-pagination ng-if="totalItems!=0" total-items="totalItems" ng-change="pageChanged(currentPage)" items-per-page="itemsPerPage"
+      ng-model="currentPage" max-size="maxSize" rotate="true"  class="pagination-sm pull-right"
+      style="margin-bottom: 10px" boundary-links="true"></ul> -->
+  <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+    <div style="padding-top:50px" ba-panel ba-panel-title="Email Template" ba-panel-class="with-scroll">
+      <div class="horizontal-scroll">
+        <table id="datatableTemplates" class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th class="serialWidth">S.No.</th>
+                <th class="datetimewidth">Name</th>
+                <th class="datetimewidth">Subject</th>
+                <th class="datetimewidth">Variables Required</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="data in templatesList">
+                <td class="serialWidth">{{$index+1}}</td>
+                <td class="datetimewidth">{{data.template_name}}</td>
+                <td class="datetimewidth">{{data.subject}}</td>
+                <td class="datetimewidth">{{data.template_variables}}</td>
+                <!-- <td class="datetimewidth">{{data.date_added|date:'MMM dd yyyy, hh:mm a'}}</td> -->
+                <td>
+                  <a class="btn btn-sm btn-default1" title="block" ng-click="edit(data)">
+                    Edit
+                  </a>
+                </td>
+              </tr>
+
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12" ng-show="template.email_template_html">
+    <div ba-panel ba-panel-title="Update Email Template" ba-panel-class="with-scroll">
+      <span ng-bind-html="template.email_template_html"></span>
+    </div>
+  </div>
+</div>
+<style>
+.dataTables_paginate{
+  display:block;
+}
+</style>

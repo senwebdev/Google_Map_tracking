@@ -1,0 +1,26 @@
+{
+  "name": "tt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "start": "live-server --port=8081 --no-browser",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/codeQudos/tt#readme",
+  "dependencies": {
+    "angular": "^1.7.2",
+    "angular-bootstrap-calendar": "^1.0.0",
+    "angular-ui-bootstrap": "^2.5.6",
+    "debug-log": "^1.0.1",
+    "pm-image-editor": "^0.5.2",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  }
+}

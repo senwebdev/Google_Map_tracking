@@ -1,0 +1,53 @@
+<!-- <!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body> -->
+
+<div class="fare-details-color" style="width:100%;margin:auto;text-align:center;" 
+ng-controller="farepageController">
+    <div>
+        <div class="form-group" style="width:300px;margin:auto">
+
+            <label class="control-label car_header" style="width:300px;text-align:center" 
+            placeholder="Select-car">
+                <h4 class="text-uppercase" style="margin-top: 12px;">SELECT REGION</h4>
+            </label>
+
+            <div class="form-group">
+                <select class="form-control" id="city"></select>
+            </div>
+
+        </div>
+
+        <div ng-repeat="data in list" style="width:300px;margin:auto" ng-show="show">
+            <h5 class="car_header text-uppercase">car type: {{data.car_name}}</h5>
+
+            <table style="width:300px;border: rgb(235,235,235)" border="1" cellpadding="10">
+                <tr style="background-color: #717C7F;;height: 30px;color:#fff">
+                    <td style="text-align:center">Fare Type</td>
+                    <td style="text-align:center">Amount</td>
+                </tr>
+                <tr style="height: 30px;">
+                    <td>Base Fare:</td>
+                    <td>{{data.fare_fixed}}</td>
+                </tr>
+                <tr style="height: 30px;">
+                    <td>Per Min:</td>
+                    <td>{{data.fare_per_min}}</td>
+                </tr>
+                <tr style="height: 30px;">
+                    <td>Per Mile:</td>
+                    <td>{{data.fare_per_km}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<!-- 
+</body>
+</html> -->

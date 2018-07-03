@@ -1,0 +1,116 @@
+<div class="col-lg-6" style="float: none">
+    <div style="padding-top: 50px" ba-panel ba-panel-title="Surge Fare Details" ba-panel-class="with-scroll">
+        <div class="horizontal-scroll">
+
+        <form method="post" validate-form="" novalidate="" ng-submit="addCarFare(cars)" id="add-promo">
+            <!-- START panel-->
+            <div class="panel panel-default">
+                <!--<div class="panel-heading">-->
+                <!--<div class="panel-title">Select Car Type</div>-->
+                <!--</div>-->
+                <div ng-show="successMsg" class="alert alert-success text-center">{{successMsg}}</div>
+                <div ng-show="errorMsg" class="alert alert-danger text-center">{{errorMsg}}</div>
+                <div class="panel-body">
+                    <div class="form-group col-md-6">
+                        <label class="control-label" placeholder="Select-car">Select Region<span class="astrick">*</span></label>
+                        <select name="account" required="required"class="form-control" ng-model="region_id" ng-change="set()" ng-options="item.region_id as item.region_name for item in regionlist">
+                            <!--<option ng-repeat="cars in list"  ng-value="{{cars.car_type}}">{{cars.car_name}}</option>-->
+                            <option value="" style="display:none" disabled="disabled">-- Select Region --</option>
+
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label class="control-label" placeholder="Select-car">Car Type<span
+                                class="astrick">*</span></label>
+                        <select name="account" class="form-control" ng-model="car_type" ng-change="set()" ng-options="item.car_type as item.car_name for item in list">
+                            <!--<option ng-repeat="cars in list" ng-model="cars.car_name" ng-value="{{cars.car_type}}" >-->
+                            <!--{{cars.car_name}}-->
+                            <!--</option>-->
+                            <option value="" style="display:none" disabled="disabled">-- Select Car Type --</option>
+                        </select>
+                    </div>
+
+                    <!--ng-selected="cars.car_type == select_car"-->
+                </div>
+
+            </div>
+
+
+            <!-- END panel-->
+        </form>
+
+    </div>
+    <h3>
+
+    </h3>
+
+    <div class="row" ng-show="show_table">
+        <!--<div class="col-lg-12 col-md-12">-->
+        <div class="col-lg-12 col-md-12" style="text-align:center">
+            <a class="btn btn-mixColor head_button" ng-click="EditableInput()">Edit Fares</a>
+
+            <div class="panel panel-default">
+                <div class="table-responsive">
+                    <table id="datatable2" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Sr.No</th>
+                            <th>Start Slot</th>
+                            <th>End Slot</th>
+                            <th>Surge Multiplier</th>
+                            <!--<th>Fare (per min)</th>-->
+
+                            <!--<th>Fare (per KM)</th>-->
+                            <!--<th>Wait Time Fare (per min)</th>-->
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="data in cartypes">
+                            <td>{{$index + 1}}</td>
+                            <td>
+                                <div>{{data.start_slot}}</div>
+                                <!--<input ng-show="editvalue" ng-model="data.start_slot"/>-->
+                            </td>
+
+                            <td>
+                                <div>{{data.end_slot}}</div>
+                                <!--<input ng-show="editvalue" ng-model="data.end_slot"/></td>-->
+                            <td>
+                                <div ng-show="showvalue">{{data.fare_fixed}}</div>
+                                <form name='fare'>
+                                    <input ng-show="editvalue" ng-model="data.fare_fixed" required="required" name="fare_fixed"
+                                           ng-pattern="/((\d+)((\.\d{1,2})?))$/"/>
+
+                                    <div ng-show="fare.fare_fixed.$error.pattern" class="ng-error">Not a valid input!
+                                    </div>
+                                </form>
+                            </td>
+
+                        </tr>
+                        </tbody>
+
+                    </table>
+                    <div style='text-align:center'>
+                        <button class="btn btn-mixColor head_button" ng-show="showupdate"
+                                ng-click="SubmitUpdatedFare(cartypes)">Submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--</div>-->
+    </div>
+
+    <script type="text/ng-template" id="display_msg_modalDialog">
+        <div class="ngdialog-message">
+            <h4>{{displaymsg}}</h4>
+            <a type="submit" ng-click="ok()" class="btn btn-mixColor"
+               style="margin-top:20px;float:right;">OK</a>
+
+            <div style="clear: both;"></div>
+        </div>
+    </script>
+</div>
+</div>

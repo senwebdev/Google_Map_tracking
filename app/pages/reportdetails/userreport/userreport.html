@@ -1,0 +1,183 @@
+<style>
+ .dropdown-menu {
+      top: -100px;
+  }
+  .panel-body
+  {
+    background-color:white;
+  }
+  body a
+  {
+    color:black;
+  }
+  /* .table-hover>tbody>tr:hover {
+    
+    -webkit-box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+    -moz-box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+    box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+} */
+.table-hover>tbody>tr:hover {
+    background-color: white;
+}
+h3 {
+    color:#666
+}
+/* table.md-table .md-row:hover {
+-webkit-box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+-moz-box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+} */
+body:before {
+background-color: white!important;
+}
+p {
+margin: 0px;
+margin-left: 4%;
+font-size: 12px;
+}
+.marl {
+margin-left:12%;
+}
+.al-content {
+padding: 0px 20px 0px 15px;
+}
+md-tabs:not(.md-no-tab-content):not(.md-dynamic-height) {
+    min-height: 85vh !important;
+}
+table.md-table:not(.md-row-select) td.md-cell:first-child, table.md-table:not(.md-row-select) th.md-column:first-child {
+    padding: 0 10px;
+}
+table.md-table:not(.md-row-select) td.md-cell:nth-child(n+2):nth-last-child(n+2), table.md-table:not(.md-row-select) th.md-column:nth-child(n+2):nth-last-child(n+2) {
+    padding: 0px 10px;
+}
+table.md-table td.md-cell:last-child, table.md-table th.md-column:last-child {
+    padding: 0 10px;
+}
+table.md-table tr:nth-child(even) {
+  border-bottom: none;
+  border-top: none;
+}
+table.md-table tbody tr:last-child {
+    border-bottom: 3px solid #969696;
+}
+</style>
+<div class="row">
+    <md-button ng-click="back()" class="btn btn-secondary gothicFamily" style="float:right">BACK</md-button>
+</div>
+<md-tabs class="appointmentsDriver" md-selected="data.selectedIndex">
+
+    <md-tab ng-click="setRequestType(1)" id="new_entries">
+    <md-tab-label >PASSENGERS</md-tab-label>
+    <md-tab-body ng-class="{'whirl' : isLoading }">
+        
+        <md-content laout="column" flex style="overflow-x:hidden" >
+            
+            <button class="btn btn-secondary gothicFamily md-button md-ink-ripple" ng-click="exportTableToCSV('download.csv', '#userreports tr')">Export CSV</button>
+            
+            <md-table-pagination md-limit="viewbyUser" 
+                md-limit-options="limitOptions" 
+                md-page="currentPageUser" md-total="{{totalUserItems}}" 
+                md-page-select="options.pageSelect" md-boundary-links="true" 
+                md-on-paginate="pageChangedUser">
+            </md-table-pagination>
+
+            <md-table-container>
+                <table id="userreports" md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
+                    <thead ng-if="!options.decapitate" md-head md-order="p_query.order" md-on-reorder="logOrder">
+                    
+                        <tr md-row class="gothicFamily">
+                            <th style="text-align: center;" class="gothicFamily" md-column md-order-by="user_id"><span>Passenger Id</span></th>
+                            <th style="text-align: center;" class="gothicFamily" md-column md-order-by="user_name" ><span >Name</span></th>
+                            <th style="text-align: center;" class="gothicFamily" md-column md-order-by="user_email" ><span >Email</span></th>
+                            <th style="text-align: center; min-width: 150px;" class="gothicFamily" md-column md-order-by="user_mobile" ><span >Phone</span></th>
+                            <th style="text-align: center;" class="gothicFamily" md-column md-order-by="region_name" ><span >Zone</span></th>
+                            <th style="text-align: center;" class="gothicFamily" md-column md-order-by="login_device" ><span >Device Type</span></th>
+                            <th style="text-align: center;" class="gothicFamily" md-column md-order-by="date_registered" ><span >Creation Date</span></th>
+                            <th style="text-align: center;" class="gothicFamily" md-column md-order-by="cancelPer"><span >Complete %</span></th>
+                            <th style="text-align: center;" class="gothicFamily" md-column md-order-by="completePer"><span >Cancellation %</span></th>     
+                        </tr>
+
+                    </thead>
+                    <tbody md-body style="background-color:white">
+                        <tr class="gothicFamily" md-row md-select="data" md-on-select="logItem" md-auto-select="options.autoSelect" ng-disabled="dessert.calories.value > 400" 
+                            ng-repeat="data in users | filter: filter.search | orderBy: p_query.order">
+
+                            <td class="gothicFamily" style="text-align: center;" md-cell>{{data.user_id}}</td>
+                            <td class="gothicFamily" style="text-align: center;text-transform: capitalize;min-width: 200px;" md-cell><a>{{data.user_name}}</a> </td>
+                            <td class="gothicFamily" style="text-align: center;" md-cell><a>{{data.user_email}}</a></td>
+                            <td class="gothicFamily" style="text-align: center;" md-cell>{{data.user_mobile}}</td>
+                            <td class="gothicFamily" style="text-align: center;text-transform: capitalize;min-width: 200px;" md-cell>{{data.region_name}}</td>
+                            <td class="gothicFamily" style="text-align: center;" md-cell><a>{{data.login_device}}</a></td>
+                            <td class="gothicFamily" style="text-align: center;" md-cell>{{data.date_registered | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+                            <td class="gothicFamily" style="text-align: center;" md-cell>{{data.completePer}}</td>
+                            <td class="gothicFamily" style="text-align: center;" md-cell>{{data.cancelPer}} </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+
+        </md-content>
+
+    </md-tab-body>
+    </md-tab>
+
+    <md-tab ng-click="setRequestType(2)" id="verified_drivers">
+    <md-tab-label ng-click="query.requestType = 2">DRIVERS</md-tab-label>
+    <md-tab-body>
+
+        <md-content laout="column" flex style="overflow-x:hidden" ng-class="{'whirl' : isLoading }">
+            
+        <md-table-container>
+
+            <button class="btn btn-secondary gothicFamily md-button md-ink-ripple" ng-click="exportTableToCSV('download.csv', '#driver_table tr')">Export CSV</button>
+
+            <md-table-pagination md-limit="viewbyDriver" 
+                md-limit-options="limitOptions" 
+                md-page="currentPageDriver" md-total="{{totalDriverItems}}" 
+                md-page-select="options.pageSelect" md-boundary-links="true" 
+                md-on-paginate="pageChangedDriver">
+            </md-table-pagination>
+
+            <table id="driver_table" md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
+            <thead ng-if="!options.decapitate" md-head md-order="d_query.order" md-on-reorder="logOrder">
+            <tr md-row class="gothicFamily">
+                <th class="gothicFamily" style="text-align: center;" md-column md-order-by="driver_id"><span>Driver Id</span></th>
+                <th class="gothicFamily" style="text-align: center;" md-column md-order-by="driver_name"><span >Name</span></th>
+                <th class="gothicFamily" style="text-align: center;" md-column md-order-by="driver_email"><span >Email</span></th>
+                <th class="gothicFamily" style="text-align: center; min-width: 120px;" md-column md-order-by="driver_mobile">
+                    <span >Phone</span>
+                </th>
+                <th class="gothicFamily" style="text-align: center;" md-column md-order-by="region_name"><span >Zone</span></th>
+                <th class="gothicFamily" style="text-align: center;" md-column md-order-by="login_device"><span >Device Type</span></th>
+                <th class="gothicFamily" style="text-align: center;" md-column md-order-by="date_registered"><span >Creation Date</span></th>
+                <th style="text-align: center;" class="gothicFamily" md-column md-order-by="cancelPer"><span >Complete %</span></th>
+                <th style="text-align: center;" class="gothicFamily" md-column md-order-by="completePer"><span >Cancellation %</span></th>       
+            </tr>
+            </thead>
+
+            <tbody md-body style="background-color:white">
+                <tr class="gothicFamily" md-row md-select="data" md-on-select="logItem" md-auto-select="options.autoSelect" ng-disabled="dessert.calories.value > 400" 
+                    ng-repeat="data in drivers | filter: filter.search | orderBy: d_query.order">
+
+                    <td class="gothicFamily" style="text-align: center;" md-cell>{{data.driver_id}}</td>
+                    <td class="gothicFamily" style="text-align: center;text-transform: capitalize;min-width: 200px;" md-cell><a> {{data.driver_name}}</a> </td>
+                    <td class="gothicFamily" style="text-align: center;" md-cell><a> {{data.driver_email}}</a></td>
+                    <td class="gothicFamily" style="text-align: center; min-width: 120px !important;" md-cell>{{data.driver_mobile}}</td>
+                    <td class="gothicFamily" style="text-align: center;text-transform: capitalize;min-width: 200px;" md-cell>{{data.region_name}}</td>
+                    <td class="gothicFamily" style="text-align: center;" md-cell><a> {{data.login_device}}</a></td>
+                    <td class="gothicFamily" style="text-align: center;" md-cell>{{data.date_registered | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td class="gothicFamily" style="text-align: center;" md-cell>{{data.completePer}}</td>
+                    <td class="gothicFamily" style="text-align: center;" md-cell>{{data.cancelPer}} </td>
+
+                </tr>
+            </tbody>
+            </table>
+        </md-table-container>
+
+        </md-content>
+
+    </md-tab-body>
+    </md-tab>
+
+</md-tabs>

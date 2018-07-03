@@ -1,0 +1,192 @@
+<style>
+  .panel-body
+  {
+    background-color:white;
+  }
+  body a
+  {
+    color:black;
+  }
+  .table-hover>tbody>tr:hover {
+    
+    -webkit-box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+    -moz-box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+    box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+}
+.table-hover>tbody>tr:hover {
+    background-color: white;
+}
+.pagination>li>a, .pagination>li>span {
+  color: #666;
+}
+</style>
+
+<div class="row" ng-if="subscriberList.length>0">
+    <div class="col-md-12">
+            <h3 style="color: white">
+                    Total : {{totalItems}}
+                <!--Today : {{ridesToday}}-->
+            </h3>
+    </div>
+</div>
+<div class="row">
+  <md-content laout="column" flex style="overflow-x:hidden" ng-class="{'whirl' : isLoading }">
+    <md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
+        <div class="md-toolbar-tools">
+            <span class="gothicFamily">LIST OF ALL Subscribers</span>
+          <div flex></div>
+          <md-button class="md-icon-button" ng-click="filter.show = true">
+            <md-icon style="color: #757575;">search</md-icon>
+          </md-button>
+        </div>
+      </md-toolbar>
+      <md-toolbar class="md-table-toolbar md-default" ng-show="filter.show" aria-hidden="false" >
+        <span class="md-toolbar-tools">
+          <md-icon style="color: #757575;">search</md-icon>
+          <form flex="" name="filter.form" >
+            <input style="border: none; border-bottom: 1px solid;" type="text" ng-model="filter.search" 
+             placeholder="Search">
+          </form>
+          <md-button class="md-icon-button" ng-click="removeFilter()">
+            <md-icon style="color: #757575;">close</md-icon>
+          </md-button>
+        </span>
+      </md-toolbar>
+      <md-table-pagination ng-if="!isLoading" md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{totalItems}}" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks" md-on-paginate="subscribers"></md-table-pagination> 
+    <md-table-container>
+      <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" md-progress="promise">
+        <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
+            <tr md-row>
+                <th style="text-align: center;" md-column md-order-by="id"   md-desc class="serialWidth gothicFamily">Subscriber Id</th>
+                <th style="text-align: center;" md-column md-order-by="email" md-desc class="datetimewidth gothicFamily">Email</th>
+                <th style="text-align: center;" md-column md-order-by="first_name" md-desc class="datetimewidth gothicFamily">Name</th>
+                <th style="text-align: center;" md-column md-order-by="mobile" md-desc class="datetimewidth gothicFamily">Mobile</th>
+                <th style="text-align: center;" md-column md-order-by="zipcode"  md-desc class="datetimewidth gothicFamily">Zipcode</th>
+                <th style="text-align: center;" md-column md-order-by="date_subscribed"  md-desc class="datetimewidth gothicFamily">Date Subscribed</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody md-body style="background-color:white">
+        <tr class="gothicFamily" md-row md-select="data" md-on-select="logItem" md-auto-select="options.autoSelect" ng-disabled="dessert.calories.value > 400"
+          ng-repeat="data in subscribersList | filter: filter.search | orderBy: query.order">
+            <td style="text-align: center;" md-cell class="serialWidth gothicFamily">{{data.id}}</td>
+            <td style="text-align: center;" md-cell class="datetimewidth gothicFamily">{{data.email}}</td>
+            <td  style="text-align: center;" md-cell class="datetimewidth gothicFamily">{{data.first_name}} {{data.last_name}}</td>
+            <td  style="text-align: center;" md-cell class="datetimewidth gothicFamily">{{data.mobile}}</td>
+            <td  style="text-align: center;" md-cell class="datetimewidth gothicFamily">{{data.zipcode}}</td>
+            <td  style="text-align: center;" md-cell class="datetimewidth gothicFamily">{{data.date_subscribed|date:'MMM dd yyyy, hh:mm a'}}</td>
+            <td  style="text-align: center;" md-cell class="datetimewidth gothicFamily">
+              <a class="btn btn-sm btn-default1" title="block" ng-click="editDocDialog(data)">
+                Not Set Yet
+              </a>
+            </td>
+        </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+    <!-- <md-table-pagination ng-if="!isLoading" md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{totalItems}}" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks" md-on-paginate="investors" md-page-select></md-table-pagination>  -->
+</md-content>
+  <!-- <div class="col-md-12">
+    <div style="padding-top:25px" ba-panel ba-panel-title="List of All Subscribers" ba-panel-class="with-scroll">
+        <div class="horizontal-scroll" style="background-color:white">
+          <table id="datatableSubscribers" class="table table-hover">
+              <thead>
+              <tr>
+                  <th class="serialWidth gothicFamily">S.No.</th>
+                  <th class="datetimewidth gothicFamily">Email</th>
+                  <th class="datetimewidth gothicFamily">Name</th>
+                  <th class="datetimewidth gothicFamily">Mobile</th>
+                  <th class="datetimewidth gothicFamily">Zipcode</th>
+                  <th class="datetimewidth gothicFamily">Date Subscribed</th>
+                  <th>Action</th>
+              </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="data in subscribersList">
+                  <td class="serialWidth">{{$index+1}}</td>
+                  <td class="datetimewidth gothicFamily">{{data.email}}</td>
+                  <td class="datetimewidth gothicFamily">{{data.first_name}} {{data.last_name}}</td>
+                  <td class="datetimewidth gothicFamily">{{data.mobile}}</td>
+                  <td class="datetimewidth gothicFamily">{{data.zipcode}}</td>
+                  <td class="datetimewidth gothicFamily">{{data.date_subscribed|date:'MMM dd yyyy, hh:mm a'}}</td>
+                  <td class="datetimewidth gothicFamily">
+                    <a class="btn btn-sm btn-default1" title="block" ng-click="editDocDialog(data)">
+                      Not Set Yet
+                    </a>
+                  </td>
+                </tr>
+
+              </tbody>
+          </table>
+        </div>
+    </div>
+  </div> -->
+  <!-- *********** Modal for confirm whether passenger is to be delete or not ********* -->
+  <script type="text/ng-template" id="display_msg_modalDialog">
+    <div class="ngdialog-message gothicFamily">
+      <h4>{{displaymsg}}</h4>
+      <a type="submit" ng-click="refreshPage()" class="btn btn-mixColor" style="margin-top:20px;float:right;">OK</a>
+      <div style="clear: both;"></div>
+    </div>
+  </script>
+  <!-- *********** Modal for confirm whether passenger is to be delete or not ********* -->
+  <script type="text/ng-template" id="delete_passenger_modalDialog">
+    <div class="ngdialog-message gothicFamily">
+      <h4>Are you sure you want to delete  this passenger?</h4>
+      <div style="margin-top: 20px;text-align: right;" >
+        <form method="post" validate-form="" novalidate="">
+          <button type="submit" ng-click="delete_passenger(delete_passenger_id)" class="btn btn-mixColor" >Yes</button>
+          <button type="button" ng-click="closeThisDialog(0)" class="btn btn-mixColor" style='margin-left:20px;'>No</button>
+        </form>
+      </div>
+    </div>
+  </script>
+
+
+  <!-- ******************* Modal for block unblock driver ************************************ -->
+
+  <script type="text/ng-template" id="block_unblock_passenger_modalDialog">
+    <div class="ngdialog-message gothicFamily">
+      <h4>{{blockunblockmsg}}</h4>
+      <div >
+        <form method="post" validate-form="" novalidate="" style="text-align: right;margin-top: 20px;">
+          <button type="submit" ng-click="do_block_unblock_passenger(is_blocked,blockunblockid)" class="btn btn-mixColor" >Yes</button>
+          <button type="button" ng-click="closeThisDialog(0)" class="btn btn-mixColor" style='margin-left:20px;'>No</button>
+        </form>
+      </div>
+    </div>
+  </script>
+
+  <!-- ******************* Modal for change pass of customer  *************************** -->
+
+  <script type="text/ng-template" id="document_dialog">
+    <div class="ngdialog-message gothicFamily">
+      <h3>Document Type</h3>
+
+      <div class="gothicFamily">
+        <form method="post" name="myForm" ng-submit="myForm.$submitted&&addEditDocType(docTypeName,type)">
+          <div ng-show="docTypeName.successMsg" class="alert alert-success text-center">{{docTypeName.successMsg}}</div>
+          <div ng-show="docTypeName.errorMsg" class="alert alert-danger text-center">{{docTypeName.errorMsg}}</div>
+          <div class="">
+            <div class="form-group">
+              <!-- Document Type Name <span class="astrick">*</span> -->
+              <input type="text" placeholder="Enter document type name" class="form-control"
+                     ng-model="docTypeName.document_name" required="required" id="docTypeName" autocomplete="off" />
+            </div>
+          </div>
+          <div class="btn-align">
+            <button type="submit" class="btn btn-mixColor" >Submit</button>
+            <button type="button" ng-click="closeThisDialog(0)" class="btn btn-mixColor">Cancel</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+  </script>
+
+</div>
+<style>
+.dataTables_paginate{
+  display:block;
+}</style>

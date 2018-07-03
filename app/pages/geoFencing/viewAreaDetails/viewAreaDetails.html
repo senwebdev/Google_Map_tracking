@@ -1,0 +1,273 @@
+<style>
+        body:before
+      {
+          background-color: white!important;
+      }
+      .panel-body
+      {
+        
+    background-color: white;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px 0px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 2px 1px -1px;
+
+      }
+      .table-hover>tbody>tr:hover {
+    
+    -webkit-box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+    -moz-box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+    box-shadow: -1px 2px 32px 9px rgba(209,209,209,1);
+}
+.table-hover>tbody>tr:hover {
+    background-color: white;
+}
+
+      </style>
+<div class="row">
+    <div class="col-md-12">
+        <button ng-click="back()" class="btn btn-mixColor pull-right head_button">Back</button>
+        <div ba-panel ba-panel-title="Region Details" ba-panel-class="with-scroll" style="padding-top:50px">
+            <div class="horizontal-scroll">
+                <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12">
+                    <div class="col-lg-6 col-xs-12 col-md-6 col-sm-6">
+                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12 text-center" style="margin-bottom:15px">
+                            <img class="img-thumbnail" style="width:90%;height:auto;margin:auto" ng-src="{{region.region_image}}">
+                        </div>
+
+                    </div>
+                    <div class="col-lg-6 col-xs-12 col-md-6 col-sm-6">
+                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                            <label>Region Name</label>
+                            <input ng-model="region.region_name" class="form-control" style="margin-bottom:15px">
+                        </div>
+                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                            <label>Region ID</label>
+                            <input ng-model="region.region_id" class="form-control" style="margin-bottom:15px">
+                        </div>
+                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12" style="margin-bottom:15px">
+                            <label>Date Added</label>
+                            <input ng-model="region.added_at" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="padding-top: 50px; " ba-panel ba-panel-title="List of Car Based Fares" ba-panel-class="with-scroll" ng-show="startEdit==0">
+            <div class="horizontal-scroll">
+              <table id="dataTableFareDetails" class="table table-hover" style="width:100%">
+                  <thead>
+                  <tr>
+                      <th class="datetimewidth">S.No.</th>
+                      <th class="datetimewidth">Car Type</th>
+                      <th class="datetimewidth">Fixed Fare</th>
+                      <th class="datetimewidth">Minimum Fare</th>
+                      <th class="datetimewidth">Fare per mile</th>
+                      <th class="datetimewidth">Fare per min</th>
+                      <th class="datetimewidth">Black Car Fund</th>
+                      <th class="datetimewidth">Sales Tax</th>
+                      <th class="datetimewidth">Cancellation Time</th>
+                      <th class="datetimewidth">Cancellation Fee</th>
+                      <th class="datetimewidth">Car Image</th>
+                      <th class="datetimewidth">Edit</th>
+                  </tr>
+                  </thead>
+                  <tbody style="text-align: center;">
+                    <tr ng-repeat="data in faresReset">
+                      <td>{{$index+1}}</td>
+                      <td>{{data.car_name}}</td>
+                      <td ng-if="data.fare_fixed==''">Not Set</td>
+                      <td ng-if="data.fare_fixed!=''">{{data.fare_fixed}}</td>
+                      <td ng-if="data.minimum_fare==''">Not Set</td>
+                      <td ng-if="data.minimum_fare!=''">{{data.minimum_fare}}</td>
+                      <td ng-if="data.fare_per_km==''">Not Set</td>
+                      <td ng-if="data.fare_per_km!=''">{{data.fare_per_km}}</td>
+                      <td ng-if="data.fare_per_min==''">Not Set</td>
+                      <td ng-if="data.fare_per_min!=''">{{data.fare_per_min}}</td>
+                      <td ng-if="data.black_car_fund==''">Not Set</td>
+                      <td ng-if="data.black_car_fund!=''">{{data.black_car_fund}}</td>
+                      <td ng-if="data.sales_tax==''">Not Set</td>
+                      <td ng-if="data.sales_tax!=''">{{data.sales_tax}}</td>
+                      <td ng-if="data.cancellation_time==''">Not Set</td>
+                      <td ng-if="data.cancellation_time!=''">{{data.cancellation_time}}</td>
+                      <td ng-if="data.cancellation_fee==''">Not Set</td>
+                      <td ng-if="data.cancellation_fee!=''">{{data.cancellation_fee}}</td>
+                      <td ng-if="data.car_type_image">
+                        <img class="img-circle img-thumbnail" style="width:150px;height:auto;margin:auto" ng-src="{{data.car_type_image}}">
+                      </td>
+                      <td ng-if="!data.car_type_image">No image uploaded yet</td>
+                      <td>
+                        <a class="btn btn-sm btn-default1" title="block" ng-click="editDetails(data)" >
+                          Edit
+                        </a>
+                      </td>
+                    </tr>
+
+                  </tbody>
+              </table>
+            </div>
+        </div>
+        <div style="padding-top: 50px; " ba-panel ba-panel-title="List of Car Based Fares" ba-panel-class="with-scroll" ng-show="startEdit==1">
+            <div class="horizontal-scroll">
+                <!-- <select style="width:35%;margin:15px auto;min-width: 150px;" class="form-control"
+                ng-options="fare as fare.car_name for fare in fares" ng-model="carType" ng-change="carSelect(carType)">
+                    <option value="">Select Car Type</option>
+                </select> -->
+                <h3 style="width: 96%;margin:15px;text-align:center;">{{fareDetails.car_name}}</h3>
+                <button type="button" class="btn pull-right btn-mixColor" ng-click="editFareDetails('saved')" >Back</button>
+                <form enctype="multipart/form-data" name="faresForm" class="faresForm" ng-submit="faresForm.$submitted&&saveFareDetails(fareDetails)" ng-show='fareDetails!=""'>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12">
+                            <div class="col-lg-6 col-xs-12 col-md-6 col-sm-6" style="margin-bottom:15px">
+                                <label>Fixed Fare</label>
+                                <input ng-model="fareDetails.fare_fixed" type="number" required class="form-control" style="margin-bottom:15px" step="0.01">
+                            </div>
+                            <div class="col-lg-6 col-xs-12 col-md-6 col-sm-6" style="margin-bottom:15px">
+                                <label>Minimum Fare</label>
+                                <input ng-model="fareDetails.minimum_fare" type="number" required class="form-control" style="margin-bottom:15px" step="0.01">
+                            </div>
+                            <div class="col-lg-6 col-xs-12 col-md-6 col-sm-6" style="margin-bottom:15px">
+                                <label>Fare per mile</label>
+                                <input ng-model="fareDetails.fare_per_km" type="number" required class="form-control" style="margin-bottom:15px" step="0.01">
+                            </div>
+                            <div class="col-lg-6 col-xs-12 col-md-6 col-sm-6" style="margin-bottom:15px">
+                                <label>Fare per min</label>
+                                <input ng-model="fareDetails.fare_per_min" type="number" required class="form-control" style="margin-bottom:15px" step="0.01">
+                            </div>
+
+                        </div>
+                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12">
+                            <div class="col-lg-6 col-xs-12 col-md-6 col-sm-6" style="margin-bottom:15px">
+                                <label>Black Car Fund</label>
+                                <input ng-model="fareDetails.black_car_fund" type="number" required class="form-control" style="margin-bottom:15px" step="0.01">
+                            </div>
+                            <div class="col-lg-6 col-xs-12 col-md-6 col-sm-6" style="margin-bottom:15px">
+                                <label>Sales Tax</label>
+                                <input ng-model="fareDetails.sales_tax" type="number" required class="form-control" style="margin-bottom:15px" step="0.01">
+                            </div>
+                            <div class="col-lg-6 col-xs-12 col-md-6 col-sm-6" style="margin-bottom:15px">
+                                <label>Cancellation Time (in min)</label>
+                                <input ng-model="fareDetails.cancellation_time" type="number" required class="form-control" style="margin-bottom:15px">
+                            </div>
+                            <div class="col-lg-6 col-xs-12 col-md-6 col-sm-6" style="margin-bottom:15px">
+                                <label>Cancellation Fee</label>
+                                <input ng-model="fareDetails.cancellation_fee" type="number" required class="form-control" style="margin-bottom:15px" step="0.01">
+                            </div>
+                            <div class="col-lg-6 col-xs-12 col-md-6 col-sm-6" ng-if="mode=='edit'" style="margin-bottom:15px">
+                                <label style="display: block;margin-left: 0px;" >Choose image (Optional):
+                                </label>
+                                <div class="fileUpload btn btn-info" style="height: 35px;padding: 7px;width: 40px;" >
+                                    <span>
+                                        <i class="fa fa-paperclip"></i>
+                                    </span>
+                                    <input
+                                        filestyle=""
+                                        type="file"
+                                        accept="image/*"
+                                        image="image"
+                                        onchange="angular.element(this).scope().file_to_upload(this.files)"
+                                        data-button-text="Single"
+                                        data-class-button="btn btn-default"
+                                        data-classinput="form-control inline"
+                                        nv-file-select=""
+                                        uploader="uploader"
+                                        class="form-control upload tlc_img"
+                                        data-errormessage="Please select a file"/>
+                                </div>
+                                <p class="fileName fileName2 col-lg-6 col-sm-6 col-md-6 col-xs-12 tlc_name" >{{fareDetails.file_name}}</p>
+                            </div>
+                            <div class="col-lg-6 col-xs-12 col-md-6 col-sm-6" ng-if="mode=='saved'" style="margin-bottom:15px">
+                              <img class="img-thumbnail" style="width:90%;height:auto;margin:auto" ng-src="{{fareDetails.car_type_image}}" ng-if="fareDetails.car_image">
+                              <p ng-if="!fareDetails.car_type_image">
+                                No image Uploaded Yet
+                              </p>
+                            </div>
+                            <div class="col-lg-6 col-xs-12 col-md-6 col-sm-6" style="margin-bottom:15px">
+                                <button type="button" class="btn btn-mixColor" ng-click="editFareDetails('edit')" ng-show="mode=='saved'">Edit</button>
+                                <button type="submit" class="btn btn-mixColor" ng-show="mode=='edit'">Save</button>
+                                <button type="button" class="btn btn-mixColor" ng-click="editFareDetails('saved')" ng-show="mode=='edit'">Cancel</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ***************************************************************************
+  *********** Modal for confirm whether passenger is to be delete or not *********
+  ********************************************************************************-->
+    <script type="text/ng-template" id="display_msg_modalDialog">
+        <div class="ngdialog-message">
+            <h4>{{displaymsg}}</h4>
+            <a type="submit" ng-click="refreshPage()" class="btn btn-mixColor" style="margin-top:20px;float:right;">OK</a>
+            <div style="clear: both;"></div>
+        </div>
+    </script>
+
+    <!-- ***************************************************************************
+  *********** Modal for confirm whether passenger is to be delete or not *********
+  ********************************************************************************-->
+    <script type="text/ng-template" id="delete_passenger_modalDialog">
+        <div class="ngdialog-message">
+            <h4>Are you sure you want to delete this passenger?</h4>
+            <div style="margin-top: 20px;text-align: right;">
+                <form method="post" validate-form="" novalidate="">
+                    <button type="submit" ng-click="delete_passenger(delete_passenger_id)" class="btn btn-mixColor">Yes</button>
+                    <button type="button" ng-click="closeThisDialog(0)" class="btn btn-mixColor" style='margin-left:20px;'>No</button>
+                </form>
+            </div>
+        </div>
+    </script>
+
+    <!-- ***************************************************************************
+  ******************* Modal for block unblock driver ************************************
+  ********************************************************************************-->
+    <script type="text/ng-template" id="block_unblock_passenger_modalDialog">
+        <div class="ngdialog-message">
+            <h4>{{blockunblockmsg}}</h4>
+            <div >
+                <form method="post" validate-form="" novalidate="" style="text-align: right;margin-top: 20px;">
+                    <button type="submit" ng-click="do_block_unblock_passenger(is_blocked,blockunblockid)" class="btn btn-mixColor">Yes</button>
+                    <button type="button" ng-click="closeThisDialog(0)" class="btn btn-mixColor" style='margin-left:20px;'>No</button>
+                </form>
+            </div>
+        </div>
+    </script>
+    <!-- ***************************************************************************
+  ******************* Modal for change pass of customer  ***************************
+  ********************************************************************************-->
+    <script type="text/ng-template" id="password_dialog">
+        <div class="ngdialog-message">
+            <h3>Change Password</h3>
+
+            <div class="">
+                <form method="post" name="myForm" ng-submit="myForm.$submitted&&changeDriverPass(driver)">
+                    <div ng-show="driverpass.successMsg" class="alert alert-success text-center">{{driverpass.successMsg}}</div>
+                    <div ng-show="driverpass.errorMsg" class="alert alert-danger text-center">{{driverpass.errorMsg}}</div>
+                    <div class="">
+                        <div class="form-group">
+                            Password
+                            <span class="astrick">*</span>
+                            <input type="password" placeholder="Enter password" class="form-control" ng-model="driver.password" required="required" data-parsley-minlength="6" id="driver_password" autocomplete="off"/>
+                        </div>
+                        <div class="form-group">
+                            Confirm Password
+                            <span class="astrick">*</span>
+                            <input type="password" placeholder="Confirm password" class="form-control" ng-model="driver.confirmpassword" data-parsley-equalto="#driver_password" required="required"/>
+                        </div>
+                    </div>
+                    <div class="btn-align">
+                        <button type="submit" class="btn btn-mixColor">Submit</button>
+                        <button type="button" ng-click="closeThisDialog(0)" class="btn btn-mixColor">Cancel</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+    </script>
+
+</div>

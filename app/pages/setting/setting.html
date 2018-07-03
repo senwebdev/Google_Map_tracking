@@ -1,0 +1,193 @@
+<div>    
+  <md-content style="background-color:white!important" class="md-padding"  layout="row" layout-xs="column" >
+    <div class="addArea" ng-style="GENERICS.setting.card1.display">
+    <md-card style="border: 1px solid #dedede" flex="100">
+
+    <md-card-title>
+    <md-card-title-text>
+    <span class="md-headline">{{ GENERICS.setting.card1.text }}</span>
+    </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+    <p class="gothicFamily">
+    Add Area in map to create a region.
+    </p>
+
+    </md-card-content>
+    <md-card-actions layout="row" layout-align="end center">
+    <md-button ui-sref="geoFencing.addArea" class="md-raised" ng-style="GENERICS.setting.btnColor"
+    ng-disabled="GENERICS.setting.card1.disableBtn">{{ GENERICS.setting.card1.text }}
+    </md-button>
+    </md-card-actions>
+    </md-card>
+    </div>
+    <div class="viewArea" ng-style="GENERICS.setting.card2.display">
+    <md-card style="border: 1px solid #dedede" flex="100">   
+    <md-card-title>
+    <md-card-title-text>
+    <span class="md-headline">{{ GENERICS.setting.card2.text }}</span>
+    </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+    <p class="gothicFamily">
+    View the areas created. 
+    </p>
+
+    </md-card-content>
+    <md-card-actions layout="row" layout-align="end center">
+    <md-button ui-sref="geoFencing.viewArea" class="md-raised" ng-style="GENERICS.setting.btnColor"
+    ng-disabled="GENERICS.setting.card2.disableBtn">{{ GENERICS.setting.card2.text }}</md-button>
+    </md-card-actions>
+    </md-card>
+    </div>
+  </md-content>
+</div>
+
+<div>  
+  <md-content style="background-color:white!important" class="md-padding"  layout="row" layout-xs="column" >
+  <div class="trackCustomer" ng-style="GENERICS.setting.card3.display">
+  <md-card style="border: 1px solid #dedede" flex="100">
+  <md-card-title>
+  <md-card-title-text>
+  <span class="md-headline">{{ GENERICS.setting.card3.text }}</span>
+  </md-card-title-text>
+  </md-card-title>
+  <md-card-content>
+  <p class="gothicFamily">
+  Track customers on the map and find preicse location of where they are.
+  </p>
+  </md-card-content>
+  <md-card-actions layout="row" layout-align="end center">
+  <md-button ui-sref="track.customerTracking" class="md-raised" ng-style="GENERICS.setting.btnColor"
+  ng-disabled="GENERICS.setting.card3.disableBtn">{{ GENERICS.setting.card3.text }}</md-button>
+  </md-card-actions>
+  </md-card>
+  </div>
+
+  <div class="trackDriver" ng-style="GENERICS.setting.card4.display">
+  <md-card style="border: 1px solid #dedede" flex="100">    
+  <md-card-title>
+  <md-card-title-text>
+  <span class="md-headline">{{ GENERICS.setting.card4.text }}</span>
+  </md-card-title-text>
+  </md-card-title>
+  <md-card-content>
+  <p class="gothicFamily">
+  Track drivers on the map and find preicse location of where they are
+  </p>   
+  </md-card-content>
+  <md-card-actions layout="row" layout-align="end center">
+  <md-button ui-sref="track.driverTracking" class="md-raised" ng-style="GENERICS.setting.btnColor"
+  ng-disabled="GENERICS.setting.card4.disableBtn">{{ GENERICS.setting.card4.text }}</md-button>
+  </md-card-actions>
+  </md-card>
+  </div>
+  </md-content>
+</div>
+
+<div>
+  <md-content style="background-color:white!important" class="md-padding"  layout="row" layout-xs="column" >
+      <div class="viewInvestor" ng-style="GENERICS.setting.card5.display">
+        <md-card style="border: 1px solid #dedede" flex="100">
+          <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">{{ GENERICS.setting.card5.text }}</span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <p class="gothicFamily">
+                View all the Investors
+            </p>
+          </md-card-content>
+          <md-card-actions layout="row" layout-align="end center">
+              <md-button ui-sref="investor" class="md-raised" ng-style="GENERICS.setting.btnColor"
+              ng-disabled="GENERICS.setting.card5.disableBtn">{{ GENERICS.setting.card5.text }}</md-button>
+          </md-card-actions>
+        </md-card>
+      </div>
+
+      <div class="viewSubscriber" ng-style="GENERICS.setting.card6.display">
+        <md-card style="border: 1px solid #dedede" flex="100"> 
+          <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">{{ GENERICS.setting.card6.text }}</span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <p class="gothicFamily">
+                View all the Subsribers
+            </p>
+          </md-card-content>
+          <md-card-actions layout="row" layout-align="end center">
+              <md-button ui-sref="subscribers" class="md-raised" ng-style="GENERICS.setting.btnColor"
+              ng-disabled="GENERICS.setting.card6.disableBtn">{{ GENERICS.setting.card6.text }}</md-button>
+          </md-card-actions>
+        </md-card>
+      </div>
+
+  </md-content>
+</div>
+
+<div>
+  <md-content class="md-padding" style="background-color:white!important" layout="row" layout-xs="column">
+      <div class="viewInvestor" ng-style="GENERICS.setting.card7.display">
+        <md-card style="border: 1px solid #dedede" flex="100">
+          <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">{{ GENERICS.setting.card7.text }}</span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <p class="gothicFamily">
+                View all the car types
+            </p>
+          </md-card-content>
+          <md-card-actions layout="row" layout-align="end center">
+              <md-button class="md-raised" ng-disabled="GENERICS.setting.card7.disableBtn" ng-style="GENERICS.setting.btnColor" 
+              ui-sref="settings.cars">{{ GENERICS.setting.card7.text }}</md-button>
+          </md-card-actions>
+        </md-card>
+      </div>
+
+      <div class="viewSubscriber" ng-style="GENERICS.setting.card8.display">
+        <md-card style="border: 1px solid #dedede" flex="100"> 
+          <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">{{ GENERICS.setting.card8.text }}</span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <p class="gothicFamily">
+                View all the document types
+            </p>
+          </md-card-content>
+          <md-card-actions layout="row" layout-align="end center">
+              <md-button class="md-raised" ng-disabled="GENERICS.setting.card8.disableBtn" ng-style="GENERICS.setting.btnColor"
+               ui-sref="settings.documents">{{ GENERICS.setting.card8.text }}</md-button>
+          </md-card-actions>
+        </md-card>
+      </div>
+
+      <div class="viewSubscriber" ng-style="GENERICS.setting.card9.display">
+        <md-card style="border: 1px solid #dedede" flex="100"> 
+          <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">{{ GENERICS.setting.card9.text }}</span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <p class="gothicFamily">
+                View fares
+            </p>
+          </md-card-content>
+          <md-card-actions layout="row" layout-align="end center">
+              <md-button class="md-raised" ng-disabled="GENERICS.setting.card8.disableBtn" ng-style="GENERICS.setting.btnColor" 
+              ui-sref="fares.base">{{ GENERICS.setting.card9.text }}</md-button>
+          </md-card-actions>
+        </md-card>
+      </div>
+
+  </md-content>
+</div>
+ 
+  
